@@ -40,7 +40,10 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="text-2xl font-heading font-bold text-foreground transition-colors group-hover:text-primary">
+            <div className={cn(
+              "text-2xl font-heading font-bold transition-colors",
+              isScrolled ? "text-foreground group-hover:text-primary" : "text-background group-hover:text-primary"
+            )}>
               Juris <span className="text-primary">Company</span>
             </div>
           </Link>
@@ -55,7 +58,7 @@ const Header = () => {
                   "text-sm font-medium transition-colors hover:text-primary relative py-2",
                   isActive(link.href)
                     ? "text-primary"
-                    : "text-foreground/80"
+                    : isScrolled ? "text-foreground/80" : "text-background"
                 )}
               >
                 {link.label}
