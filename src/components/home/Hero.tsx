@@ -49,7 +49,7 @@ const Hero = () => {
             <Button
               size="lg"
               variant="outline"
-              className="text-lg px-8 py-6 border-2 border-background text-background hover:bg-background hover:text-foreground transition-all"
+              className="text-lg px-8 py-6 border-2 border-background bg-transparent text-background hover:border-primary hover:text-primary hover:bg-transparent transition-all"
               asChild
             >
               <Link to="/areas">Conheça Nossas Áreas</Link>
