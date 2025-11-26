@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Mail, MessageCircle } from "lucide-react";
+import { Mail, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { teamMembers } from "@/data/team";
 
@@ -27,86 +26,74 @@ const FoundingPartners = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
           {partners.map((partner, index) => (
-            <Card
+            <Link
               key={partner.id}
-              className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group"
+              to={`/equipe/${partner.id}`}
+              className="block"
               style={{
                 animation: `fade-up 0.6s ease-out forwards`,
                 animationDelay: `${index * 0.1}s`,
                 opacity: 0,
               }}
             >
-              {/* Photo Placeholder */}
-              <div className="relative h-80 bg-gradient-to-br from-muted to-muted-foreground/20 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-6xl font-heading font-bold text-muted-foreground/30">
-                    {partner.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
+              <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
+                {/* Photo Placeholder */}
+                <div className="relative h-80 bg-gradient-to-br from-muted to-muted-foreground/20 overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-6xl font-heading font-bold text-muted-foreground/30">
+                      {partner.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </div>
                   </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="font-heading text-xl font-semibold text-foreground mb-1">
-                  {partner.name}
-                </h3>
-                <p className="text-primary text-sm font-medium mb-3">
-                  {partner.title}
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3">
-                  {partner.bio}
-                </p>
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="font-heading text-xl font-semibold text-foreground mb-1">
+                    {partner.name}
+                  </h3>
+                  <p className="text-primary text-sm font-medium mb-3">
+                    {partner.title}
+                  </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                    {partner.bio}
+                  </p>
 
-                {/* Contact Buttons */}
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="flex-1"
-                    asChild
-                  >
+                  {/* Contact Icons */}
+                  <div className="flex gap-3 justify-center pt-2">
                     <a
                       href={`https://wa.me/${partner.whatsapp.replace(/\D/g, "")}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-2 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-colors"
                     >
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      WhatsApp
+                      <MessageSquare className="w-5 h-5 text-foreground" />
                     </a>
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="flex-1"
-                    asChild
-                  >
-                    <a href={`mailto:${partner.email}`}>
-                      <Mail className="w-4 h-4 mr-2" />
-                      Email
+                    <a
+                      href={`mailto:${partner.email}`}
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-2 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-colors"
+                    >
+                      <Mail className="w-5 h-5 text-foreground" />
                     </a>
-                  </Button>
+                  </div>
                 </div>
-
-                {/* View Profile Link */}
-                <Link
-                  to={`/equipe/${partner.id}`}
-                  className="block mt-4 text-center text-sm text-primary hover:text-primary-dark font-medium transition-colors"
-                >
-                  Ver Perfil Completo →
-                </Link>
-              </div>
-            </Card>
+              </Card>
+            </Link>
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg" asChild>
-            <Link to="/equipe">Conheça Toda a Equipe</Link>
-          </Button>
+          <Link
+            to="/equipe"
+            className="inline-flex items-center justify-center h-11 px-8 rounded-md border-2 border-input bg-background hover:bg-accent hover:text-accent-foreground font-medium transition-colors"
+          >
+            Conheça Toda a Equipe
+          </Link>
         </div>
       </div>
     </section>
