@@ -70,13 +70,10 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/contato">Agende uma Consulta</Link>
-            </Button>
+          {/* CTA Button */}
+          <div className="hidden lg:flex items-center">
             <Button size="sm" className="gradient-wine" asChild>
-              <Link to="/contato">Fale com um Especialista</Link>
+              <Link to="/contato">Agende uma Consulta</Link>
             </Button>
           </div>
 
@@ -109,15 +106,10 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="flex flex-col space-y-2 px-4 pt-4">
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/contato" onClick={() => setIsMobileMenuOpen(false)}>
-                    Agende uma Consulta
-                  </Link>
-                </Button>
+              <div className="flex flex-col px-4 pt-4">
                 <Button size="sm" className="gradient-wine" asChild>
                   <Link to="/contato" onClick={() => setIsMobileMenuOpen(false)}>
-                    Fale com um Especialista
+                    Agende uma Consulta
                   </Link>
                 </Button>
               </div>
