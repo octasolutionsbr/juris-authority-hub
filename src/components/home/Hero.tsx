@@ -25,7 +25,7 @@ const Hero = () => {
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-background mb-8 leading-tight animate-fade-in">
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-heading font-bold text-background mb-8 leading-tight animate-fade-in">
             Excelência Jurídica{" "}
             <span className="text-primary-light">Estratégica</span>
           </h1>
