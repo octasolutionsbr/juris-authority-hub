@@ -55,34 +55,6 @@ const Hero = () => {
               <Link to="/areas">Conheça Nossas Áreas</Link>
             </Button>
           </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-20 max-w-2xl animate-fade-in" style={{ animationDelay: "0.6s" }}>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary-light mb-2">
-                20+
-              </div>
-              <div className="text-sm text-background/70 uppercase tracking-wider">
-                Anos de Experiência
-              </div>
-            </div>
-            <div className="text-center border-x border-background/20">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary-light mb-2">
-                500+
-              </div>
-              <div className="text-sm text-background/70 uppercase tracking-wider">
-                Casos de Sucesso
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary-light mb-2">
-                98%
-              </div>
-              <div className="text-sm text-background/70 uppercase tracking-wider">
-                Satisfação dos Clientes
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
