@@ -18,7 +18,7 @@ const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto px-4 lg:px-8 relative z-10 py-20 flex items-center min-h-screen">
-        <div className="max-w-4xl mb-16">
+        <div className="max-w-4xl">
           <div className="inline-block mb-6 px-4 py-2 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-full">
             <span className="text-primary-light text-sm font-medium tracking-wide">
               ADVOCACIA PREMIUM ESPECIALIZADA
