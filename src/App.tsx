@@ -8,6 +8,7 @@ import Areas from "./pages/Areas";
 import AreaDetail from "./pages/AreaDetail";
 import Team from "./pages/Team";
 import LawyerProfile from "./pages/LawyerProfile";
+import Opportunities from "./pages/Opportunities";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/areas/:areaId" element={<AreaDetail />} />
           <Route path="/equipe" element={<Team />} />
           <Route path="/equipe/:lawyerId" element={<LawyerProfile />} />
+          <Route path="/oportunidades" element={<Opportunities />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
