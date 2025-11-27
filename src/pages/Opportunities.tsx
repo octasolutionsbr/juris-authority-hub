@@ -146,11 +146,11 @@ const Opportunities = () => {
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-foreground to-foreground/90">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-4xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-background mb-6 animate-fade-in">
-                Oportunidades de <span className="text-primary">Investimento</span>
+            <div className="max-w-3xl">
+              <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
+                Oportunidades de Investimento
               </h1>
-              <p className="text-xl text-background/80 mb-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+              <p className="text-xl text-background/80 leading-relaxed">
                 Explore oportunidades exclusivas de investimento em imóveis, precatórios, créditos tributários e outros ativos.
               </p>
             </div>
