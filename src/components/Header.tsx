@@ -8,6 +8,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,7 +33,7 @@ const Header = () => {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
+        (isScrolled || !isHomePage)
           ? "bg-background/95 backdrop-blur-md shadow-md"
           : "bg-transparent"
       )}
@@ -43,7 +44,7 @@ const Header = () => {
           <Link to="/" className="flex items-center space-x-2 group">
             <div className={cn(
               "text-2xl font-heading font-bold transition-colors",
-              isScrolled ? "text-foreground group-hover:text-primary" : "text-background group-hover:text-primary"
+              (isScrolled || !isHomePage) ? "text-foreground group-hover:text-primary" : "text-background group-hover:text-primary"
             )}>
               Juris <span className="text-primary">Company</span>
             </div>
@@ -59,7 +60,7 @@ const Header = () => {
                   "text-sm font-medium transition-colors hover:text-primary relative py-2",
                   isActive(link.href)
                     ? "text-primary"
-                    : isScrolled ? "text-foreground/80" : "text-background"
+                    : (isScrolled || !isHomePage) ? "text-foreground/80" : "text-background"
                 )}
               >
                 {link.label}
