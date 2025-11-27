@@ -42,7 +42,7 @@ const Team = () => {
         </section>
 
         {/* Filters */}
-        <section className="py-8 bg-secondary sticky top-20 z-40 border-b border-border">
+        <section className="py-4 bg-secondary sticky top-20 z-40 border-b border-border">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="flex flex-col md:flex-row gap-4">
               {/* Role Filter */}
