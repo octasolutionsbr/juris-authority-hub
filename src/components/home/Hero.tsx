@@ -17,15 +17,15 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 lg:px-8 relative z-10 pt-20">
-        <div className="max-w-4xl">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10 py-20 flex items-center min-h-screen">
+        <div className="max-w-4xl mb-16">
           <div className="inline-block mb-6 px-4 py-2 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-full">
             <span className="text-primary-light text-sm font-medium tracking-wide">
               ADVOCACIA PREMIUM ESPECIALIZADA
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-background mb-8 leading-tight animate-fade-in">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-background mb-8 leading-tight animate-fade-in">
             Excelência Jurídica{" "}
             <span className="text-primary-light">Estratégica</span>
           </h1>
@@ -55,13 +55,6 @@ const Hero = () => {
               <Link to="/areas">Conheça Nossas Áreas</Link>
             </Button>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-        <div className="w-6 h-10 border-2 border-background/30 rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-background/50 rounded-full" />
         </div>
       </div>
     </section>
