@@ -41,10 +41,10 @@ const Header = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
+          <Link to="/" className="flex items-center space-x-2">
             <div className={cn(
               "text-2xl font-heading font-bold transition-colors",
-              (isScrolled || !isHomePage) ? "text-foreground group-hover:text-primary" : "text-background group-hover:text-primary"
+              (isScrolled || !isHomePage) ? "text-foreground" : "text-background"
             )}>
               Juris <span className="text-primary">Company</span>
             </div>
