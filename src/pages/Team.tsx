@@ -7,10 +7,23 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import carlosMendesPhoto from "@/assets/team/carlos-mendes.jpg";
+import anaSilvaPhoto from "@/assets/team/ana-silva.jpg";
+import robertoCostaPhoto from "@/assets/team/roberto-costa.jpg";
+import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
+import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const Team = () => {
   const [selectedRole, setSelectedRole] = useState<string>("all");
   const [selectedArea, setSelectedArea] = useState<string>("all");
+  
+  const photoMap: Record<string, string> = {
+    "carlos-mendes": carlosMendesPhoto,
+    "ana-silva": anaSilvaPhoto,
+    "roberto-costa": robertoCostaPhoto,
+    "patricia-oliveira": patriciaOliveiraPhoto,
+    "fernando-alves": fernandoAlvesPhoto,
+  };
 
   const filteredMembers = teamMembers.filter((member) => {
     const roleMatch = selectedRole === "all" || member.role === selectedRole;
@@ -96,16 +109,24 @@ const Team = () => {
                     key={member.id}
                     className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all"
                   >
-                    {/* Photo Placeholder */}
-                    <div className="relative h-80 bg-gradient-to-br from-muted to-muted-foreground/20">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-6xl font-heading font-bold text-muted-foreground/30">
-                          {member.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
+                    {/* Photo */}
+                    <div className="relative h-80 overflow-hidden">
+                      {member.photo && photoMap[member.photo] ? (
+                        <img
+                          src={photoMap[member.photo]}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
+                          <div className="text-6xl font-heading font-bold text-muted-foreground/30">
+                            {member.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
 
                     {/* Content */}
@@ -180,16 +201,24 @@ const Team = () => {
                     key={member.id}
                     className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all bg-background"
                   >
-                    {/* Photo Placeholder */}
-                    <div className="relative h-80 bg-gradient-to-br from-muted to-muted-foreground/20">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-6xl font-heading font-bold text-muted-foreground/30">
-                          {member.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
+                    {/* Photo */}
+                    <div className="relative h-80 overflow-hidden">
+                      {member.photo && photoMap[member.photo] ? (
+                        <img
+                          src={photoMap[member.photo]}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
+                          <div className="text-6xl font-heading font-bold text-muted-foreground/30">
+                            {member.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
 
                     {/* Content */}

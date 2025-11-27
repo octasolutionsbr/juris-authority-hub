@@ -2,9 +2,22 @@ import { Card } from "@/components/ui/card";
 import { Mail, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { teamMembers } from "@/data/team";
+import carlosMendesPhoto from "@/assets/team/carlos-mendes.jpg";
+import anaSilvaPhoto from "@/assets/team/ana-silva.jpg";
+import robertoCostaPhoto from "@/assets/team/roberto-costa.jpg";
+import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
+import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const FoundingPartners = () => {
   const partners = teamMembers.filter((member) => member.role === "socio").slice(0, 5);
+  
+  const photoMap: Record<string, string> = {
+    "carlos-mendes": carlosMendesPhoto,
+    "ana-silva": anaSilvaPhoto,
+    "roberto-costa": robertoCostaPhoto,
+    "patricia-oliveira": patriciaOliveiraPhoto,
+    "fernando-alves": fernandoAlvesPhoto,
+  };
 
   return (
     <section className="py-24 bg-background">
@@ -37,16 +50,24 @@ const FoundingPartners = () => {
               }}
             >
               <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
-                {/* Photo Placeholder */}
-                <div className="relative h-80 bg-gradient-to-br from-muted to-muted-foreground/20 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-6xl font-heading font-bold text-muted-foreground/30">
-                      {partner.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
+                {/* Photo */}
+                <div className="relative h-80 overflow-hidden">
+                  {partner.photo && photoMap[partner.photo] ? (
+                    <img
+                      src={photoMap[partner.photo]}
+                      alt={partner.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
+                      <div className="text-6xl font-heading font-bold text-muted-foreground/30">
+                        {partner.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 

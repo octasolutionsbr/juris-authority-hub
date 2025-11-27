@@ -22,6 +22,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Especialista em Direito Empresarial e Tributário com mais de 25 anos de experiência. Atuou em operações de M&A superiores a R$ 500 milhões. Mestre em Direito Tributário pela USP.",
     email: "carlos.mendes@juriscompany.com.br",
     whatsapp: "+5511999990001",
+    photo: "carlos-mendes",
     education: [
       "Mestrado em Direito Tributário - USP",
       "Especialização em Direito Empresarial - FGV",
@@ -41,6 +42,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Referência em Direito Trabalhista com expertise em negociações coletivas e contencioso estratégico. Mais de 20 anos defendendo os interesses de grandes corporações.",
     email: "ana.silva@juriscompany.com.br",
     whatsapp: "+5511999990002",
+    photo: "ana-silva",
     education: [
       "Especialização em Direito do Trabalho - Mackenzie",
       "Graduação em Direito - PUC-SP"
@@ -58,6 +60,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Especialista em grandes empreendimentos imobiliários e licenciamento ambiental. Assessorou projetos imobiliários com VGV superior a R$ 2 bilhões.",
     email: "roberto.costa@juriscompany.com.br",
     whatsapp: "+5511999990003",
+    photo: "roberto-costa",
     education: [
       "Especialização em Direito Imobiliário - FGV",
       "Graduação em Direito - USP"
@@ -72,6 +75,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Pioneira em Direito Digital no Brasil, com atuação destacada em LGPD e propriedade intelectual. Consultora de startups e empresas de tecnologia.",
     email: "patricia.oliveira@juriscompany.com.br",
     whatsapp: "+5511999990004",
+    photo: "patricia-oliveira",
     education: [
       "LLM em Direito Digital - Harvard Law School",
       "Graduação em Direito - FGV"
@@ -90,6 +94,7 @@ export const teamMembers: TeamMember[] = [
     bio: "Especialista em contencioso tributário de alta complexidade e planejamento fiscal estratégico. Recuperou mais de R$ 300 milhões em créditos tributários para clientes.",
     email: "fernando.alves@juriscompany.com.br",
     whatsapp: "+5511999990005",
+    photo: "fernando-alves",
     education: [
       "Doutorado em Direito Tributário - USP",
       "Mestrado em Direito Tributário - PUC-SP"
