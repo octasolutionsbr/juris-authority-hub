@@ -1,0 +1,85 @@
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Building2, FileText, Receipt, Briefcase, ArrowRight } from "lucide-react";
+
+const OpportunitiesSection = () => {
+  const categories = [
+    {
+      icon: Building2,
+      title: "Imóveis",
+      description: "Oportunidades exclusivas em imóveis residenciais e comerciais",
+      count: "12 anúncios",
+    },
+    {
+      icon: FileText,
+      title: "Precatórios",
+      description: "Precatórios federais e estaduais com excelente retorno",
+      count: "8 anúncios",
+    },
+    {
+      icon: Receipt,
+      title: "Créditos Tributários",
+      description: "Créditos acumulados para compensação imediata",
+      count: "15 anúncios",
+    },
+    {
+      icon: Briefcase,
+      title: "Outros Ativos",
+      description: "Participações societárias e ativos diversos",
+      count: "6 anúncios",
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-gradient-to-br from-muted/30 to-background">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6 animate-fade-in">
+            Oportunidades de <span className="text-primary">Investimento</span>
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            Explore oportunidades exclusivas selecionadas por nossos especialistas. 
+            Investimentos seguros com assessoria jurídica completa.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {categories.map((category, index) => (
+            <Card
+              key={category.title}
+              className="group hover:shadow-lg transition-all duration-300 cursor-pointer hover:border-primary/50 animate-fade-in"
+              style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+            >
+              <CardHeader>
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-background transition-all duration-300">
+                  <category.icon className="w-6 h-6" />
+                </div>
+                <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                  {category.title}
+                </CardTitle>
+                <CardDescription>{category.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm font-medium text-muted-foreground">
+                  {category.count}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="text-center animate-fade-in" style={{ animationDelay: "0.6s" }}>
+          <Button size="lg" className="gradient-wine group" asChild>
+            <Link to="/oportunidades">
+              Ver Todas as Oportunidades
+              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default OpportunitiesSection;

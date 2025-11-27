@@ -1,0 +1,203 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
+
+const ContactSection = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validação básica
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Por favor, preencha todos os campos obrigatórios.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Aqui você pode adicionar a lógica de envio do formulário
+    toast({
+      title: "Mensagem enviada!",
+      description: "Entraremos em contato em breve.",
+    });
+
+    // Limpar formulário
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  return (
+    <section className="py-24 bg-background">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6 animate-fade-in">
+              Entre em <span className="text-primary">Contato</span>
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              Estamos prontos para discutir suas necessidades jurídicas e apresentar soluções personalizadas.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Informações de Contato */}
+            <div className="space-y-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+              <div>
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-6">
+                  Fale Conosco
+                </h3>
+                <p className="text-muted-foreground mb-8">
+                  Nossa equipe está disponível para atendê-lo de segunda a sexta, das 9h às 18h.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 group">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background transition-all duration-300">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">Email</h4>
+                    <a
+                      href="mailto:contato@juriscompany.com"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      contato@juriscompany.com
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 group">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background transition-all duration-300">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">Telefone</h4>
+                    <a
+                      href="tel:+5511999999999"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      (11) 99999-9999
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 group">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-background transition-all duration-300">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">Endereço</h4>
+                    <p className="text-muted-foreground">
+                      Av. Paulista, 1000 - Conjunto 101<br />
+                      Bela Vista, São Paulo - SP<br />
+                      CEP 01310-100
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Formulário de Contato */}
+            <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                    Nome Completo *
+                  </label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Seu nome"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                    Email *
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="seu@email.com"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
+                    Telefone
+                  </label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="(11) 99999-9999"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                    Mensagem *
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Descreva suas necessidades jurídicas..."
+                    rows={5}
+                    required
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full gradient-wine group"
+                >
+                  Enviar Mensagem
+                  <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;
