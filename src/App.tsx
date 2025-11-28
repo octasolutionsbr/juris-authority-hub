@@ -20,6 +20,8 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminProfile from "./pages/admin/Profile";
 import AdminListings from "./pages/admin/Listings";
 import AdminUsers from "./pages/admin/Users";
+import AdminHearings from "./pages/admin/Hearings";
+import HearingPublic from "./pages/HearingPublic";
 
 const queryClient = new QueryClient();
 
@@ -40,12 +42,14 @@ const App = () => (
             <Route path="/oportunidades" element={<Opportunities />} />
             <Route path="/sobre" element={<About />} />
             <Route path="/contato" element={<Contact />} />
+            <Route path="/audiencia/:token" element={<HearingPublic />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
             <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
             <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
+            <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
             <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
