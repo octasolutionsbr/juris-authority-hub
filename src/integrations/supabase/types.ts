@@ -14,16 +14,253 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      hearings: {
+        Row: {
+          case_number: string
+          client_email: string
+          client_name: string
+          court: string
+          created_at: string
+          date_time: string
+          description: string
+          id: string
+          is_shared: boolean
+          lawyer_id: string
+          location: string
+          notes: string | null
+          share_token: string | null
+          status: Database["public"]["Enums"]["hearing_status"]
+          type: Database["public"]["Enums"]["hearing_type"]
+          updated_at: string
+        }
+        Insert: {
+          case_number: string
+          client_email: string
+          client_name: string
+          court: string
+          created_at?: string
+          date_time: string
+          description: string
+          id?: string
+          is_shared?: boolean
+          lawyer_id: string
+          location: string
+          notes?: string | null
+          share_token?: string | null
+          status?: Database["public"]["Enums"]["hearing_status"]
+          type: Database["public"]["Enums"]["hearing_type"]
+          updated_at?: string
+        }
+        Update: {
+          case_number?: string
+          client_email?: string
+          client_name?: string
+          court?: string
+          created_at?: string
+          date_time?: string
+          description?: string
+          id?: string
+          is_shared?: boolean
+          lawyer_id?: string
+          location?: string
+          notes?: string | null
+          share_token?: string | null
+          status?: Database["public"]["Enums"]["hearing_status"]
+          type?: Database["public"]["Enums"]["hearing_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      listings: {
+        Row: {
+          category: Database["public"]["Enums"]["listing_category"]
+          created_at: string
+          created_by: string
+          description: string
+          id: string
+          images: string[] | null
+          price: number | null
+          status: Database["public"]["Enums"]["listing_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["listing_category"]
+          created_at?: string
+          created_by: string
+          description: string
+          id?: string
+          images?: string[] | null
+          price?: number | null
+          status?: Database["public"]["Enums"]["listing_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["listing_category"]
+          created_at?: string
+          created_by?: string
+          description?: string
+          id?: string
+          images?: string[] | null
+          price?: number | null
+          status?: Database["public"]["Enums"]["listing_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      practice_areas: {
+        Row: {
+          created_at: string
+          description: string
+          icon: string
+          id: string
+          keywords: string[] | null
+          long_description: string | null
+          order_index: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          icon: string
+          id: string
+          keywords?: string[] | null
+          long_description?: string | null
+          order_index?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          keywords?: string[] | null
+          long_description?: string | null
+          order_index?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          approved: boolean
+          created_at: string
+          email: string
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          approved?: boolean
+          created_at?: string
+          email: string
+          id: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          approved?: boolean
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      team_members: {
+        Row: {
+          areas: string[] | null
+          bio: string
+          created_at: string
+          education: string[] | null
+          email: string | null
+          id: string
+          name: string
+          order_index: number
+          photo: string | null
+          publications: string[] | null
+          role: string
+          title: string
+          whatsapp: string | null
+        }
+        Insert: {
+          areas?: string[] | null
+          bio: string
+          created_at?: string
+          education?: string[] | null
+          email?: string | null
+          id: string
+          name: string
+          order_index?: number
+          photo?: string | null
+          publications?: string[] | null
+          role: string
+          title: string
+          whatsapp?: string | null
+        }
+        Update: {
+          areas?: string[] | null
+          bio?: string
+          created_at?: string
+          education?: string[] | null
+          email?: string | null
+          id?: string
+          name?: string
+          order_index?: number
+          photo?: string | null
+          publications?: string[] | null
+          role?: string
+          title?: string
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "lawyer"
+      hearing_status: "agendada" | "realizada" | "cancelada" | "adiada"
+      hearing_type:
+        | "Conciliação"
+        | "Instrução"
+        | "Julgamento"
+        | "Inicial"
+        | "Sentença"
+        | "Outras"
+      listing_category: "imoveis" | "precatorios" | "creditos" | "outros"
+      listing_status: "available" | "pending" | "sold"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +387,19 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "lawyer"],
+      hearing_status: ["agendada", "realizada", "cancelada", "adiada"],
+      hearing_type: [
+        "Conciliação",
+        "Instrução",
+        "Julgamento",
+        "Inicial",
+        "Sentença",
+        "Outras",
+      ],
+      listing_category: ["imoveis", "precatorios", "creditos", "outros"],
+      listing_status: ["available", "pending", "sold"],
+    },
   },
 } as const
