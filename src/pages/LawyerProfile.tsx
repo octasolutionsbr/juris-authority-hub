@@ -80,7 +80,7 @@ const LawyerProfile = () => {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-2 border-background text-background hover:bg-background hover:text-foreground"
+                    className="border-2 border-background bg-background/10 text-background hover:bg-background hover:text-foreground"
                     asChild
                   >
                     <a href={`mailto:${lawyer.email}`}>
@@ -212,7 +212,7 @@ const LawyerProfile = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 border-2 border-background text-background hover:bg-background hover:text-foreground"
+                className="text-lg px-8 border-2 border-background bg-background/10 text-background hover:bg-background hover:text-foreground"
                 asChild
               >
                 <a href={`mailto:${lawyer.email}`}>
