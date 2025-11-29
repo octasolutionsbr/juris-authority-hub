@@ -43,7 +43,7 @@ const FoundingPartners = () => {
           </p>
         </div>
 
-        <div className="relative px-0 md:px-12">
+        <div className="relative px-12">
           <Carousel
             opts={{
               align: "start",
@@ -114,8 +114,8 @@ const FoundingPartners = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden md:flex -left-12" />
-          <CarouselNext className="hidden md:flex -right-12" />
+          <CarouselPrevious className="-left-6 md:-left-12" />
+          <CarouselNext className="-right-6 md:-right-12" />
         </Carousel>
         </div>
 
