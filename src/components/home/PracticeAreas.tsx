@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
+import { useTranslation } from "react-i18next";
 import {
   Building2,
   Calculator,
@@ -25,6 +26,7 @@ const iconMap: Record<string, any> = {
 };
 
 const PracticeAreas = () => {
+  const { t } = useTranslation();
   const { data: practiceAreas = [], isLoading } = usePracticeAreas();
 
   return (
@@ -33,21 +35,20 @@ const PracticeAreas = () => {
         <div className="text-center mb-16">
           <div className="inline-block mb-4 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
             <span className="text-primary text-sm font-medium tracking-wide">
-              NOSSAS ESPECIALIDADES
+              {t("practiceAreas.badge")}
             </span>
           </div>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Áreas de Atuação
+            {t("practiceAreas.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Expertise jurídica especializada em múltiplas áreas do direito para
-            atender às demandas mais complexas.
+            {t("practiceAreas.description")}
           </p>
         </div>
 
         {isLoading ? (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">Carregando áreas...</p>
+            <p className="text-muted-foreground">{t("practiceAreas.loading")}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -80,7 +81,7 @@ const PracticeAreas = () => {
                   </p>
 
                   <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                    Saiba mais
+                    {t("practiceAreas.learnMore")}
                     <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </Card>
@@ -95,7 +96,7 @@ const PracticeAreas = () => {
             to="/areas"
             className="inline-flex items-center text-primary font-medium hover:text-primary-dark transition-colors group"
           >
-            Ver todas as áreas de atuação
+            {t("practiceAreas.viewAll")}
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

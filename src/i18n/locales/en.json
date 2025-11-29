@@ -5,47 +5,186 @@
     "team": "Team",
     "about": "About",
     "contact": "Contact",
-    "opportunities": "Opportunities"
+    "opportunities": "Opportunities",
+    "scheduleConsultation": "Schedule a Consultation"
   },
   "hero": {
     "title": "Legal Excellence",
     "subtitle": "With Outstanding Results",
-    "description": "Strategic solutions for companies and individuals seeking high-level legal advice",
-    "cta": "Contact Us"
+    "description": "Complex legal solutions with unmatched expertise for companies and executives who demand exceptional results.",
+    "badge": "PREMIUM SPECIALIZED LAW FIRM",
+    "cta": "Schedule a Consultation",
+    "knowAreas": "Explore Our Areas"
   },
-  "about": {
-    "title": "About Us",
+  "aboutUs": {
+    "title": "About",
+    "titleHighlight": "Us",
     "subtitle": "Learn Our Story",
-    "description": "Juris Company is a boutique law firm founded with the purpose of offering personalized and excellent legal solutions. Our multidisciplinary team combines technical expertise with a strategic and humanized approach.",
-    "experience": "Years of Experience",
-    "cases": "Successful Cases",
-    "clients": "Satisfied Clients",
-    "awards": "Awards and Recognition"
+    "description": "Juris Company was born from the union of highly specialized professionals committed to offering legal solutions that go beyond the conventional. Our mission is to transform complex legal challenges into strategic opportunities for our clients.",
+    "values": {
+      "excellence": {
+        "title": "Legal Excellence",
+        "description": "Commitment to the highest practices and ethical standards of law."
+      },
+      "results": {
+        "title": "Proven Results",
+        "description": "Consistent track record of success in complex and strategic cases."
+      },
+      "service": {
+        "title": "Premium Service",
+        "description": "Close and personalized relationship with each client."
+      },
+      "strategy": {
+        "title": "Strategic Vision",
+        "description": "Innovative solutions that anticipate challenges and opportunities."
+      }
+    },
+    "stats": {
+      "experience": "Years of Experience",
+      "cases": "Successful Cases",
+      "satisfaction": "Client Satisfaction"
+    }
   },
   "practiceAreas": {
     "title": "Practice Areas",
-    "subtitle": "Specialized Expertise",
-    "viewAll": "View All Areas"
+    "badge": "OUR SPECIALTIES",
+    "description": "Specialized legal expertise in multiple areas of law to meet the most complex demands.",
+    "learnMore": "Learn more",
+    "viewAll": "View all practice areas",
+    "loading": "Loading areas..."
   },
-  "foundingPartners": {
-    "title": "Founding Partners",
-    "subtitle": "Leadership and Expertise"
+  "team": {
+    "title": "Our Team",
+    "badge": "LEADERSHIP",
+    "description": "Specialized independent lawyers ready to meet your legal demands.",
+    "loading": "Loading team...",
+    "viewAll": "Meet the Entire Team",
+    "filterByArea": "Filter by Practice Area",
+    "allAreas": "All Areas",
+    "viewProfile": "View Full Profile →",
+    "noResults": "No professionals found with the selected filters.",
+    "lawyers": "Lawyers",
+    "whatsapp": "WhatsApp",
+    "email": "Email"
   },
   "opportunities": {
-    "title": "Opportunities",
-    "subtitle": "Legal Marketplace",
-    "viewAll": "View All Opportunities"
+    "title": "Investment",
+    "titleHighlight": "Opportunities",
+    "description": "Explore exclusive opportunities selected by our experts. Secure investments with complete legal advice.",
+    "viewAll": "View All Opportunities",
+    "categories": {
+      "properties": {
+        "title": "Real Estate",
+        "description": "Exclusive opportunities in residential and commercial properties",
+        "count": "{{count}} listings"
+      },
+      "precatorios": {
+        "title": "Court Orders",
+        "description": "Federal and state court orders with excellent returns",
+        "count": "{{count}} listings"
+      },
+      "credits": {
+        "title": "Tax Credits",
+        "description": "Accumulated credits for immediate compensation",
+        "count": "{{count}} listings"
+      },
+      "others": {
+        "title": "Other Assets",
+        "description": "Corporate shares and various assets",
+        "count": "{{count}} listings"
+      }
+    }
   },
   "contact": {
     "title": "Contact Us",
     "subtitle": "We're Ready to Help",
-    "name": "Name",
-    "email": "Email",
-    "phone": "Phone",
-    "message": "Message",
-    "send": "Send Message",
-    "success": "Message sent successfully!",
-    "error": "Error sending message. Please try again."
+    "description": "We're ready to discuss your legal needs and present customized solutions.",
+    "talkToUs": "Talk to Us",
+    "availability": "Our team is available to assist you Monday through Friday, from 9am to 6pm.",
+    "availabilityFull": "Our team is available to assist you and offer the best legal solutions for your case.",
+    "sendMessage": "Send Your Message",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "subject": "Subject",
+      "message": "Message",
+      "namePlaceholder": "Your full name",
+      "emailPlaceholder": "your@email.com",
+      "phonePlaceholder": "(11) 99999-9999",
+      "subjectPlaceholder": "Subject of your message",
+      "messagePlaceholder": "Describe your legal needs...",
+      "submit": "Send Message",
+      "required": "Required fields",
+      "requiredMessage": "Please fill in all required fields.",
+      "success": "Message sent!",
+      "successMessage": "We will contact you soon."
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "hours": "Business Hours",
+      "hoursText": "Monday to Friday: 9am to 6pm\nSaturday: 9am to 1pm\nSunday: Closed",
+      "location": "Av. Paulista, 1000 - Suite 101\nBela Vista, São Paulo - SP\nZIP 01310-100"
+    }
+  },
+  "aboutPage": {
+    "title": "About Us",
+    "subtitle": "Legal excellence and commitment to results that transform businesses and protect interests.",
+    "ourStory": "Our Story",
+    "storyContent1": "Founded in 2000, the firm was born from the vision of experienced professionals who believed in a different kind of law practice: strategic, close, and results-oriented.",
+    "storyContent2": "Over more than two decades, we have built a solid track record, advising from innovative startups to large corporations in complex operations totaling billions of dollars.",
+    "storyContent3": "Today, we are recognized as one of the leading corporate law firms in the country, with a multidisciplinary team of experts dedicated to delivering excellent legal solutions.",
+    "mission": "Mission",
+    "missionText": "To offer strategic and personalized legal solutions, protecting our clients' interests with technical excellence, ethics, and commitment to exceptional results.",
+    "vision": "Vision",
+    "visionText": "To be recognized as a national reference in corporate law, standing out for innovation, technical quality, and building lasting relationships based on trust and results.",
+    "ourValues": "Our Values",
+    "values": {
+      "excellence": {
+        "title": "Legal Excellence",
+        "description": "Commitment to the highest technical quality in all our deliveries."
+      },
+      "ethics": {
+        "title": "Ethics and Integrity",
+        "description": "Professional conduct guided by the most rigorous ethical standards."
+      },
+      "client": {
+        "title": "Client Focus",
+        "description": "Close relationship and customized solutions for each need."
+      },
+      "innovation": {
+        "title": "Innovation",
+        "description": "Use of technology and modern methodologies for superior results."
+      }
+    },
+    "ourNumbers": "Our Journey in Numbers",
+    "stats": {
+      "experience": "Years of Experience",
+      "clients": "Clients Served",
+      "cases": "Successful Cases",
+      "operations": "In Operations"
+    },
+    "differentials": "Our Differentials",
+    "diffList": {
+      "agility": {
+        "title": "Agility",
+        "description": "Fast responses and deadlines met with precision."
+      },
+      "specialization": {
+        "title": "Specialization",
+        "description": "Highly qualified team in various areas of law."
+      },
+      "results": {
+        "title": "Results",
+        "description": "Focus on practical and effective solutions for our clients."
+      },
+      "transparency": {
+        "title": "Transparency",
+        "description": "Clear and honest communication at all stages."
+      }
+    }
   },
   "footer": {
     "description": "Legal excellence with strategic solutions for companies and individuals seeking outstanding results.",

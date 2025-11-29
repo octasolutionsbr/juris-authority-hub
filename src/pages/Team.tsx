@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import carlosMendesPhoto from "@/assets/team/carlos-mendes.jpg";
 import anaSilvaPhoto from "@/assets/team/ana-silva.jpg";
 import robertoCostaPhoto from "@/assets/team/roberto-costa.jpg";
@@ -14,6 +15,7 @@ import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
 import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const Team = () => {
+  const { t } = useTranslation();
   const [selectedArea, setSelectedArea] = useState<string>("all");
   const { data: teamMembers = [], isLoading: loadingMembers } = useTeamMembers();
   const { data: practiceAreas = [], isLoading: loadingAreas } = usePracticeAreas();
@@ -41,10 +43,10 @@ const Team = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
-                Nossa Equipe
+                {t("team.title")}
               </h1>
               <p className="text-xl text-background/80 leading-relaxed">
-                Advogados autônomos especializados prontos para atender suas demandas jurídicas com excelência.
+                {t("team.description")}
               </p>
             </div>
           </div>
@@ -57,14 +59,14 @@ const Team = () => {
               {/* Area Filter */}
               <div className="flex-1 max-w-md">
                 <label className="text-sm font-medium mb-2 block">
-                  Filtrar por Área de Atuação
+                  {t("team.filterByArea")}
                 </label>
                 <select
                   value={selectedArea}
                   onChange={(e) => setSelectedArea(e.target.value)}
                   className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                 >
-                  <option value="all">Todas as Áreas</option>
+                  <option value="all">{t("team.allAreas")}</option>
                   {practiceAreas.map((area) => (
                     <option key={area.id} value={area.id}>
                       {area.title}
@@ -80,14 +82,14 @@ const Team = () => {
         {loadingMembers || loadingAreas ? (
           <section className="py-16 bg-background">
             <div className="container mx-auto px-4 lg:px-8 text-center">
-              <p className="text-muted-foreground">Carregando...</p>
+              <p className="text-muted-foreground">{t("common.loading")}</p>
             </div>
           </section>
         ) : filteredMembers.length > 0 ? (
           <section className="py-16 bg-background">
             <div className="container mx-auto px-4 lg:px-8">
               <h2 className="text-3xl font-heading font-semibold mb-8">
-                Advogados
+                {t("team.lawyers")}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredMembers.map((member) => (
@@ -144,7 +146,7 @@ const Team = () => {
                             rel="noopener noreferrer"
                           >
                             <MessageCircle className="w-4 h-4 mr-2" />
-                            WhatsApp
+                            {t("team.whatsapp")}
                           </a>
                         </Button>
                         <Button
@@ -155,7 +157,7 @@ const Team = () => {
                         >
                           <a href={`mailto:${member.email}`}>
                             <Mail className="w-4 h-4 mr-2" />
-                            Email
+                            {t("team.email")}
                           </a>
                         </Button>
                       </div>
@@ -164,7 +166,7 @@ const Team = () => {
                         to={`/equipe/${member.id}`}
                         className="block text-center text-sm text-primary hover:text-primary-dark font-medium transition-colors"
                       >
-                        Ver Perfil Completo →
+                        {t("team.viewProfile")}
                       </Link>
                     </div>
                   </Card>
@@ -176,7 +178,7 @@ const Team = () => {
           <section className="py-20 bg-background text-center">
             <div className="container mx-auto px-4 lg:px-8">
               <p className="text-muted-foreground text-lg">
-                Nenhum profissional encontrado com os filtros selecionados.
+                {t("team.noResults")}
               </p>
             </div>
           </section>

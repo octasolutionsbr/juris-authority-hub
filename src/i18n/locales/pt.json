@@ -5,47 +5,186 @@
     "team": "Equipe",
     "about": "Sobre",
     "contact": "Contato",
-    "opportunities": "Oportunidades"
+    "opportunities": "Oportunidades",
+    "scheduleConsultation": "Agende uma Consulta"
   },
   "hero": {
     "title": "Excelência Jurídica",
     "subtitle": "Com Resultados Diferenciados",
-    "description": "Soluções estratégicas para empresas e indivíduos que buscam assessoria jurídica de alto nível",
-    "cta": "Entre em Contato"
+    "description": "Soluções jurídicas complexas com expertise incomparável para empresas e executivos que exigem resultados diferenciados.",
+    "badge": "ADVOCACIA PREMIUM ESPECIALIZADA",
+    "cta": "Agende uma Consulta",
+    "knowAreas": "Conheça Nossas Áreas"
   },
-  "about": {
-    "title": "Sobre Nós",
+  "aboutUs": {
+    "title": "Sobre",
+    "titleHighlight": "Nós",
     "subtitle": "Conheça Nossa História",
-    "description": "A Juris Company é um escritório de advocacia boutique fundado com o propósito de oferecer soluções jurídicas personalizadas e de excelência. Nossa equipe multidisciplinar combina expertise técnica com uma abordagem estratégica e humanizada.",
-    "experience": "Anos de Experiência",
-    "cases": "Casos de Sucesso",
-    "clients": "Clientes Satisfeitos",
-    "awards": "Prêmios e Reconhecimentos"
+    "description": "A Juris Company nasceu da união de profissionais altamente especializados, comprometidos em oferecer soluções jurídicas que vão além do convencional. Nossa missão é transformar desafios legais complexos em oportunidades estratégicas para nossos clientes.",
+    "values": {
+      "excellence": {
+        "title": "Excelência Jurídica",
+        "description": "Comprometimento com as mais altas práticas e padrões éticos da advocacia."
+      },
+      "results": {
+        "title": "Resultados Comprovados",
+        "description": "Histórico consistente de sucessos em casos complexos e estratégicos."
+      },
+      "service": {
+        "title": "Atendimento Premium",
+        "description": "Relacionamento próximo e personalizado com cada cliente."
+      },
+      "strategy": {
+        "title": "Visão Estratégica",
+        "description": "Soluções inovadoras que antecipam desafios e oportunidades."
+      }
+    },
+    "stats": {
+      "experience": "Anos de Experiência",
+      "cases": "Casos de Sucesso",
+      "satisfaction": "Satisfação dos Clientes"
+    }
   },
   "practiceAreas": {
     "title": "Áreas de Atuação",
-    "subtitle": "Expertise Especializada",
-    "viewAll": "Ver Todas as Áreas"
+    "badge": "NOSSAS ESPECIALIDADES",
+    "description": "Expertise jurídica especializada em múltiplas áreas do direito para atender às demandas mais complexas.",
+    "learnMore": "Saiba mais",
+    "viewAll": "Ver todas as áreas de atuação",
+    "loading": "Carregando áreas..."
   },
-  "foundingPartners": {
-    "title": "Sócios Fundadores",
-    "subtitle": "Liderança e Expertise"
+  "team": {
+    "title": "Nossa Equipe",
+    "badge": "LIDERANÇA",
+    "description": "Advogados autônomos especializados prontos para atender suas demandas jurídicas.",
+    "loading": "Carregando equipe...",
+    "viewAll": "Conheça Toda a Equipe",
+    "filterByArea": "Filtrar por Área de Atuação",
+    "allAreas": "Todas as Áreas",
+    "viewProfile": "Ver Perfil Completo →",
+    "noResults": "Nenhum profissional encontrado com os filtros selecionados.",
+    "lawyers": "Advogados",
+    "whatsapp": "WhatsApp",
+    "email": "Email"
   },
   "opportunities": {
-    "title": "Oportunidades",
-    "subtitle": "Marketplace Jurídico",
-    "viewAll": "Ver Todas as Oportunidades"
+    "title": "Oportunidades de",
+    "titleHighlight": "Investimento",
+    "description": "Explore oportunidades exclusivas selecionadas por nossos especialistas. Investimentos seguros com assessoria jurídica completa.",
+    "viewAll": "Ver Todas as Oportunidades",
+    "categories": {
+      "properties": {
+        "title": "Imóveis",
+        "description": "Oportunidades exclusivas em imóveis residenciais e comerciais",
+        "count": "{{count}} anúncios"
+      },
+      "precatorios": {
+        "title": "Precatórios",
+        "description": "Precatórios federais e estaduais com excelente retorno",
+        "count": "{{count}} anúncios"
+      },
+      "credits": {
+        "title": "Créditos Tributários",
+        "description": "Créditos acumulados para compensação imediata",
+        "count": "{{count}} anúncios"
+      },
+      "others": {
+        "title": "Outros Ativos",
+        "description": "Participações societárias e ativos diversos",
+        "count": "{{count}} anúncios"
+      }
+    }
   },
   "contact": {
     "title": "Entre em Contato",
     "subtitle": "Estamos Prontos para Ajudar",
-    "name": "Nome",
-    "email": "E-mail",
-    "phone": "Telefone",
-    "message": "Mensagem",
-    "send": "Enviar Mensagem",
-    "success": "Mensagem enviada com sucesso!",
-    "error": "Erro ao enviar mensagem. Tente novamente."
+    "description": "Estamos prontos para discutir suas necessidades jurídicas e apresentar soluções personalizadas.",
+    "talkToUs": "Fale Conosco",
+    "availability": "Nossa equipe está disponível para atendê-lo de segunda a sexta, das 9h às 18h.",
+    "availabilityFull": "Nossa equipe está disponível para atendê-lo e oferecer as melhores soluções jurídicas para seu caso.",
+    "sendMessage": "Envie sua Mensagem",
+    "form": {
+      "name": "Nome Completo",
+      "email": "Email",
+      "phone": "Telefone",
+      "subject": "Assunto",
+      "message": "Mensagem",
+      "namePlaceholder": "Seu nome completo",
+      "emailPlaceholder": "seu@email.com",
+      "phonePlaceholder": "(11) 99999-9999",
+      "subjectPlaceholder": "Assunto da sua mensagem",
+      "messagePlaceholder": "Descreva suas necessidades jurídicas...",
+      "submit": "Enviar Mensagem",
+      "required": "Campos obrigatórios",
+      "requiredMessage": "Por favor, preencha todos os campos obrigatórios.",
+      "success": "Mensagem enviada!",
+      "successMessage": "Entraremos em contato em breve."
+    },
+    "info": {
+      "email": "Email",
+      "phone": "Telefone",
+      "address": "Endereço",
+      "hours": "Horário de Atendimento",
+      "hoursText": "Segunda a Sexta: 9h às 18h\nSábado: 9h às 13h\nDomingo: Fechado",
+      "location": "Av. Paulista, 1000 - Conjunto 101\nBela Vista, São Paulo - SP\nCEP 01310-100"
+    }
+  },
+  "aboutPage": {
+    "title": "Sobre Nós",
+    "subtitle": "Excelência jurídica e compromisso com resultados que transformam negócios e protegem interesses.",
+    "ourStory": "Nossa História",
+    "storyContent1": "Fundado em 2000, o escritório nasceu da visão de profissionais experientes que acreditavam em uma advocacia diferente: estratégica, próxima e orientada por resultados concretos.",
+    "storyContent2": "Ao longo de mais de duas décadas, construímos uma trajetória sólida, assessorando desde startups inovadoras até grandes corporações em operações complexas que somam bilhões de reais.",
+    "storyContent3": "Hoje, somos reconhecidos como um dos principais escritórios de advocacia empresarial do país, com uma equipe multidisciplinar de especialistas dedicados a entregar soluções jurídicas de excelência.",
+    "mission": "Missão",
+    "missionText": "Oferecer soluções jurídicas estratégicas e personalizadas, protegendo os interesses de nossos clientes com excelência técnica, ética e comprometimento com resultados excepcionais.",
+    "vision": "Visão",
+    "visionText": "Ser reconhecido como referência nacional em advocacia empresarial, destacando-nos pela inovação, qualidade técnica e pela construção de relações duradouras baseadas em confiança e resultados.",
+    "ourValues": "Nossos Valores",
+    "values": {
+      "excellence": {
+        "title": "Excelência Jurídica",
+        "description": "Compromisso com a mais alta qualidade técnica em todas as nossas entregas."
+      },
+      "ethics": {
+        "title": "Ética e Integridade",
+        "description": "Conduta profissional pautada pelos mais rigorosos padrões éticos."
+      },
+      "client": {
+        "title": "Foco no Cliente",
+        "description": "Relacionamento próximo e soluções personalizadas para cada necessidade."
+      },
+      "innovation": {
+        "title": "Inovação",
+        "description": "Uso de tecnologia e metodologias modernas para resultados superiores."
+      }
+    },
+    "ourNumbers": "Nossa Trajetória em Números",
+    "stats": {
+      "experience": "Anos de Experiência",
+      "clients": "Clientes Atendidos",
+      "cases": "Casos de Sucesso",
+      "operations": "Em Operações"
+    },
+    "differentials": "Nossos Diferenciais",
+    "diffList": {
+      "agility": {
+        "title": "Agilidade",
+        "description": "Respostas rápidas e prazos cumpridos com precisão."
+      },
+      "specialization": {
+        "title": "Especialização",
+        "description": "Equipe altamente qualificada em diversas áreas do direito."
+      },
+      "results": {
+        "title": "Resultados",
+        "description": "Foco em soluções práticas e efetivas para nossos clientes."
+      },
+      "transparency": {
+        "title": "Transparência",
+        "description": "Comunicação clara e honesta em todas as etapas."
+      }
+    }
   },
   "footer": {
     "description": "Excelência jurídica com soluções estratégicas para empresas e indivíduos que buscam resultados diferenciados.",
