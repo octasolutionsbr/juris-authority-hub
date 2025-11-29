@@ -113,13 +113,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (data.user) {
         const userProfile = await fetchUserProfile(data.user);
-        if (userProfile && userProfile.approved) {
-          setUser(userProfile);
-          return true;
-        } else {
+        if (!userProfile) {
           await supabase.auth.signOut();
           return false;
         }
+        
+        // Apenas verifica se o usuário foi aprovado pelo admin
+        if (!userProfile.approved) {
+          await supabase.auth.signOut();
+          return false;
+        }
+        
+        setUser(userProfile);
+        return true;
       }
 
       return false;
@@ -157,6 +163,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return false;
       }
 
+      // Usuário criado com sucesso, aguarda aprovação do admin
+      // Não precisa confirmar email, apenas aprovação do campo 'approved'
       return !!data.user;
     } catch (error) {
       console.error('Registration exception:', error);
