@@ -1,8 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { teamMembers } from "@/data/team";
-import { practiceAreas } from "@/data/practiceAreas";
+import { useTeamMember } from "@/hooks/useTeamMembers";
+import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen } from "lucide-react";
@@ -10,14 +10,23 @@ import NotFound from "./NotFound";
 
 const LawyerProfile = () => {
   const { lawyerId } = useParams();
-  const lawyer = teamMembers.find((m) => m.id === lawyerId);
+  const { data: lawyer, isLoading: loadingLawyer } = useTeamMember(lawyerId || '');
+  const { data: allAreas = [], isLoading: loadingAreas } = usePracticeAreas();
+
+  if (loadingLawyer || loadingAreas) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-muted-foreground">Carregando...</p>
+      </div>
+    );
+  }
 
   if (!lawyer) {
     return <NotFound />;
   }
 
-  const lawyerAreas = practiceAreas.filter((area) =>
-    lawyer.areas.includes(area.id)
+  const lawyerAreas = allAreas.filter((area) =>
+    lawyer.areas?.includes(area.id)
   );
 
   return (
@@ -69,7 +78,7 @@ const LawyerProfile = () => {
                     asChild
                   >
                     <a
-                      href={`https://wa.me/${lawyer.whatsapp.replace(/\D/g, "")}`}
+                      href={`https://wa.me/${lawyer.whatsapp?.replace(/\D/g, "")}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -201,7 +210,7 @@ const LawyerProfile = () => {
                 asChild
               >
                 <a
-                  href={`https://wa.me/${lawyer.whatsapp.replace(/\D/g, "")}`}
+                  href={`https://wa.me/${lawyer.whatsapp?.replace(/\D/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

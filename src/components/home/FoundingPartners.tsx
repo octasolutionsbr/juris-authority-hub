@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { teamMembers } from "@/data/team";
+import { useTeamMembers } from "@/hooks/useTeamMembers";
 import {
   Carousel,
   CarouselContent,
@@ -20,7 +20,8 @@ import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const FoundingPartners = () => {
   const [api, setApi] = useState<CarouselApi>();
-  const members = teamMembers.slice(0, 20);
+  const { data: allMembers = [], isLoading } = useTeamMembers();
+  const members = allMembers.slice(0, 20);
   
   const photoMap: Record<string, string> = {
     "carlos-mendes": carlosMendesPhoto,
@@ -47,7 +48,12 @@ const FoundingPartners = () => {
           </p>
         </div>
 
-        <div className="relative px-0 md:px-20">
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Carregando equipe...</p>
+          </div>
+        ) : (
+          <div className="relative px-0 md:px-20">
           <Carousel
             opts={{
               align: "start",
@@ -97,7 +103,7 @@ const FoundingPartners = () => {
                       {/* Contact Icons */}
                       <div className="flex gap-3 justify-center pt-2">
                         <a
-                          href={`https://wa.me/${member.whatsapp.replace(/\D/g, "")}`}
+                          href={`https://wa.me/${member.whatsapp?.replace(/\D/g, "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
@@ -143,6 +149,7 @@ const FoundingPartners = () => {
           </Button>
         </div>
         </div>
+        )}
 
         <div className="text-center mt-12">
           <Link

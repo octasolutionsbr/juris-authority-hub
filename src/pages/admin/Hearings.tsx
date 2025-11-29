@@ -11,6 +11,7 @@ import { Hearing, HearingStatus } from "@/types/hearing";
 import { Plus, Search, Filter } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { useHearings, useCreateHearing, useUpdateHearing, useDeleteHearing } from "@/hooks/useHearings";
 
 export default function AdminHearings() {
   const { toast } = useToast();
@@ -21,66 +22,63 @@ export default function AdminHearings() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
 
-  // Mock data - will be replaced with real data from backend
-  const [hearings, setHearings] = useState<Hearing[]>([
-    {
-      id: "1",
-      clientName: "João Silva",
-      clientEmail: "joao@example.com",
-      caseNumber: "0001234-56.2024.8.26.0100",
-      court: "1ª Vara Cível - Fórum Central",
-      type: "Conciliação",
-      dateTime: new Date(2024, 11, 15, 10, 0),
-      location: "Av. Brigadeiro Luís Antônio, 500 - 3º andar",
-      description: "Audiência de conciliação para resolução amigável do conflito",
-      notes: "Por favor, chegar 15 minutos antes. Trazer documentos de identificação.",
-      status: "agendada",
-      isShared: true,
-      shareToken: "abc123",
-      lawyerId: user?.id || "1",
-      lawyerName: user?.name || "Advogado",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      id: "2",
-      clientName: "Maria Santos",
-      clientEmail: "maria@example.com",
-      caseNumber: "0007890-12.2024.8.26.0100",
-      court: "5ª Vara Cível - Fórum João Mendes Jr.",
-      type: "Instrução",
-      dateTime: new Date(2024, 11, 20, 14, 30),
-      location: "Rua Figueira de Melo, 15 - 2º andar",
-      description: "Audiência de instrução e julgamento - oitiva de testemunhas",
-      notes: "Audiência com duração estimada de 2 horas. É importante estar preparado para responder questionamentos.",
-      status: "agendada",
-      isShared: false,
-      lawyerId: user?.id || "1",
-      lawyerName: user?.name || "Advogado",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ]);
+  const { data: hearingsData = [], isLoading } = useHearings();
+  const createHearing = useCreateHearing();
+  const updateHearing = useUpdateHearing();
+  const deleteHearing = useDeleteHearing();
+  
+  // Convert database hearings to component format
+  const hearings: Hearing[] = hearingsData.map(h => ({
+    id: h.id,
+    clientName: h.client_name,
+    clientEmail: h.client_email,
+    caseNumber: h.case_number,
+    court: h.court,
+    type: h.type,
+    dateTime: new Date(h.date_time),
+    location: h.location,
+    description: h.description,
+    notes: h.notes || '',
+    status: h.status,
+    isShared: h.is_shared,
+    shareToken: h.share_token || undefined,
+    lawyerId: h.lawyer_id,
+    lawyerName: user?.name || 'Advogado',
+    createdAt: new Date(h.created_at),
+    updatedAt: new Date(h.updated_at),
+  }));
 
-  const handleCreate = (data: Partial<Hearing>) => {
-    const newHearing: Hearing = {
-      id: Date.now().toString(),
-      ...data as Hearing,
-      shareToken: data.isShared ? Math.random().toString(36).substring(7) : undefined,
-      lawyerId: user?.id || "1",
-      lawyerName: user?.name || "Advogado",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    
-    setHearings([...hearings, newHearing]);
-    setIsFormOpen(false);
-    toast({
-      title: "Audiência criada!",
-      description: data.isShared 
-        ? "A audiência foi criada e está pronta para ser compartilhada."
-        : "A audiência foi criada com sucesso.",
-    });
+  const handleCreate = async (data: Partial<Hearing>) => {
+    try {
+      await createHearing.mutateAsync({
+        client_name: data.clientName!,
+        client_email: data.clientEmail!,
+        case_number: data.caseNumber!,
+        court: data.court!,
+        type: data.type!,
+        date_time: data.dateTime!.toISOString(),
+        location: data.location!,
+        description: data.description!,
+        notes: data.notes || null,
+        status: data.status || 'agendada',
+        is_shared: data.isShared || false,
+        share_token: null,
+      });
+      
+      setIsFormOpen(false);
+      toast({
+        title: "Audiência criada!",
+        description: data.isShared 
+          ? "A audiência foi criada e está pronta para ser compartilhada."
+          : "A audiência foi criada com sucesso.",
+      });
+    } catch (error) {
+      toast({
+        title: "Erro ao criar audiência",
+        description: "Não foi possível criar a audiência.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleEdit = (hearing: Hearing) => {
@@ -88,37 +86,59 @@ export default function AdminHearings() {
     setIsFormOpen(true);
   };
 
-  const handleUpdate = (data: Partial<Hearing>) => {
+  const handleUpdate = async (data: Partial<Hearing>) => {
     if (!selectedHearing) return;
     
-    setHearings(hearings.map(h => 
-      h.id === selectedHearing.id 
-        ? { 
-            ...h, 
-            ...data, 
-            shareToken: data.isShared && !h.shareToken 
-              ? Math.random().toString(36).substring(7) 
-              : h.shareToken,
-            updatedAt: new Date() 
-          }
-        : h
-    ));
-    
-    setIsFormOpen(false);
-    setSelectedHearing(null);
-    toast({
-      title: "Audiência atualizada!",
-      description: "As alterações foram salvas com sucesso.",
-    });
+    try {
+      const updates: any = {};
+      
+      if (data.clientName) updates.client_name = data.clientName;
+      if (data.clientEmail) updates.client_email = data.clientEmail;
+      if (data.caseNumber) updates.case_number = data.caseNumber;
+      if (data.court) updates.court = data.court;
+      if (data.type) updates.type = data.type;
+      if (data.dateTime) updates.date_time = data.dateTime.toISOString();
+      if (data.location) updates.location = data.location;
+      if (data.description) updates.description = data.description;
+      if (data.notes !== undefined) updates.notes = data.notes;
+      if (data.status) updates.status = data.status;
+      if (data.isShared !== undefined) updates.is_shared = data.isShared;
+      
+      await updateHearing.mutateAsync({
+        id: selectedHearing.id,
+        ...updates,
+      });
+      
+      setIsFormOpen(false);
+      setSelectedHearing(null);
+      toast({
+        title: "Audiência atualizada!",
+        description: "As alterações foram salvas com sucesso.",
+      });
+    } catch (error) {
+      toast({
+        title: "Erro ao atualizar audiência",
+        description: "Não foi possível atualizar a audiência.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm("Tem certeza que deseja excluir esta audiência?")) {
-      setHearings(hearings.filter(h => h.id !== id));
-      toast({
-        title: "Audiência excluída",
-        description: "A audiência foi removida com sucesso.",
-      });
+      try {
+        await deleteHearing.mutateAsync(id);
+        toast({
+          title: "Audiência excluída",
+          description: "A audiência foi removida com sucesso.",
+        });
+      } catch (error) {
+        toast({
+          title: "Erro ao excluir audiência",
+          description: "Não foi possível excluir a audiência.",
+          variant: "destructive",
+        });
+      }
     }
   };
 
@@ -180,7 +200,11 @@ export default function AdminHearings() {
           </Select>
         </div>
 
-        {filteredHearings.length === 0 ? (
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Carregando audiências...</p>
+          </div>
+        ) : filteredHearings.length === 0 ? (
           <div className="text-center py-12 border-2 border-dashed rounded-lg">
             <p className="text-muted-foreground mb-4">
               {searchTerm || statusFilter !== "all" 
