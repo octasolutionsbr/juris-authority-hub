@@ -43,7 +43,7 @@ const FoundingPartners = () => {
           </p>
         </div>
 
-        <div className="relative px-12">
+        <div className="relative px-14 sm:px-16 md:px-20">
           <Carousel
             opts={{
               align: "start",
