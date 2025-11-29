@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Mail, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
+import { useTranslation } from "react-i18next";
 import {
   Carousel,
   CarouselContent,
@@ -19,6 +20,7 @@ import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
 import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const FoundingPartners = () => {
+  const { t } = useTranslation();
   const [api, setApi] = useState<CarouselApi>();
   const { data: allMembers = [], isLoading } = useTeamMembers();
   const members = allMembers.slice(0, 20);
@@ -37,20 +39,20 @@ const FoundingPartners = () => {
         <div className="text-center mb-16">
           <div className="inline-block mb-4 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full">
             <span className="text-primary text-sm font-medium tracking-wide">
-              LIDERANÇA
+              {t("team.badge")}
             </span>
           </div>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Nossa Equipe
+            {t("team.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Advogados autônomos especializados prontos para atender suas demandas jurídicas.
+            {t("team.description")}
           </p>
         </div>
 
         {isLoading ? (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">Carregando equipe...</p>
+            <p className="text-muted-foreground">{t("team.loading")}</p>
           </div>
         ) : (
           <div className="relative px-0 md:px-20">
@@ -156,7 +158,7 @@ const FoundingPartners = () => {
             to="/equipe"
             className="inline-flex items-center justify-center h-11 px-8 rounded-md border-2 border-input bg-background hover:bg-accent hover:text-accent-foreground font-medium transition-colors"
           >
-            Conheça Toda a Equipe
+            {t("team.viewAll")}
           </Link>
         </div>
       </div>

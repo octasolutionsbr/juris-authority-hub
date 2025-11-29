@@ -1,26 +1,29 @@
 import { Shield, Award, Users, TrendingUp } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const AboutUs = () => {
+  const { t } = useTranslation();
+  
   const values = [
     {
       icon: Shield,
-      title: "Excelência Jurídica",
-      description: "Comprometimento com as mais altas práticas e padrões éticos da advocacia.",
+      title: t("aboutUs.values.excellence.title"),
+      description: t("aboutUs.values.excellence.description"),
     },
     {
       icon: Award,
-      title: "Resultados Comprovados",
-      description: "Histórico consistente de sucessos em casos complexos e estratégicos.",
+      title: t("aboutUs.values.results.title"),
+      description: t("aboutUs.values.results.description"),
     },
     {
       icon: Users,
-      title: "Atendimento Premium",
-      description: "Relacionamento próximo e personalizado com cada cliente.",
+      title: t("aboutUs.values.service.title"),
+      description: t("aboutUs.values.service.description"),
     },
     {
       icon: TrendingUp,
-      title: "Visão Estratégica",
-      description: "Soluções inovadoras que antecipam desafios e oportunidades.",
+      title: t("aboutUs.values.strategy.title"),
+      description: t("aboutUs.values.strategy.description"),
     },
   ];
 
@@ -29,13 +32,10 @@ const AboutUs = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6 animate-fade-in">
-            Sobre <span className="text-primary">Nós</span>
+            {t("aboutUs.title")} <span className="text-primary">{t("aboutUs.titleHighlight")}</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            A Juris Company nasceu da união de profissionais altamente especializados, 
-            comprometidos em oferecer soluções jurídicas que vão além do convencional. 
-            Nossa missão é transformar desafios legais complexos em oportunidades estratégicas 
-            para nossos clientes.
+            {t("aboutUs.description")}
           </p>
         </div>
 
@@ -66,7 +66,7 @@ const AboutUs = () => {
                 20+
               </div>
               <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                Anos de Experiência
+                {t("aboutUs.stats.experience")}
               </div>
             </div>
             <div className="border-x border-border/50">
@@ -74,7 +74,7 @@ const AboutUs = () => {
                 500+
               </div>
               <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                Casos de Sucesso
+                {t("aboutUs.stats.cases")}
               </div>
             </div>
             <div>
@@ -82,7 +82,7 @@ const AboutUs = () => {
                 98%
               </div>
               <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                Satisfação dos Clientes
+                {t("aboutUs.stats.satisfaction")}
               </div>
             </div>
           </div>

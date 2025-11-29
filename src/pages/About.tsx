@@ -2,58 +2,61 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Target, Eye, Award, Users, TrendingUp, Scale, Clock, Shield } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
+  const { t } = useTranslation();
+  
   const values = [
     {
       icon: Scale,
-      title: "Excelência Jurídica",
-      description: "Compromisso com a mais alta qualidade técnica em todas as nossas entregas.",
+      title: t("aboutPage.values.excellence.title"),
+      description: t("aboutPage.values.excellence.description"),
     },
     {
       icon: Shield,
-      title: "Ética e Integridade",
-      description: "Conduta profissional pautada pelos mais rigorosos padrões éticos.",
+      title: t("aboutPage.values.ethics.title"),
+      description: t("aboutPage.values.ethics.description"),
     },
     {
       icon: Users,
-      title: "Foco no Cliente",
-      description: "Relacionamento próximo e soluções personalizadas para cada necessidade.",
+      title: t("aboutPage.values.client.title"),
+      description: t("aboutPage.values.client.description"),
     },
     {
       icon: TrendingUp,
-      title: "Inovação",
-      description: "Uso de tecnologia e metodologias modernas para resultados superiores.",
+      title: t("aboutPage.values.innovation.title"),
+      description: t("aboutPage.values.innovation.description"),
     },
   ];
 
   const stats = [
-    { number: "25+", label: "Anos de Experiência" },
-    { number: "500+", label: "Clientes Atendidos" },
-    { number: "1.000+", label: "Casos de Sucesso" },
-    { number: "R$ 2Bi+", label: "Em Operações" },
+    { number: "25+", label: t("aboutPage.stats.experience") },
+    { number: "500+", label: t("aboutPage.stats.clients") },
+    { number: "1.000+", label: t("aboutPage.stats.cases") },
+    { number: "R$ 2Bi+", label: t("aboutPage.stats.operations") },
   ];
 
   const differentials = [
     {
       icon: Clock,
-      title: "Agilidade",
-      description: "Respostas rápidas e prazos cumpridos com precisão.",
+      title: t("aboutPage.diffList.agility.title"),
+      description: t("aboutPage.diffList.agility.description"),
     },
     {
       icon: Award,
-      title: "Especialização",
-      description: "Equipe altamente qualificada em diversas áreas do direito.",
+      title: t("aboutPage.diffList.specialization.title"),
+      description: t("aboutPage.diffList.specialization.description"),
     },
     {
       icon: Target,
-      title: "Resultados",
-      description: "Foco em soluções práticas e efetivas para nossos clientes.",
+      title: t("aboutPage.diffList.results.title"),
+      description: t("aboutPage.diffList.results.description"),
     },
     {
       icon: Eye,
-      title: "Transparência",
-      description: "Comunicação clara e honesta em todas as etapas.",
+      title: t("aboutPage.diffList.transparency.title"),
+      description: t("aboutPage.diffList.transparency.description"),
     },
   ];
 
@@ -66,11 +69,10 @@ const About = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
-                Sobre Nós
+                {t("aboutPage.title")}
               </h1>
               <p className="text-xl text-background/80 leading-relaxed">
-                Excelência jurídica e compromisso com resultados que transformam
-                negócios e protegem interesses.
+                {t("aboutPage.subtitle")}
               </p>
             </div>
           </div>
@@ -81,24 +83,12 @@ const About = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-8">
-                Nossa História
+                {t("aboutPage.ourStory")}
               </h2>
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                <p>
-                  Fundado em 2000, o escritório nasceu da visão de profissionais experientes
-                  que acreditavam em uma advocacia diferente: estratégica, próxima e
-                  orientada por resultados concretos.
-                </p>
-                <p>
-                  Ao longo de mais de duas décadas, construímos uma trajetória sólida,
-                  assessorando desde startups inovadoras até grandes corporações em
-                  operações complexas que somam bilhões de reais.
-                </p>
-                <p>
-                  Hoje, somos reconhecidos como um dos principais escritórios de advocacia
-                  empresarial do país, com uma equipe multidisciplinar de especialistas
-                  dedicados a entregar soluções jurídicas de excelência.
-                </p>
+                <p>{t("aboutPage.storyContent1")}</p>
+                <p>{t("aboutPage.storyContent2")}</p>
+                <p>{t("aboutPage.storyContent3")}</p>
               </div>
             </div>
           </div>
@@ -114,13 +104,11 @@ const About = () => {
                     <Target className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="text-2xl font-heading font-bold text-foreground">
-                    Missão
+                    {t("aboutPage.mission")}
                   </h3>
                 </div>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Oferecer soluções jurídicas estratégicas e personalizadas, protegendo
-                  os interesses de nossos clientes com excelência técnica, ética e
-                  comprometimento com resultados excepcionais.
+                  {t("aboutPage.missionText")}
                 </p>
               </Card>
 
@@ -130,13 +118,11 @@ const About = () => {
                     <Eye className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="text-2xl font-heading font-bold text-foreground">
-                    Visão
+                    {t("aboutPage.vision")}
                   </h3>
                 </div>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Ser reconhecido como referência nacional em advocacia empresarial,
-                  destacando-nos pela inovação, qualidade técnica e pela construção de
-                  relações duradouras baseadas em confiança e resultados.
+                  {t("aboutPage.visionText")}
                 </p>
               </Card>
             </div>
@@ -148,7 +134,7 @@ const About = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-12 text-center">
-                Nossos Valores
+                {t("aboutPage.ourValues")}
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {values.map((value, index) => {
@@ -177,7 +163,7 @@ const About = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-12 text-center">
-                Nossa Trajetória em Números
+                {t("aboutPage.ourNumbers")}
               </h2>
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {stats.map((stat, index) => (
@@ -200,7 +186,7 @@ const About = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-12 text-center">
-                Nossos Diferenciais
+                {t("aboutPage.differentials")}
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {differentials.map((diff, index) => {

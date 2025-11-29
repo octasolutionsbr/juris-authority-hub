@@ -6,8 +6,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Send, Clock } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -22,16 +24,16 @@ const Contact = () => {
     
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: "Campos obrigatórios",
-        description: "Por favor, preencha todos os campos obrigatórios.",
+        title: t("contact.form.required"),
+        description: t("contact.form.requiredMessage"),
         variant: "destructive",
       });
       return;
     }
 
     toast({
-      title: "Mensagem enviada!",
-      description: "Entraremos em contato em breve.",
+      title: t("contact.form.success"),
+      description: t("contact.form.successMessage"),
     });
 
     setFormData({
@@ -60,10 +62,10 @@ const Contact = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
-                Entre em Contato
+                {t("contact.title")}
               </h1>
               <p className="text-xl text-background/80 leading-relaxed">
-                Estamos prontos para discutir suas necessidades jurídicas e apresentar soluções personalizadas.
+                {t("contact.description")}
               </p>
             </div>
           </div>
@@ -78,10 +80,10 @@ const Contact = () => {
                 <div className="space-y-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
                   <div>
                     <h2 className="text-3xl font-heading font-bold text-foreground mb-6">
-                      Fale Conosco
+                      {t("contact.talkToUs")}
                     </h2>
                     <p className="text-muted-foreground mb-8 leading-relaxed">
-                      Nossa equipe está disponível para atendê-lo e oferecer as melhores soluções jurídicas para seu caso.
+                      {t("contact.availabilityFull")}
                     </p>
                   </div>
 
@@ -91,7 +93,7 @@ const Contact = () => {
                         <Mail className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-2 text-lg">Email</h3>
+                        <h3 className="font-semibold text-foreground mb-2 text-lg">{t("contact.info.email")}</h3>
                         <a
                           href="mailto:contato@juriscompany.com"
                           className="text-muted-foreground hover:text-primary transition-colors"
@@ -106,7 +108,7 @@ const Contact = () => {
                         <Phone className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-2 text-lg">Telefone</h3>
+                        <h3 className="font-semibold text-foreground mb-2 text-lg">{t("contact.info.phone")}</h3>
                         <a
                           href="tel:+5511999999999"
                           className="text-muted-foreground hover:text-primary transition-colors"
@@ -121,11 +123,9 @@ const Contact = () => {
                         <MapPin className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-2 text-lg">Endereço</h3>
-                        <p className="text-muted-foreground leading-relaxed">
-                          Av. Paulista, 1000 - Conjunto 101<br />
-                          Bela Vista, São Paulo - SP<br />
-                          CEP 01310-100
+                        <h3 className="font-semibold text-foreground mb-2 text-lg">{t("contact.info.address")}</h3>
+                        <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                          {t("contact.info.location")}
                         </p>
                       </div>
                     </div>
@@ -135,11 +135,9 @@ const Contact = () => {
                         <Clock className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-2 text-lg">Horário de Atendimento</h3>
-                        <p className="text-muted-foreground leading-relaxed">
-                          Segunda a Sexta: 9h às 18h<br />
-                          Sábado: 9h às 13h<br />
-                          Domingo: Fechado
+                        <h3 className="font-semibold text-foreground mb-2 text-lg">{t("contact.info.hours")}</h3>
+                        <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
+                          {t("contact.info.hoursText")}
                         </p>
                       </div>
                     </div>
@@ -150,13 +148,13 @@ const Contact = () => {
                 <div className="animate-fade-in" style={{ animationDelay: "0.3s" }}>
                   <div className="bg-card border border-border rounded-2xl p-8 shadow-lg">
                     <h2 className="text-2xl font-heading font-bold text-foreground mb-6">
-                      Envie sua Mensagem
+                      {t("contact.sendMessage")}
                     </h2>
                     
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                          Nome Completo *
+                          {t("contact.form.name")} *
                         </label>
                         <Input
                           id="name"
@@ -164,7 +162,7 @@ const Contact = () => {
                           type="text"
                           value={formData.name}
                           onChange={handleChange}
-                          placeholder="Seu nome completo"
+                          placeholder={t("contact.form.namePlaceholder")}
                           required
                           className="h-12"
                         />
@@ -173,7 +171,7 @@ const Contact = () => {
                       <div className="grid md:grid-cols-2 gap-6">
                         <div>
                           <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                            Email *
+                            {t("contact.form.email")} *
                           </label>
                           <Input
                             id="email"
@@ -181,7 +179,7 @@ const Contact = () => {
                             type="email"
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder="seu@email.com"
+                            placeholder={t("contact.form.emailPlaceholder")}
                             required
                             className="h-12"
                           />
@@ -189,7 +187,7 @@ const Contact = () => {
 
                         <div>
                           <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                            Telefone
+                            {t("contact.form.phone")}
                           </label>
                           <Input
                             id="phone"
@@ -197,7 +195,7 @@ const Contact = () => {
                             type="tel"
                             value={formData.phone}
                             onChange={handleChange}
-                            placeholder="(11) 99999-9999"
+                            placeholder={t("contact.form.phonePlaceholder")}
                             className="h-12"
                           />
                         </div>
@@ -205,7 +203,7 @@ const Contact = () => {
 
                       <div>
                         <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                          Assunto
+                          {t("contact.form.subject")}
                         </label>
                         <Input
                           id="subject"
@@ -213,21 +211,21 @@ const Contact = () => {
                           type="text"
                           value={formData.subject}
                           onChange={handleChange}
-                          placeholder="Assunto da sua mensagem"
+                          placeholder={t("contact.form.subjectPlaceholder")}
                           className="h-12"
                         />
                       </div>
 
                       <div>
                         <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                          Mensagem *
+                          {t("contact.form.message")} *
                         </label>
                         <Textarea
                           id="message"
                           name="message"
                           value={formData.message}
                           onChange={handleChange}
-                          placeholder="Descreva suas necessidades jurídicas..."
+                          placeholder={t("contact.form.messagePlaceholder")}
                           rows={6}
                           required
                         />
@@ -238,7 +236,7 @@ const Contact = () => {
                         size="lg"
                         className="w-full group"
                       >
-                        Enviar Mensagem
+                        {t("contact.form.submit")}
                         <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </form>

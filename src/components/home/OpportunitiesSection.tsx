@@ -2,35 +2,38 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, FileText, Receipt, Briefcase, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const OpportunitiesSection = () => {
+  const { t } = useTranslation();
+  
   const categories = [
     {
       icon: Building2,
-      title: "Imóveis",
-      description: "Oportunidades exclusivas em imóveis residenciais e comerciais",
-      count: "12 anúncios",
+      title: t("opportunities.categories.properties.title"),
+      description: t("opportunities.categories.properties.description"),
+      count: t("opportunities.categories.properties.count", { count: 12 }),
       categoryParam: "imoveis",
     },
     {
       icon: FileText,
-      title: "Precatórios",
-      description: "Precatórios federais e estaduais com excelente retorno",
-      count: "8 anúncios",
+      title: t("opportunities.categories.precatorios.title"),
+      description: t("opportunities.categories.precatorios.description"),
+      count: t("opportunities.categories.precatorios.count", { count: 8 }),
       categoryParam: "precatorios",
     },
     {
       icon: Receipt,
-      title: "Créditos Tributários",
-      description: "Créditos acumulados para compensação imediata",
-      count: "15 anúncios",
+      title: t("opportunities.categories.credits.title"),
+      description: t("opportunities.categories.credits.description"),
+      count: t("opportunities.categories.credits.count", { count: 15 }),
       categoryParam: "creditos",
     },
     {
       icon: Briefcase,
-      title: "Outros Ativos",
-      description: "Participações societárias e ativos diversos",
-      count: "6 anúncios",
+      title: t("opportunities.categories.others.title"),
+      description: t("opportunities.categories.others.description"),
+      count: t("opportunities.categories.others.count", { count: 6 }),
       categoryParam: "outros",
     },
   ];
@@ -40,11 +43,10 @@ const OpportunitiesSection = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6 animate-fade-in">
-            Oportunidades de <span className="text-primary">Investimento</span>
+            {t("opportunities.title")} <span className="text-primary">{t("opportunities.titleHighlight")}</span>
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Explore oportunidades exclusivas selecionadas por nossos especialistas. 
-            Investimentos seguros com assessoria jurídica completa.
+            {t("opportunities.description")}
           </p>
         </div>
 
@@ -81,7 +83,7 @@ const OpportunitiesSection = () => {
         <div className="text-center animate-fade-in" style={{ animationDelay: "0.6s" }}>
           <Button size="lg" className="gradient-wine group" asChild>
             <Link to="/oportunidades">
-              Ver Todas as Oportunidades
+              {t("opportunities.viewAll")}
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>

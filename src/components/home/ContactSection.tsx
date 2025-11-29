@@ -4,8 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const ContactSection = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -20,8 +22,8 @@ const ContactSection = () => {
     // Validação básica
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: "Campos obrigatórios",
-        description: "Por favor, preencha todos os campos obrigatórios.",
+        title: t("contact.form.required"),
+        description: t("contact.form.requiredMessage"),
         variant: "destructive",
       });
       return;
@@ -29,8 +31,8 @@ const ContactSection = () => {
 
     // Aqui você pode adicionar a lógica de envio do formulário
     toast({
-      title: "Mensagem enviada!",
-      description: "Entraremos em contato em breve.",
+      title: t("contact.form.success"),
+      description: t("contact.form.successMessage"),
     });
 
     // Limpar formulário
@@ -55,10 +57,10 @@ const ContactSection = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6 animate-fade-in">
-              Entre em <span className="text-primary">Contato</span>
+              {t("contact.title")} <span className="text-primary">{t("contact.subtitle")}</span>
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              Estamos prontos para discutir suas necessidades jurídicas e apresentar soluções personalizadas.
+              {t("contact.description")}
             </p>
           </div>
 
@@ -67,10 +69,10 @@ const ContactSection = () => {
             <div className="space-y-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
               <div>
                 <h3 className="text-2xl font-heading font-bold text-foreground mb-6">
-                  Fale Conosco
+                  {t("contact.talkToUs")}
                 </h3>
                 <p className="text-muted-foreground mb-8">
-                  Nossa equipe está disponível para atendê-lo de segunda a sexta, das 9h às 18h.
+                  {t("contact.availability")}
                 </p>
               </div>
 
@@ -80,7 +82,7 @@ const ContactSection = () => {
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-1">Email</h4>
+                    <h4 className="font-semibold text-foreground mb-1">{t("contact.info.email")}</h4>
                     <a
                       href="mailto:contato@juriscompany.com"
                       className="text-muted-foreground hover:text-primary transition-colors"
@@ -95,7 +97,7 @@ const ContactSection = () => {
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-1">Telefone</h4>
+                    <h4 className="font-semibold text-foreground mb-1">{t("contact.info.phone")}</h4>
                     <a
                       href="tel:+5511999999999"
                       className="text-muted-foreground hover:text-primary transition-colors"
@@ -110,7 +112,7 @@ const ContactSection = () => {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-1">Endereço</h4>
+                    <h4 className="font-semibold text-foreground mb-1">{t("contact.info.address")}</h4>
                     <p className="text-muted-foreground">
                       Av. Paulista, 1000 - Conjunto 101<br />
                       Bela Vista, São Paulo - SP<br />
@@ -126,7 +128,7 @@ const ContactSection = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                    Nome Completo *
+                    {t("contact.form.name")} *
                   </label>
                   <Input
                     id="name"
@@ -134,14 +136,14 @@ const ContactSection = () => {
                     type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Seu nome"
+                    placeholder={t("contact.form.namePlaceholder")}
                     required
                   />
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                    Email *
+                    {t("contact.form.email")} *
                   </label>
                   <Input
                     id="email"
@@ -149,14 +151,14 @@ const ContactSection = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="seu@email.com"
+                    placeholder={t("contact.form.emailPlaceholder")}
                     required
                   />
                 </div>
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                    Telefone
+                    {t("contact.form.phone")}
                   </label>
                   <Input
                     id="phone"
@@ -164,20 +166,20 @@ const ContactSection = () => {
                     type="tel"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="(11) 99999-9999"
+                    placeholder={t("contact.form.phonePlaceholder")}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                    Mensagem *
+                    {t("contact.form.message")} *
                   </label>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Descreva suas necessidades jurídicas..."
+                    placeholder={t("contact.form.messagePlaceholder")}
                     rows={5}
                     required
                   />
@@ -188,7 +190,7 @@ const ContactSection = () => {
                   size="lg"
                   className="w-full gradient-wine group"
                 >
-                  Enviar Mensagem
+                  {t("contact.form.submit")}
                   <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </form>
