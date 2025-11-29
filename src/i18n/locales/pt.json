@@ -1,0 +1,65 @@
+{
+  "header": {
+    "home": "Início",
+    "areas": "Áreas de Atuação",
+    "team": "Equipe",
+    "about": "Sobre",
+    "contact": "Contato",
+    "opportunities": "Oportunidades"
+  },
+  "hero": {
+    "title": "Excelência Jurídica",
+    "subtitle": "Com Resultados Diferenciados",
+    "description": "Soluções estratégicas para empresas e indivíduos que buscam assessoria jurídica de alto nível",
+    "cta": "Entre em Contato"
+  },
+  "about": {
+    "title": "Sobre Nós",
+    "subtitle": "Conheça Nossa História",
+    "description": "A Juris Company é um escritório de advocacia boutique fundado com o propósito de oferecer soluções jurídicas personalizadas e de excelência. Nossa equipe multidisciplinar combina expertise técnica com uma abordagem estratégica e humanizada.",
+    "experience": "Anos de Experiência",
+    "cases": "Casos de Sucesso",
+    "clients": "Clientes Satisfeitos",
+    "awards": "Prêmios e Reconhecimentos"
+  },
+  "practiceAreas": {
+    "title": "Áreas de Atuação",
+    "subtitle": "Expertise Especializada",
+    "viewAll": "Ver Todas as Áreas"
+  },
+  "foundingPartners": {
+    "title": "Sócios Fundadores",
+    "subtitle": "Liderança e Expertise"
+  },
+  "opportunities": {
+    "title": "Oportunidades",
+    "subtitle": "Marketplace Jurídico",
+    "viewAll": "Ver Todas as Oportunidades"
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "subtitle": "Estamos Prontos para Ajudar",
+    "name": "Nome",
+    "email": "E-mail",
+    "phone": "Telefone",
+    "message": "Mensagem",
+    "send": "Enviar Mensagem",
+    "success": "Mensagem enviada com sucesso!",
+    "error": "Erro ao enviar mensagem. Tente novamente."
+  },
+  "footer": {
+    "description": "Excelência jurídica com soluções estratégicas para empresas e indivíduos que buscam resultados diferenciados.",
+    "navigation": "Navegação",
+    "highlightedAreas": "Áreas de Destaque",
+    "contact": "Contato",
+    "rights": "Todos os direitos reservados.",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Uso",
+    "developedBy": "Desenvolvido por"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso"
+  }
+}

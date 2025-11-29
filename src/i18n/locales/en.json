@@ -1,0 +1,65 @@
+{
+  "header": {
+    "home": "Home",
+    "areas": "Practice Areas",
+    "team": "Team",
+    "about": "About",
+    "contact": "Contact",
+    "opportunities": "Opportunities"
+  },
+  "hero": {
+    "title": "Legal Excellence",
+    "subtitle": "With Outstanding Results",
+    "description": "Strategic solutions for companies and individuals seeking high-level legal advice",
+    "cta": "Contact Us"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Learn Our Story",
+    "description": "Juris Company is a boutique law firm founded with the purpose of offering personalized and excellent legal solutions. Our multidisciplinary team combines technical expertise with a strategic and humanized approach.",
+    "experience": "Years of Experience",
+    "cases": "Successful Cases",
+    "clients": "Satisfied Clients",
+    "awards": "Awards and Recognition"
+  },
+  "practiceAreas": {
+    "title": "Practice Areas",
+    "subtitle": "Specialized Expertise",
+    "viewAll": "View All Areas"
+  },
+  "foundingPartners": {
+    "title": "Founding Partners",
+    "subtitle": "Leadership and Expertise"
+  },
+  "opportunities": {
+    "title": "Opportunities",
+    "subtitle": "Legal Marketplace",
+    "viewAll": "View All Opportunities"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're Ready to Help",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Message sent successfully!",
+    "error": "Error sending message. Please try again."
+  },
+  "footer": {
+    "description": "Legal excellence with strategic solutions for companies and individuals seeking outstanding results.",
+    "navigation": "Navigation",
+    "highlightedAreas": "Featured Areas",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "developedBy": "Developed by"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}
