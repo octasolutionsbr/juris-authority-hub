@@ -58,7 +58,7 @@ export default function AdminLogin() {
       if (success) {
         toast({ 
           title: "Cadastro realizado!", 
-          description: "Verifique seu email e aguarde a aprovação do administrador para acessar o sistema."
+          description: "Aguarde a aprovação do administrador para acessar o sistema."
         });
         setRegisterEmail("");
         setRegisterPassword("");
