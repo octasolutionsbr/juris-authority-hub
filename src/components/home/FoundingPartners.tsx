@@ -2,6 +2,13 @@ import { Card } from "@/components/ui/card";
 import { Mail, MessageSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { teamMembers } from "@/data/team";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import carlosMendesPhoto from "@/assets/team/carlos-mendes.jpg";
 import anaSilvaPhoto from "@/assets/team/ana-silva.jpg";
 import robertoCostaPhoto from "@/assets/team/roberto-costa.jpg";
@@ -9,7 +16,7 @@ import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
 import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const FoundingPartners = () => {
-  const partners = teamMembers.filter((member) => member.role === "socio").slice(0, 5);
+  const members = teamMembers.slice(0, 20);
   
   const photoMap: Record<string, string> = {
     "carlos-mendes": carlosMendesPhoto,
@@ -29,84 +36,86 @@ const FoundingPartners = () => {
             </span>
           </div>
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Sócios Fundadores
+            Nossa Equipe
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Profissionais de excelência com décadas de experiência em suas áreas de
-            especialização.
+            Advogados autônomos especializados prontos para atender suas demandas jurídicas.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
-          {partners.map((partner, index) => (
-            <Link
-              key={partner.id}
-              to={`/equipe/${partner.id}`}
-              className="block"
-              style={{
-                animation: `fade-up 0.6s ease-out forwards`,
-                animationDelay: `${index * 0.1}s`,
-                opacity: 0,
-              }}
-            >
-              <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
-                {/* Photo */}
-                <div className="relative h-80 overflow-hidden">
-                  {partner.photo && photoMap[partner.photo] ? (
-                    <img
-                      src={photoMap[partner.photo]}
-                      alt={partner.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
-                      <div className="text-6xl font-heading font-bold text-muted-foreground/30">
-                        {partner.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full max-w-7xl mx-auto"
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {members.map((member) => (
+              <CarouselItem key={member.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                <Link to={`/equipe/${member.id}`} className="block">
+                  <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
+                    {/* Photo */}
+                    <div className="relative h-80 overflow-hidden">
+                      {member.photo && photoMap[member.photo] ? (
+                        <img
+                          src={photoMap[member.photo]}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
+                          <div className="text-6xl font-heading font-bold text-muted-foreground/30">
+                            {member.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </div>
+                        </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6">
+                      <h3 className="font-heading text-xl font-semibold text-foreground mb-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-primary text-sm font-medium mb-3">
+                        {member.title}
+                      </p>
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
+                        {member.bio}
+                      </p>
+
+                      {/* Contact Icons */}
+                      <div className="flex gap-3 justify-center pt-2">
+                        <a
+                          href={`https://wa.me/${member.whatsapp.replace(/\D/g, "")}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="p-2 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-colors"
+                        >
+                          <MessageSquare className="w-5 h-5 text-foreground" />
+                        </a>
+                        <a
+                          href={`mailto:${member.email}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="p-2 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-colors"
+                        >
+                          <Mail className="w-5 h-5 text-foreground" />
+                        </a>
                       </div>
                     </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="font-heading text-xl font-semibold text-foreground mb-1">
-                    {partner.name}
-                  </h3>
-                  <p className="text-primary text-sm font-medium mb-3">
-                    {partner.title}
-                  </p>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
-                    {partner.bio}
-                  </p>
-
-                  {/* Contact Icons */}
-                  <div className="flex gap-3 justify-center pt-2">
-                    <a
-                      href={`https://wa.me/${partner.whatsapp.replace(/\D/g, "")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-2 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-colors"
-                    >
-                      <MessageSquare className="w-5 h-5 text-foreground" />
-                    </a>
-                    <a
-                      href={`mailto:${partner.email}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-2 rounded-full border border-border hover:border-primary hover:bg-primary/10 transition-colors"
-                    >
-                      <Mail className="w-5 h-5 text-foreground" />
-                    </a>
-                  </div>
-                </div>
-              </Card>
-            </Link>
-          ))}
-        </div>
+                  </Card>
+                </Link>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
+        </Carousel>
 
         <div className="text-center mt-12">
           <Link
