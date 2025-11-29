@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Mail, MessageSquare } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Mail, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { teamMembers } from "@/data/team";
 import {
@@ -8,6 +10,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import carlosMendesPhoto from "@/assets/team/carlos-mendes.jpg";
 import anaSilvaPhoto from "@/assets/team/ana-silva.jpg";
@@ -16,6 +19,7 @@ import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
 import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const FoundingPartners = () => {
+  const [api, setApi] = useState<CarouselApi>();
   const members = teamMembers.slice(0, 20);
   
   const photoMap: Record<string, string> = {
@@ -43,12 +47,13 @@ const FoundingPartners = () => {
           </p>
         </div>
 
-        <div className="relative px-4 md:px-20">
+        <div className="relative px-0 md:px-20">
           <Carousel
             opts={{
               align: "start",
               loop: true,
             }}
+            setApi={setApi}
             className="w-full max-w-7xl mx-auto"
           >
           <CarouselContent className="-ml-2 md:-ml-4">
@@ -114,9 +119,29 @@ const FoundingPartners = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-2 bottom-4 top-auto translate-y-0 md:left-auto md:-left-12 md:top-1/2 md:bottom-auto md:-translate-y-1/2" />
-          <CarouselNext className="right-2 bottom-4 top-auto translate-y-0 md:right-auto md:-right-12 md:top-1/2 md:bottom-auto md:-translate-y-1/2" />
+          <CarouselPrevious className="hidden md:flex -left-12" />
+          <CarouselNext className="hidden md:flex -right-12" />
         </Carousel>
+        
+        {/* Mobile navigation - below the carousel */}
+        <div className="flex md:hidden justify-center gap-4 mt-6">
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-10 w-10 rounded-full"
+            onClick={() => api?.scrollPrev()}
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="h-10 w-10 rounded-full"
+            onClick={() => api?.scrollNext()}
+          >
+            <ChevronRight className="h-5 w-5" />
+          </Button>
+        </div>
         </div>
 
         <div className="text-center mt-12">
