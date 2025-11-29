@@ -10,24 +10,28 @@ const OpportunitiesSection = () => {
       title: "Imóveis",
       description: "Oportunidades exclusivas em imóveis residenciais e comerciais",
       count: "12 anúncios",
+      categoryParam: "imoveis",
     },
     {
       icon: FileText,
       title: "Precatórios",
       description: "Precatórios federais e estaduais com excelente retorno",
       count: "8 anúncios",
+      categoryParam: "precatorios",
     },
     {
       icon: Receipt,
       title: "Créditos Tributários",
       description: "Créditos acumulados para compensação imediata",
       count: "15 anúncios",
+      categoryParam: "creditos",
     },
     {
       icon: Briefcase,
       title: "Outros Ativos",
       description: "Participações societárias e ativos diversos",
       count: "6 anúncios",
+      categoryParam: "outros",
     },
   ];
 
@@ -48,7 +52,7 @@ const OpportunitiesSection = () => {
           {categories.map((category, index) => (
             <Link
               key={category.title}
-              to="/oportunidades"
+              to={`/oportunidades?categoria=${category.categoryParam}`}
               className="block animate-fade-in"
               style={{ animationDelay: `${0.2 + index * 0.1}s` }}
             >
