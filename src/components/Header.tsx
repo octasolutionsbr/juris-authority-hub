@@ -3,8 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -20,11 +23,11 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { label: "Áreas de Atuação", href: "/areas" },
-    { label: "Nossa Equipe", href: "/equipe" },
-    { label: "Oportunidades", href: "/oportunidades" },
-    { label: "Sobre Nós", href: "/sobre" },
-    { label: "Contato", href: "/contato" },
+    { label: t("header.areas"), href: "/areas" },
+    { label: t("header.team"), href: "/equipe" },
+    { label: t("header.opportunities"), href: "/oportunidades" },
+    { label: t("header.about"), href: "/sobre" },
+    { label: t("header.contact"), href: "/contato" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -71,8 +74,9 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden lg:flex items-center">
+          {/* Language Switcher & CTA Button */}
+          <div className="hidden lg:flex items-center space-x-2">
+            <LanguageSwitcher isScrolled={isScrolled} isHomePage={isHomePage} />
             <Button size="sm" className="gradient-wine" asChild>
               <Link to="/contato">Agende uma Consulta</Link>
             </Button>
@@ -107,7 +111,10 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="flex flex-col px-4 pt-4">
+              <div className="flex flex-col px-4 pt-4 space-y-2">
+                <div className="flex justify-center">
+                  <LanguageSwitcher isScrolled={true} isHomePage={false} />
+                </div>
                 <Button size="sm" className="gradient-wine" asChild>
                   <Link to="/contato" onClick={() => setIsMobileMenuOpen(false)}>
                     Agende uma Consulta

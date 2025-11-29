@@ -2,8 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import { useTranslation } from "react-i18next";
 
 const Hero = () => {
+  const { t } = useTranslation();
+  
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -26,13 +29,12 @@ const Hero = () => {
           </div>
 
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-background mb-8 leading-tight animate-fade-in">
-            Excelência Jurídica{" "}
-            <span className="text-primary-light">Estratégica</span>
+            {t("hero.title")}{" "}
+            <span className="text-primary-light">{t("hero.subtitle")}</span>
           </h1>
 
           <p className="text-xl md:text-2xl text-background/80 mb-12 leading-relaxed max-w-2xl animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            Soluções jurídicas complexas com expertise incomparável para empresas
-            e executivos que exigem resultados diferenciados.
+            {t("hero.description")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in" style={{ animationDelay: "0.4s" }}>

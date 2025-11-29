@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 import octaLogo from "@/assets/octa-logo.png";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -15,15 +17,14 @@ const Footer = () => {
               Juris <span className="text-primary-light">Company</span>
             </h3>
             <p className="text-background/70 text-sm leading-relaxed">
-              Excelência jurídica com soluções estratégicas para empresas e
-              indivíduos que buscam resultados diferenciados.
+              {t("footer.description")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h4 className="font-heading font-semibold mb-4 text-lg">
-              Navegação
+              {t("footer.navigation")}
             </h4>
             <ul className="space-y-2">
               <li>
@@ -31,7 +32,7 @@ const Footer = () => {
                   to="/areas"
                   className="text-background/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  Áreas de Atuação
+                  {t("header.areas")}
                 </Link>
               </li>
               <li>
@@ -39,7 +40,7 @@ const Footer = () => {
                   to="/equipe"
                   className="text-background/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  Nossa Equipe
+                  {t("header.team")}
                 </Link>
               </li>
               <li>
@@ -47,7 +48,7 @@ const Footer = () => {
                   to="/sobre"
                   className="text-background/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  Sobre Nós
+                  {t("header.about")}
                 </Link>
               </li>
               <li>
@@ -55,7 +56,7 @@ const Footer = () => {
                   to="/contato"
                   className="text-background/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  Contato
+                  {t("header.contact")}
                 </Link>
               </li>
             </ul>
@@ -64,7 +65,7 @@ const Footer = () => {
           {/* Practice Areas */}
           <div>
             <h4 className="font-heading font-semibold mb-4 text-lg">
-              Áreas de Destaque
+              {t("footer.highlightedAreas")}
             </h4>
             <ul className="space-y-2">
               <li>
@@ -105,7 +106,7 @@ const Footer = () => {
           {/* Contact */}
           <div>
             <h4 className="font-heading font-semibold mb-4 text-lg">
-              Contato
+              {t("footer.contact")}
             </h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
@@ -140,27 +141,27 @@ const Footer = () => {
         <div className="pt-8 border-t border-background/20">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-background/60 text-sm">
-              © {currentYear} Juris Company. Todos os direitos reservados.
+              © {currentYear} Juris Company. {t("footer.rights")}
             </p>
             <div className="flex space-x-6">
               <Link
                 to="/privacidade"
                 className="text-background/60 hover:text-primary-light transition-colors text-sm"
               >
-                Política de Privacidade
+                {t("footer.privacy")}
               </Link>
               <Link
                 to="/termos"
                 className="text-background/60 hover:text-primary-light transition-colors text-sm"
               >
-                Termos de Uso
+                {t("footer.terms")}
               </Link>
             </div>
           </div>
           
           {/* Desenvolvido por */}
           <div className="mt-6 pt-6 border-t border-background/20 flex justify-center items-center">
-            <span className="text-background/60 text-sm mr-3">Desenvolvido por</span>
+            <span className="text-background/60 text-sm mr-3">{t("footer.developedBy")}</span>
             <a 
               href="https://www.octasolutions.com.br" 
               target="_blank" 
