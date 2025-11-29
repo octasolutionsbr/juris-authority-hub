@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
+import octaLogo from "@/assets/octa-logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -155,6 +156,19 @@ const Footer = () => {
                 Termos de Uso
               </Link>
             </div>
+          </div>
+          
+          {/* Desenvolvido por */}
+          <div className="mt-6 pt-6 border-t border-background/20 flex justify-center items-center">
+            <span className="text-background/60 text-sm mr-3">Desenvolvido por</span>
+            <a 
+              href="https://www.octasolutions.com.br" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block hover:opacity-80 transition-opacity"
+            >
+              <img src={octaLogo} alt="Octa Solutions" className="h-6" />
+            </a>
           </div>
         </div>
       </div>
