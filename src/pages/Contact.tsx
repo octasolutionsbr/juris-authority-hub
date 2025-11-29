@@ -56,13 +56,13 @@ const Contact = () => {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-background via-background to-primary/5">
+        <section className="py-20 bg-gradient-to-br from-foreground to-foreground/90">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-5xl md:text-6xl font-heading font-bold text-foreground mb-6 animate-fade-in">
-                Entre em <span className="text-primary">Contato</span>
+            <div className="max-w-3xl">
+              <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
+                Entre em Contato
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              <p className="text-xl text-background/80 leading-relaxed">
                 Estamos prontos para discutir suas necessidades jurídicas e apresentar soluções personalizadas.
               </p>
             </div>
