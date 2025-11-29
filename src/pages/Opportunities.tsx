@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -69,7 +70,15 @@ const opportunities = {
 };
 
 const Opportunities = () => {
-  const [activeTab, setActiveTab] = useState("imoveis");
+  const [searchParams] = useSearchParams();
+  const categoryParam = searchParams.get("categoria");
+  const [activeTab, setActiveTab] = useState(categoryParam || "imoveis");
+
+  useEffect(() => {
+    if (categoryParam) {
+      setActiveTab(categoryParam);
+    }
+  }, [categoryParam]);
 
   const OpportunityCard = ({ opportunity, type }: { opportunity: any; type: string }) => (
     <Card className="hover:shadow-lg transition-all duration-300 group">
