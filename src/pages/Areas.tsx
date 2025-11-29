@@ -58,7 +58,7 @@ const Areas = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {practiceAreas.map((area) => {
-                  const Icon = iconMap[area.icon];
+                  const Icon = iconMap[area.icon] || FileText;
                   return (
                     <Link
                       key={area.id}
