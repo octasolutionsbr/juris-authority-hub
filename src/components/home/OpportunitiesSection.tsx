@@ -46,26 +46,31 @@ const OpportunitiesSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {categories.map((category, index) => (
-            <Card
+            <Link
               key={category.title}
-              className="group hover:shadow-lg transition-all duration-300 cursor-pointer hover:border-primary/50 animate-fade-in"
+              to="/oportunidades"
+              className="block animate-fade-in"
               style={{ animationDelay: `${0.2 + index * 0.1}s` }}
             >
-              <CardHeader>
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-background transition-all duration-300">
-                  <category.icon className="w-6 h-6" />
-                </div>
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  {category.title}
-                </CardTitle>
-                <CardDescription>{category.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm font-medium text-muted-foreground">
-                  {category.count}
-                </p>
-              </CardContent>
-            </Card>
+              <Card
+                className="group hover:shadow-lg transition-all duration-300 cursor-pointer hover:border-primary/50 h-full"
+              >
+                <CardHeader>
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4 group-hover:bg-primary group-hover:text-background transition-all duration-300">
+                    <category.icon className="w-6 h-6" />
+                  </div>
+                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                    {category.title}
+                  </CardTitle>
+                  <CardDescription>{category.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {category.count}
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 
