@@ -77,11 +77,13 @@ export type Database = {
           created_at: string
           created_by: string
           description: string
+          description_en: string | null
           id: string
           images: string[] | null
           price: number | null
           status: Database["public"]["Enums"]["listing_status"]
           title: string
+          title_en: string | null
           updated_at: string
         }
         Insert: {
@@ -89,11 +91,13 @@ export type Database = {
           created_at?: string
           created_by: string
           description: string
+          description_en?: string | null
           id?: string
           images?: string[] | null
           price?: number | null
           status?: Database["public"]["Enums"]["listing_status"]
           title: string
+          title_en?: string | null
           updated_at?: string
         }
         Update: {
@@ -101,11 +105,13 @@ export type Database = {
           created_at?: string
           created_by?: string
           description?: string
+          description_en?: string | null
           id?: string
           images?: string[] | null
           price?: number | null
           status?: Database["public"]["Enums"]["listing_status"]
           title?: string
+          title_en?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -114,32 +120,44 @@ export type Database = {
         Row: {
           created_at: string
           description: string
+          description_en: string | null
           icon: string
           id: string
           keywords: string[] | null
+          keywords_en: string[] | null
           long_description: string | null
+          long_description_en: string | null
           order_index: number
           title: string
+          title_en: string | null
         }
         Insert: {
           created_at?: string
           description: string
+          description_en?: string | null
           icon: string
           id: string
           keywords?: string[] | null
+          keywords_en?: string[] | null
           long_description?: string | null
+          long_description_en?: string | null
           order_index?: number
           title: string
+          title_en?: string | null
         }
         Update: {
           created_at?: string
           description?: string
+          description_en?: string | null
           icon?: string
           id?: string
           keywords?: string[] | null
+          keywords_en?: string[] | null
           long_description?: string | null
+          long_description_en?: string | null
           order_index?: number
           title?: string
+          title_en?: string | null
         }
         Relationships: []
       }
@@ -174,46 +192,58 @@ export type Database = {
         Row: {
           areas: string[] | null
           bio: string
+          bio_en: string | null
           created_at: string
           education: string[] | null
+          education_en: string[] | null
           email: string | null
           id: string
           name: string
           order_index: number
           photo: string | null
           publications: string[] | null
+          publications_en: string[] | null
           role: string
           title: string
+          title_en: string | null
           whatsapp: string | null
         }
         Insert: {
           areas?: string[] | null
           bio: string
+          bio_en?: string | null
           created_at?: string
           education?: string[] | null
+          education_en?: string[] | null
           email?: string | null
           id: string
           name: string
           order_index?: number
           photo?: string | null
           publications?: string[] | null
+          publications_en?: string[] | null
           role: string
           title: string
+          title_en?: string | null
           whatsapp?: string | null
         }
         Update: {
           areas?: string[] | null
           bio?: string
+          bio_en?: string | null
           created_at?: string
           education?: string[] | null
+          education_en?: string[] | null
           email?: string | null
           id?: string
           name?: string
           order_index?: number
           photo?: string | null
           publications?: string[] | null
+          publications_en?: string[] | null
           role?: string
           title?: string
+          title_en?: string | null
           whatsapp?: string | null
         }
         Relationships: []

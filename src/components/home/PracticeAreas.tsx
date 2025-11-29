@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { useTranslation } from "react-i18next";
+import { getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import {
   Building2,
   Calculator,
@@ -26,7 +27,7 @@ const iconMap: Record<string, any> = {
 };
 
 const PracticeAreas = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: practiceAreas = [], isLoading } = usePracticeAreas();
 
   return (
@@ -53,6 +54,7 @@ const PracticeAreas = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {practiceAreas.map((area, index) => {
+            const translatedArea = getTranslatedPracticeArea(area, i18n.language);
             const Icon = iconMap[area.icon] || FileText;
             return (
               <Link
@@ -73,11 +75,11 @@ const PracticeAreas = () => {
                   </div>
 
                   <h3 className="font-heading text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
-                    {area.title}
+                    {translatedArea.title}
                   </h3>
 
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {area.description}
+                    {translatedArea.description}
                   </p>
 
                   <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">

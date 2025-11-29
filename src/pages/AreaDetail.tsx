@@ -7,10 +7,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageCircle, ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { getTranslatedPracticeArea, getTranslatedTeamMember } from "@/lib/i18nHelpers";
 import NotFound from "./NotFound";
 
 const AreaDetail = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { areaId } = useParams();
   const { data: area, isLoading: loadingArea } = usePracticeArea(areaId || '');
   const { data: allMembers = [], isLoading: loadingMembers } = useTeamMembers();
@@ -27,6 +28,7 @@ const AreaDetail = () => {
     return <NotFound />;
   }
 
+  const translatedArea = getTranslatedPracticeArea(area, i18n.language);
   const specialists = allMembers.filter((member) =>
     member.areas?.includes(area.id)
   );
@@ -46,10 +48,10 @@ const AreaDetail = () => {
               {t("areaDetail.backToAreas")}
             </Link>
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-background mb-4">
-              {area.title}
+              {translatedArea.title}
             </h1>
             <p className="text-xl text-background/80 max-w-3xl">
-              {area.description}
+              {translatedArea.description}
             </p>
           </div>
         </section>
@@ -62,17 +64,17 @@ const AreaDetail = () => {
                 {t("practiceAreas.title")}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                {area.long_description}
+                {translatedArea.long_description}
               </p>
 
               {/* Keywords */}
-              {area.keywords && area.keywords.length > 0 && (
+              {translatedArea.keywords && translatedArea.keywords.length > 0 && (
                 <div className="mb-12">
                   <h3 className="text-xl font-heading font-semibold mb-4">
                     {t("areaDetail.keywords")}
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {area.keywords.map((keyword) => (
+                    {translatedArea.keywords.map((keyword) => (
                       <span
                         key={keyword}
                         className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium"
@@ -92,11 +94,13 @@ const AreaDetail = () => {
           <section className="py-16 bg-secondary">
             <div className="container mx-auto px-4 lg:px-8">
               <h2 className="text-3xl font-heading font-semibold mb-8">
-                {t("lawyerProfile.specialties")} - {area.title}
+                {t("lawyerProfile.specialties")} - {translatedArea.title}
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {specialists.map((specialist) => (
+                {specialists.map((specialist) => {
+                  const translatedSpecialist = getTranslatedTeamMember(specialist, i18n.language);
+                  return (
                   <Card
                     key={specialist.id}
                     className="p-6 border-2 border-border hover:border-primary hover:shadow-elegant transition-all"
@@ -117,10 +121,10 @@ const AreaDetail = () => {
                       {specialist.name}
                     </h3>
                     <p className="text-primary text-sm font-medium mb-3">
-                      {specialist.title}
+                      {translatedSpecialist.title}
                     </p>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
-                      {specialist.bio}
+                      {translatedSpecialist.bio}
                     </p>
 
                     {/* Contact Buttons */}
@@ -165,7 +169,8 @@ const AreaDetail = () => {
                       {t("team.viewProfile")}
                     </Link>
                   </Card>
-                ))}
+                );
+                })}
               </div>
             </div>
           </section>

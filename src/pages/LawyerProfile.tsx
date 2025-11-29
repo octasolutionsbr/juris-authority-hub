@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import NotFound from "./NotFound";
 
 const LawyerProfile = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { lawyerId } = useParams();
   const { data: lawyer, isLoading: loadingLawyer } = useTeamMember(lawyerId || '');
   const { data: allAreas = [], isLoading: loadingAreas } = usePracticeAreas();
@@ -27,6 +28,7 @@ const LawyerProfile = () => {
     return <NotFound />;
   }
 
+  const translatedLawyer = getTranslatedTeamMember(lawyer, i18n.language);
   const lawyerAreas = allAreas.filter((area) =>
     lawyer.areas?.includes(area.id)
   );
@@ -69,7 +71,7 @@ const LawyerProfile = () => {
                   {lawyer.name}
                 </h1>
                 <p className="text-2xl text-primary-light font-medium mb-6">
-                  {lawyer.title}
+                  {translatedLawyer.title}
                 </p>
 
                 {/* Contact Buttons */}
@@ -102,7 +104,7 @@ const LawyerProfile = () => {
                 </div>
 
                 <p className="text-lg text-background/90 leading-relaxed">
-                  {lawyer.bio}
+                  {translatedLawyer.bio}
                 </p>
               </div>
             </div>
@@ -116,16 +118,18 @@ const LawyerProfile = () => {
               {t("lawyerProfile.specialties")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {lawyerAreas.map((area) => (
+              {lawyerAreas.map((area) => {
+                const translatedArea = getTranslatedPracticeArea(area, i18n.language);
+                return (
                 <Card
                   key={area.id}
                   className="p-6 border-2 border-border hover:border-primary hover:shadow-lg transition-all"
                 >
                   <h3 className="font-heading text-xl font-semibold mb-3 text-foreground">
-                    {area.title}
+                    {translatedArea.title}
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {area.description}
+                    {translatedArea.description}
                   </p>
                   <Link
                     to={`/areas/${area.id}`}
@@ -134,18 +138,19 @@ const LawyerProfile = () => {
                     {t("practiceAreas.learnMore")} →
                   </Link>
                 </Card>
-              ))}
+              );
+              })}
             </div>
           </div>
         </section>
 
         {/* Education & Publications */}
-        {(lawyer.education || lawyer.publications) && (
+        {(translatedLawyer.education || translatedLawyer.publications) && (
           <section className="py-16 bg-secondary">
             <div className="container mx-auto px-4 lg:px-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Education */}
-                {lawyer.education && lawyer.education.length > 0 && (
+                {translatedLawyer.education && translatedLawyer.education.length > 0 && (
                   <Card className="p-8 border-2 border-border">
                     <div className="flex items-center mb-6">
                       <GraduationCap className="w-6 h-6 text-primary mr-3" />
@@ -154,7 +159,7 @@ const LawyerProfile = () => {
                       </h3>
                     </div>
                     <ul className="space-y-3">
-                      {lawyer.education.map((edu, index) => (
+                      {translatedLawyer.education.map((edu, index) => (
                         <li
                           key={index}
                           className="text-muted-foreground leading-relaxed flex items-start"
@@ -168,7 +173,7 @@ const LawyerProfile = () => {
                 )}
 
                 {/* Publications */}
-                {lawyer.publications && lawyer.publications.length > 0 && (
+                {translatedLawyer.publications && translatedLawyer.publications.length > 0 && (
                   <Card className="p-8 border-2 border-border">
                     <div className="flex items-center mb-6">
                       <BookOpen className="w-6 h-6 text-primary mr-3" />
@@ -177,7 +182,7 @@ const LawyerProfile = () => {
                       </h3>
                     </div>
                     <ul className="space-y-3">
-                      {lawyer.publications.map((pub, index) => (
+                      {translatedLawyer.publications.map((pub, index) => (
                         <li
                           key={index}
                           className="text-muted-foreground leading-relaxed flex items-start"
