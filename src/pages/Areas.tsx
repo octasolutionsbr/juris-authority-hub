@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
 import {
   Building2,
   Calculator,
@@ -27,6 +28,7 @@ const iconMap: Record<string, any> = {
 };
 
 const Areas = () => {
+  const { t } = useTranslation();
   const { data: practiceAreas = [], isLoading } = usePracticeAreas();
 
   return (
@@ -38,11 +40,10 @@ const Areas = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
-                Áreas de Atuação
+                {t("areasPage.title")}
               </h1>
               <p className="text-xl text-background/80 leading-relaxed">
-                Expertise jurídica multidisciplinar para atender às demandas mais
-                complexas do mercado com excelência e estratégia.
+                {t("areasPage.subtitle")}
               </p>
             </div>
           </div>
@@ -53,7 +54,7 @@ const Areas = () => {
           <div className="container mx-auto px-4 lg:px-8">
             {isLoading ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">Carregando áreas de atuação...</p>
+                <p className="text-muted-foreground">{t("areasPage.loading")}</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -81,7 +82,7 @@ const Areas = () => {
                         </p>
 
                         <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                          Saiba mais
+                          {t("areasPage.learnMore")}
                           <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </Card>

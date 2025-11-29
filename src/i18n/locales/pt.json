@@ -196,6 +196,47 @@
     "terms": "Termos de Uso",
     "developedBy": "Desenvolvido por"
   },
+  "areasPage": {
+    "title": "Áreas de Atuação",
+    "subtitle": "Expertise jurídica multidisciplinar para atender às demandas mais complexas do mercado com excelência e estratégia.",
+    "loading": "Carregando áreas de atuação...",
+    "learnMore": "Saiba mais"
+  },
+  "areaDetail": {
+    "backToAreas": "Voltar para Áreas",
+    "keywords": "Palavras-chave",
+    "relatedAreas": "Áreas Relacionadas",
+    "contactUs": "Entre em Contato",
+    "description": "Fale conosco para saber mais sobre como podemos ajudá-lo nesta área.",
+    "loading": "Carregando área...",
+    "notFound": "Área não encontrada"
+  },
+  "opportunitiesPage": {
+    "title": "Oportunidades",
+    "subtitle": "Marketplace Jurídico de Investimentos",
+    "description": "Explore oportunidades exclusivas selecionadas por nossos especialistas jurídicos.",
+    "properties": "Imóveis",
+    "courtOrders": "Precatórios",
+    "taxCredits": "Créditos Tributários",
+    "otherAssets": "Outros Ativos",
+    "location": "Localização",
+    "entity": "Entidade",
+    "type": "Tipo",
+    "responsibleLawyer": "Advogado Responsável",
+    "publishedOn": "Publicado em",
+    "contactInterest": "Entrar em Contato"
+  },
+  "lawyerProfile": {
+    "backToTeam": "Voltar para Equipe",
+    "specialties": "Especialidades",
+    "education": "Formação",
+    "publications": "Publicações",
+    "contact": "Entre em Contato",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "loading": "Carregando perfil...",
+    "notFound": "Advogado não encontrado"
+  },
   "common": {
     "loading": "Carregando...",
     "error": "Erro",
