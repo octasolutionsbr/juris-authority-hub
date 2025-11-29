@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -73,6 +73,16 @@ export default function AdminUsers() {
     setEditName(user.name);
   };
 
+  // Atualizar roles quando o dialog abre
+  useEffect(() => {
+    if (editingUser && userRoles) {
+      setEditRoles({
+        admin: userRoles.includes('admin'),
+        lawyer: userRoles.includes('lawyer'),
+      });
+    }
+  }, [editingUser, userRoles]);
+
   const handleSaveEdit = async () => {
     if (!editingUser) return;
 
@@ -127,19 +137,6 @@ export default function AdminUsers() {
       });
     }
   };
-
-  // Atualizar roles quando o dialog abre
-  if (editingUser && userRoles.length >= 0) {
-    const hasAdmin = userRoles.includes('admin');
-    const hasLawyer = userRoles.includes('lawyer');
-    
-    if (editRoles.admin !== hasAdmin || editRoles.lawyer !== hasLawyer) {
-      setEditRoles({
-        admin: hasAdmin,
-        lawyer: hasLawyer,
-      });
-    }
-  }
 
   return (
     <AdminLayout>
