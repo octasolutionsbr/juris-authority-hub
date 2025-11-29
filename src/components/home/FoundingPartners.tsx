@@ -5,6 +5,7 @@ import { Mail, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 import { useTranslation } from "react-i18next";
+import { getTranslatedTeamMember } from "@/lib/i18nHelpers";
 import {
   Carousel,
   CarouselContent,
@@ -20,7 +21,7 @@ import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
 import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const FoundingPartners = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [api, setApi] = useState<CarouselApi>();
   const { data: allMembers = [], isLoading } = useTeamMembers();
   const members = allMembers.slice(0, 20);
@@ -65,7 +66,9 @@ const FoundingPartners = () => {
             className="w-full max-w-7xl mx-auto"
           >
           <CarouselContent className="-ml-2 md:-ml-4">
-            {members.map((member) => (
+            {members.map((member) => {
+              const translatedMember = getTranslatedTeamMember(member, i18n.language);
+              return (
               <CarouselItem key={member.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                 <Link to={`/equipe/${member.id}`} className="block">
                   <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
@@ -96,10 +99,10 @@ const FoundingPartners = () => {
                         {member.name}
                       </h3>
                       <p className="text-primary text-sm font-medium mb-3">
-                        {member.title}
+                        {translatedMember.title}
                       </p>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
-                        {member.bio}
+                        {translatedMember.bio}
                       </p>
 
                       {/* Contact Icons */}
@@ -125,7 +128,8 @@ const FoundingPartners = () => {
                   </Card>
                 </Link>
               </CarouselItem>
-            ))}
+            );
+            })}
           </CarouselContent>
           <CarouselPrevious className="hidden md:flex -left-12" />
           <CarouselNext className="hidden md:flex -right-12" />

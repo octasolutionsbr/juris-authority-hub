@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Mail, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import carlosMendesPhoto from "@/assets/team/carlos-mendes.jpg";
 import anaSilvaPhoto from "@/assets/team/ana-silva.jpg";
 import robertoCostaPhoto from "@/assets/team/roberto-costa.jpg";
@@ -15,7 +16,7 @@ import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
 import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const Team = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedArea, setSelectedArea] = useState<string>("all");
   const { data: teamMembers = [], isLoading: loadingMembers } = useTeamMembers();
   const { data: practiceAreas = [], isLoading: loadingAreas } = usePracticeAreas();
@@ -67,11 +68,14 @@ const Team = () => {
                   className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <option value="all">{t("team.allAreas")}</option>
-                  {practiceAreas.map((area) => (
+                  {practiceAreas.map((area) => {
+                    const translatedArea = getTranslatedPracticeArea(area, i18n.language);
+                    return (
                     <option key={area.id} value={area.id}>
-                      {area.title}
+                      {translatedArea.title}
                     </option>
-                  ))}
+                  );
+                  })}
                 </select>
               </div>
             </div>
@@ -92,7 +96,9 @@ const Team = () => {
                 {t("team.lawyers")}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredMembers.map((member) => (
+                {filteredMembers.map((member) => {
+                  const translatedMember = getTranslatedTeamMember(member, i18n.language);
+                  return (
                   <Card
                     key={member.id}
                     className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all"
@@ -123,10 +129,10 @@ const Team = () => {
                         {member.name}
                       </h3>
                       <p className="text-primary text-sm font-medium mb-3">
-                        {member.title}
+                        {translatedMember.title}
                       </p>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
-                        {member.bio}
+                        {translatedMember.bio}
                       </p>
 
                       {/* Contact Buttons */}
@@ -170,7 +176,8 @@ const Team = () => {
                       </Link>
                     </div>
                   </Card>
-                ))}
+                );
+                })}
               </div>
             </div>
           </section>
