@@ -25,8 +25,8 @@ const LawyerProfile = () => {
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-to-br from-foreground to-foreground/90">
-          <div className="container mx-auto px-4 lg:px-8">
+        <section className="min-h-[calc(100vh-5rem)] bg-gradient-to-br from-foreground to-foreground/90 flex items-center">
+          <div className="container mx-auto px-4 lg:px-8 py-8">
             <Link
               to="/equipe"
               className="inline-flex items-center text-background/70 hover:text-background mb-8 transition-colors"
