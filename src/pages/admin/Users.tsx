@@ -5,26 +5,42 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Check, X, Shield } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { usePendingProfiles, useApprovedProfiles, useApproveUser, useRejectUser } from "@/hooks/useUsers";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 export default function AdminUsers() {
   const { toast } = useToast();
+  
+  const { data: pendingUsers = [], isLoading: loadingPending } = usePendingProfiles();
+  const { data: approvedUsers = [], isLoading: loadingApproved } = useApprovedProfiles();
+  const approveUser = useApproveUser();
+  const rejectUser = useRejectUser();
 
-  const mockPendingUsers = [
-    { id: 1, name: "Dr. Rafael Santos", email: "rafael@email.com", date: "27/11/2025" },
-    { id: 2, name: "Dra. Marina Costa", email: "marina@email.com", date: "26/11/2025" },
-  ];
-
-  const mockApprovedUsers = [
-    { id: 3, name: "Dr. Carlos Mendes", email: "carlos@email.com", role: "Admin", status: "Aprovado" },
-    { id: 4, name: "Dra. Ana Silva", email: "ana@email.com", role: "Advogado", status: "Aprovado" },
-  ];
-
-  const handleApprove = (userId: number) => {
-    toast({ title: "Usuário aprovado com sucesso!" });
+  const handleApprove = async (userId: string) => {
+    try {
+      await approveUser.mutateAsync(userId);
+      toast({ title: "Usuário aprovado com sucesso!" });
+    } catch (error) {
+      toast({ 
+        title: "Erro ao aprovar usuário",
+        variant: "destructive" 
+      });
+    }
   };
 
-  const handleReject = (userId: number) => {
-    toast({ title: "Usuário rejeitado", variant: "destructive" });
+  const handleReject = async (userId: string) => {
+    if (confirm("Tem certeza que deseja rejeitar este usuário?")) {
+      try {
+        await rejectUser.mutateAsync(userId);
+        toast({ title: "Usuário rejeitado", variant: "destructive" });
+      } catch (error) {
+        toast({ 
+          title: "Erro ao rejeitar usuário",
+          variant: "destructive" 
+        });
+      }
+    }
   };
 
   return (
@@ -44,7 +60,11 @@ export default function AdminUsers() {
             <CardDescription>Usuários aguardando aprovação</CardDescription>
           </CardHeader>
           <CardContent>
-            {mockPendingUsers.length === 0 ? (
+            {loadingPending ? (
+              <p className="text-sm text-muted-foreground py-8 text-center">
+                Carregando...
+              </p>
+            ) : pendingUsers.length === 0 ? (
               <p className="text-sm text-muted-foreground py-8 text-center">
                 Nenhuma solicitação pendente
               </p>
@@ -59,11 +79,13 @@ export default function AdminUsers() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {mockPendingUsers.map((user) => (
+                  {pendingUsers.map((user) => (
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.name}</TableCell>
                       <TableCell>{user.email}</TableCell>
-                      <TableCell>{user.date}</TableCell>
+                      <TableCell>
+                        {format(new Date(user.created_at), "dd/MM/yyyy", { locale: ptBR })}
+                      </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Button 
@@ -99,39 +121,42 @@ export default function AdminUsers() {
             <CardDescription>Usuários com acesso ao painel administrativo</CardDescription>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Nome</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Perfil</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Ações</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {mockApprovedUsers.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell className="font-medium">{user.name}</TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell>
-                      <Badge variant={user.role === "Admin" ? "default" : "secondary"}>
-                        {user.role === "Admin" && <Shield className="mr-1 h-3 w-3" />}
-                        {user.role}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="default">{user.status}</Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button variant="ghost" size="sm">
-                        Editar
-                      </Button>
-                    </TableCell>
+            {loadingApproved ? (
+              <p className="text-sm text-muted-foreground py-8 text-center">
+                Carregando...
+              </p>
+            ) : approvedUsers.length === 0 ? (
+              <p className="text-sm text-muted-foreground py-8 text-center">
+                Nenhum usuário aprovado ainda
+              </p>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nome</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">Ações</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {approvedUsers.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        <Badge variant="default">Aprovado</Badge>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="ghost" size="sm">
+                          Editar
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </CardContent>
         </Card>
       </div>

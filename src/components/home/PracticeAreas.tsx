@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
-import { practiceAreas } from "@/data/practiceAreas";
+import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import {
   Building2,
   Calculator,
@@ -25,6 +25,8 @@ const iconMap: Record<string, any> = {
 };
 
 const PracticeAreas = () => {
+  const { data: practiceAreas = [], isLoading } = usePracticeAreas();
+
   return (
     <section className="py-24 bg-secondary">
       <div className="container mx-auto px-4 lg:px-8">
@@ -43,7 +45,12 @@ const PracticeAreas = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Carregando áreas...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {practiceAreas.map((area, index) => {
             const Icon = iconMap[area.icon];
             return (
@@ -81,6 +88,7 @@ const PracticeAreas = () => {
             );
           })}
         </div>
+        )}
 
         <div className="text-center mt-12">
           <Link

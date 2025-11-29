@@ -24,15 +24,23 @@ export default function AdminLogin() {
     e.preventDefault();
     setLoading(true);
 
-    const success = await login(loginEmail, loginPassword);
-    
-    if (success) {
-      toast({ title: "Login realizado com sucesso!" });
-      navigate("/admin/dashboard");
-    } else {
+    try {
+      const success = await login(loginEmail, loginPassword);
+      
+      if (success) {
+        toast({ title: "Login realizado com sucesso!" });
+        navigate("/admin/dashboard");
+      } else {
+        toast({ 
+          title: "Erro no login", 
+          description: "Email ou senha incorretos, ou seu usuário ainda não foi aprovado.",
+          variant: "destructive" 
+        });
+      }
+    } catch (error) {
       toast({ 
-        title: "Erro ao fazer login", 
-        description: "Credenciais inválidas ou usuário não aprovado.",
+        title: "Erro no login", 
+        description: "Ocorreu um erro ao tentar fazer login.",
         variant: "destructive" 
       });
     }
@@ -44,19 +52,28 @@ export default function AdminLogin() {
     e.preventDefault();
     setLoading(true);
 
-    const success = await register(registerEmail, registerPassword, registerName);
-    
-    if (success) {
+    try {
+      const success = await register(registerEmail, registerPassword, registerName);
+      
+      if (success) {
+        toast({ 
+          title: "Cadastro realizado!", 
+          description: "Verifique seu email e aguarde a aprovação do administrador para acessar o sistema."
+        });
+        setRegisterEmail("");
+        setRegisterPassword("");
+        setRegisterName("");
+      } else {
+        toast({ 
+          title: "Erro no cadastro", 
+          description: "Não foi possível realizar o cadastro. O email pode já estar em uso.",
+          variant: "destructive" 
+        });
+      }
+    } catch (error) {
       toast({ 
-        title: "Cadastro realizado!", 
-        description: "Aguarde a aprovação do administrador para acessar o painel." 
-      });
-      setRegisterEmail("");
-      setRegisterPassword("");
-      setRegisterName("");
-    } else {
-      toast({ 
-        title: "Erro ao cadastrar", 
+        title: "Erro no cadastro", 
+        description: "Ocorreu um erro ao tentar se cadastrar.",
         variant: "destructive" 
       });
     }

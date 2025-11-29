@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { teamMembers } from "@/data/team";
-import { practiceAreas } from "@/data/practiceAreas";
+import { useTeamMembers } from "@/hooks/useTeamMembers";
+import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageCircle } from "lucide-react";
@@ -15,6 +15,8 @@ import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
 
 const Team = () => {
   const [selectedArea, setSelectedArea] = useState<string>("all");
+  const { data: teamMembers = [], isLoading: loadingMembers } = useTeamMembers();
+  const { data: practiceAreas = [], isLoading: loadingAreas } = usePracticeAreas();
   
   const photoMap: Record<string, string> = {
     "carlos-mendes": carlosMendesPhoto,
@@ -26,7 +28,7 @@ const Team = () => {
 
   const filteredMembers = teamMembers.filter((member) => {
     const areaMatch =
-      selectedArea === "all" || member.areas.includes(selectedArea);
+      selectedArea === "all" || member.areas?.includes(selectedArea);
     return areaMatch;
   });
 
@@ -75,7 +77,13 @@ const Team = () => {
         </section>
 
         {/* Team Members Section */}
-        {filteredMembers.length > 0 && (
+        {loadingMembers || loadingAreas ? (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4 lg:px-8 text-center">
+              <p className="text-muted-foreground">Carregando...</p>
+            </div>
+          </section>
+        ) : filteredMembers.length > 0 ? (
           <section className="py-16 bg-background">
             <div className="container mx-auto px-4 lg:px-8">
               <h2 className="text-3xl font-heading font-semibold mb-8">
@@ -128,7 +136,7 @@ const Team = () => {
                           asChild
                         >
                           <a
-                            href={`https://wa.me/${member.whatsapp.replace(
+                            href={`https://wa.me/${member.whatsapp?.replace(
                               /\D/g,
                               ""
                             )}`}
@@ -164,10 +172,7 @@ const Team = () => {
               </div>
             </div>
           </section>
-        )}
-
-        {/* No Results */}
-        {filteredMembers.length === 0 && (
+        ) : (
           <section className="py-20 bg-background text-center">
             <div className="container mx-auto px-4 lg:px-8">
               <p className="text-muted-foreground text-lg">
