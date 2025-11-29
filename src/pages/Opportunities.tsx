@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Building2, FileText, Receipt, Briefcase, MapPin, Calendar, User, Mail } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 // Mock data para exemplo
 const opportunities = {
@@ -70,6 +71,7 @@ const opportunities = {
 };
 
 const Opportunities = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const categoryParam = searchParams.get("categoria");
   const [activeTab, setActiveTab] = useState(categoryParam || "imoveis");
@@ -98,52 +100,50 @@ const Opportunities = () => {
           </div>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          <div className="flex items-center justify-between border-t border-border pt-4">
-            <span className="text-2xl font-heading font-bold text-primary">
-              {opportunity.price}
-            </span>
-          </div>
-          
-          <div className="space-y-2 text-sm text-muted-foreground">
-            {opportunity.location && (
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" />
-                <span>{opportunity.location}</span>
-              </div>
-            )}
-            {opportunity.entity && (
-              <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4" />
-                <span>{opportunity.entity}</span>
-              </div>
-            )}
-            {opportunity.type && (
-              <div className="flex items-center gap-2">
-                <Briefcase className="w-4 h-4" />
-                <span>{opportunity.type}</span>
-              </div>
-            )}
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <span>Publicado em {opportunity.date}</span>
+      <CardContent className="space-y-4">
+        <div className="flex items-center justify-between">
+          <span className="text-2xl font-bold text-primary">{opportunity.price}</span>
+        </div>
+
+        <div className="space-y-2 text-sm">
+          {opportunity.location && (
+            <div className="flex items-center text-muted-foreground">
+              <MapPin className="w-4 h-4 mr-2" />
+              <span>{opportunity.location}</span>
             </div>
+          )}
+
+          {opportunity.entity && (
+            <div className="flex items-center text-muted-foreground">
+              <Building2 className="w-4 h-4 mr-2" />
+              <span>{opportunity.entity}</span>
+            </div>
+          )}
+
+          {opportunity.type && (
+            <div className="flex items-center text-muted-foreground">
+              <Receipt className="w-4 h-4 mr-2" />
+              <span>{opportunity.type}</span>
+            </div>
+          )}
+
+          <div className="flex items-center text-muted-foreground">
+            <User className="w-4 h-4 mr-2" />
+            <span>{opportunity.lawyer}</span>
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-border">
-            <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium">{opportunity.lawyer}</span>
-            </div>
-            <Button variant="outline" size="sm" asChild>
-              <a href={`mailto:${opportunity.lawyerEmail}`}>
-                <Mail className="w-4 h-4 mr-2" />
-                Contatar
-              </a>
-            </Button>
+          <div className="flex items-center text-muted-foreground">
+            <Calendar className="w-4 h-4 mr-2" />
+            <span>{opportunity.date}</span>
           </div>
         </div>
+
+        <Button className="w-full group" asChild>
+          <a href={`mailto:${opportunity.lawyerEmail}`}>
+            <Mail className="w-4 h-4 mr-2" />
+            {t("opportunitiesPage.contactInterest")}
+          </a>
+        </Button>
       </CardContent>
     </Card>
   );
@@ -157,64 +157,64 @@ const Opportunities = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-3xl">
               <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
-                Oportunidades de Investimento
+                {t("opportunitiesPage.title")}
               </h1>
               <p className="text-xl text-background/80 leading-relaxed">
-                Explore oportunidades exclusivas de investimento em imóveis, precatórios, créditos tributários e outros ativos.
+                {t("opportunitiesPage.description")}
               </p>
             </div>
           </div>
         </section>
 
-        {/* Opportunities Section */}
-        <section className="py-20">
+        {/* Opportunities Content */}
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-4 mb-12">
-                <TabsTrigger value="imoveis" className="gap-2">
-                  <Building2 className="w-4 h-4" />
-                  Imóveis
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-12 h-auto">
+                <TabsTrigger value="imoveis" className="text-base py-3">
+                  <Building2 className="w-5 h-5 mr-2" />
+                  {t("opportunitiesPage.properties")}
                 </TabsTrigger>
-                <TabsTrigger value="precatorios" className="gap-2">
-                  <FileText className="w-4 h-4" />
-                  Precatórios
+                <TabsTrigger value="precatorios" className="text-base py-3">
+                  <FileText className="w-5 h-5 mr-2" />
+                  {t("opportunitiesPage.courtOrders")}
                 </TabsTrigger>
-                <TabsTrigger value="creditos" className="gap-2">
-                  <Receipt className="w-4 h-4" />
-                  Créditos
+                <TabsTrigger value="creditos" className="text-base py-3">
+                  <Receipt className="w-5 h-5 mr-2" />
+                  {t("opportunitiesPage.taxCredits")}
                 </TabsTrigger>
-                <TabsTrigger value="outros" className="gap-2">
-                  <Briefcase className="w-4 h-4" />
-                  Outros
+                <TabsTrigger value="outros" className="text-base py-3">
+                  <Briefcase className="w-5 h-5 mr-2" />
+                  {t("opportunitiesPage.otherAssets")}
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="imoveis" className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <TabsContent value="imoveis" className="mt-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {opportunities.imoveis.map((opp) => (
                     <OpportunityCard key={opp.id} opportunity={opp} type="imoveis" />
                   ))}
                 </div>
               </TabsContent>
 
-              <TabsContent value="precatorios" className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <TabsContent value="precatorios" className="mt-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {opportunities.precatorios.map((opp) => (
                     <OpportunityCard key={opp.id} opportunity={opp} type="precatorios" />
                   ))}
                 </div>
               </TabsContent>
 
-              <TabsContent value="creditos" className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <TabsContent value="creditos" className="mt-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {opportunities.creditos.map((opp) => (
                     <OpportunityCard key={opp.id} opportunity={opp} type="creditos" />
                   ))}
                 </div>
               </TabsContent>
 
-              <TabsContent value="outros" className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <TabsContent value="outros" className="mt-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {opportunities.outros.map((opp) => (
                     <OpportunityCard key={opp.id} opportunity={opp} type="outros" />
                   ))}

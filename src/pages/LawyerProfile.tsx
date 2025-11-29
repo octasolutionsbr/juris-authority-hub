@@ -6,9 +6,11 @@ import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import NotFound from "./NotFound";
 
 const LawyerProfile = () => {
+  const { t } = useTranslation();
   const { lawyerId } = useParams();
   const { data: lawyer, isLoading: loadingLawyer } = useTeamMember(lawyerId || '');
   const { data: allAreas = [], isLoading: loadingAreas } = usePracticeAreas();
@@ -16,7 +18,7 @@ const LawyerProfile = () => {
   if (loadingLawyer || loadingAreas) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Carregando...</p>
+        <p className="text-muted-foreground">{t("lawyerProfile.loading")}</p>
       </div>
     );
   }
@@ -41,7 +43,7 @@ const LawyerProfile = () => {
               className="inline-flex items-center text-background/70 hover:text-background mb-8 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Voltar para Equipe
+              {t("lawyerProfile.backToTeam")}
             </Link>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -83,7 +85,7 @@ const LawyerProfile = () => {
                       rel="noopener noreferrer"
                     >
                       <MessageCircle className="w-5 h-5 mr-2" />
-                      WhatsApp
+                      {t("lawyerProfile.whatsapp")}
                     </a>
                   </Button>
                   <Button
@@ -94,7 +96,7 @@ const LawyerProfile = () => {
                   >
                     <a href={`mailto:${lawyer.email}`}>
                       <Mail className="w-5 h-5 mr-2" />
-                      Email
+                      {t("lawyerProfile.email")}
                     </a>
                   </Button>
                 </div>
@@ -111,7 +113,7 @@ const LawyerProfile = () => {
         <section className="py-16 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
             <h2 className="text-3xl font-heading font-semibold mb-8">
-              Áreas de Atuação
+              {t("lawyerProfile.specialties")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {lawyerAreas.map((area) => (
@@ -129,7 +131,7 @@ const LawyerProfile = () => {
                     to={`/areas/${area.id}`}
                     className="text-primary hover:text-primary-dark text-sm font-medium transition-colors"
                   >
-                    Saiba mais →
+                    {t("practiceAreas.learnMore")} →
                   </Link>
                 </Card>
               ))}
@@ -148,7 +150,7 @@ const LawyerProfile = () => {
                     <div className="flex items-center mb-6">
                       <GraduationCap className="w-6 h-6 text-primary mr-3" />
                       <h3 className="text-2xl font-heading font-semibold">
-                        Formação Acadêmica
+                        {t("lawyerProfile.education")}
                       </h3>
                     </div>
                     <ul className="space-y-3">
@@ -171,7 +173,7 @@ const LawyerProfile = () => {
                     <div className="flex items-center mb-6">
                       <BookOpen className="w-6 h-6 text-primary mr-3" />
                       <h3 className="text-2xl font-heading font-semibold">
-                        Publicações
+                        {t("lawyerProfile.publications")}
                       </h3>
                     </div>
                     <ul className="space-y-3">
@@ -196,11 +198,10 @@ const LawyerProfile = () => {
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Agende uma Consulta
+              {t("header.scheduleConsultation")}
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
-              Entre em contato diretamente com {lawyer.name.split(" ")[1]} para
-              discutir seu caso.
+              {t("lawyerProfile.contact")} {lawyer.name.split(" ")[0]}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button
@@ -215,7 +216,7 @@ const LawyerProfile = () => {
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-5 h-5 mr-2" />
-                  WhatsApp
+                  {t("lawyerProfile.whatsapp")}
                 </a>
               </Button>
               <Button
@@ -226,7 +227,7 @@ const LawyerProfile = () => {
               >
                 <a href={`mailto:${lawyer.email}`}>
                   <Mail className="w-5 h-5 mr-2" />
-                  Email
+                  {t("lawyerProfile.email")}
                 </a>
               </Button>
             </div>

@@ -24,7 +24,7 @@ const Hero = () => {
         <div className="max-w-4xl">
           <div className="inline-block mb-6 px-4 py-2 bg-primary/10 backdrop-blur-sm border border-primary/20 rounded-full">
             <span className="text-primary-light text-sm font-medium tracking-wide">
-              ADVOCACIA PREMIUM ESPECIALIZADA
+              {t("hero.badge")}
             </span>
           </div>
 
@@ -44,7 +44,7 @@ const Hero = () => {
               asChild
             >
               <Link to="/contato">
-                Agende uma Consulta
+                {t("hero.cta")}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -54,7 +54,7 @@ const Hero = () => {
               className="text-lg px-8 py-6 border-2 border-background bg-transparent text-background hover:border-primary hover:text-primary hover:bg-transparent transition-all"
               asChild
             >
-              <Link to="/areas">Conheça Nossas Áreas</Link>
+              <Link to="/areas">{t("hero.knowAreas")}</Link>
             </Button>
           </div>
         </div>

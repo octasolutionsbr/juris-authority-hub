@@ -78,7 +78,7 @@ const Header = () => {
           <div className="hidden lg:flex items-center space-x-2">
             <LanguageSwitcher isScrolled={isScrolled} isHomePage={isHomePage} />
             <Button size="sm" className="gradient-wine" asChild>
-              <Link to="/contato">Agende uma Consulta</Link>
+              <Link to="/contato">{t("header.scheduleConsultation")}</Link>
             </Button>
           </div>
 
@@ -117,7 +117,7 @@ const Header = () => {
                 </div>
                 <Button size="sm" className="gradient-wine" asChild>
                   <Link to="/contato" onClick={() => setIsMobileMenuOpen(false)}>
-                    Agende uma Consulta
+                    {t("header.scheduleConsultation")}
                   </Link>
                 </Button>
               </div>

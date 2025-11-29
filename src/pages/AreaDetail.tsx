@@ -6,9 +6,11 @@ import { useTeamMembers } from "@/hooks/useTeamMembers";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageCircle, ArrowLeft } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import NotFound from "./NotFound";
 
 const AreaDetail = () => {
+  const { t } = useTranslation();
   const { areaId } = useParams();
   const { data: area, isLoading: loadingArea } = usePracticeArea(areaId || '');
   const { data: allMembers = [], isLoading: loadingMembers } = useTeamMembers();
@@ -16,7 +18,7 @@ const AreaDetail = () => {
   if (loadingArea || loadingMembers) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Carregando...</p>
+        <p className="text-muted-foreground">{t("areaDetail.loading")}</p>
       </div>
     );
   }
@@ -41,7 +43,7 @@ const AreaDetail = () => {
               className="inline-flex items-center text-background/70 hover:text-background mb-6 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Voltar para Áreas
+              {t("areaDetail.backToAreas")}
             </Link>
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-background mb-4">
               {area.title}
@@ -57,7 +59,7 @@ const AreaDetail = () => {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl">
               <h2 className="text-3xl font-heading font-semibold mb-6">
-                Nossa Expertise
+                {t("practiceAreas.title")}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
                 {area.long_description}
@@ -67,7 +69,7 @@ const AreaDetail = () => {
               {area.keywords && area.keywords.length > 0 && (
                 <div className="mb-12">
                   <h3 className="text-xl font-heading font-semibold mb-4">
-                    Áreas de Foco
+                    {t("areaDetail.keywords")}
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {area.keywords.map((keyword) => (
@@ -90,7 +92,7 @@ const AreaDetail = () => {
           <section className="py-16 bg-secondary">
             <div className="container mx-auto px-4 lg:px-8">
               <h2 className="text-3xl font-heading font-semibold mb-8">
-                Especialistas em {area.title}
+                {t("lawyerProfile.specialties")} - {area.title}
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -139,7 +141,7 @@ const AreaDetail = () => {
                             rel="noopener noreferrer"
                           >
                             <MessageCircle className="w-4 h-4 mr-2" />
-                            WhatsApp
+                            {t("team.whatsapp")}
                           </a>
                         </Button>
                         <Button
@@ -150,7 +152,7 @@ const AreaDetail = () => {
                         >
                           <a href={`mailto:${specialist.email}`}>
                             <Mail className="w-4 h-4 mr-2" />
-                            Email
+                            {t("team.email")}
                           </a>
                         </Button>
                       </div>
@@ -160,7 +162,7 @@ const AreaDetail = () => {
                       to={`/equipe/${specialist.id}`}
                       className="block text-center text-sm text-primary hover:text-primary-dark font-medium transition-colors"
                     >
-                      Ver Perfil Completo →
+                      {t("team.viewProfile")}
                     </Link>
                   </Card>
                 ))}
@@ -173,11 +175,10 @@ const AreaDetail = () => {
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Precisa de Consultoria Especializada?
+              {t("areaDetail.contactUs")}
             </h2>
             <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
-              Entre em contato com nossa equipe de {area.title} e receba uma
-              análise personalizada do seu caso.
+              {t("areaDetail.description")}
             </p>
             <Button
               size="lg"
@@ -185,7 +186,7 @@ const AreaDetail = () => {
               className="text-lg px-8"
               asChild
             >
-              <Link to="/contato">Fale com Nossa Equipe</Link>
+              <Link to="/contato">{t("contact.talkToUs")}</Link>
             </Button>
           </div>
         </section>

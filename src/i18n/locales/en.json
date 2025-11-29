@@ -196,6 +196,47 @@
     "terms": "Terms of Use",
     "developedBy": "Developed by"
   },
+  "areasPage": {
+    "title": "Practice Areas",
+    "subtitle": "Multidisciplinary legal expertise to meet the most complex market demands with excellence and strategy.",
+    "loading": "Loading practice areas...",
+    "learnMore": "Learn more"
+  },
+  "areaDetail": {
+    "backToAreas": "Back to Areas",
+    "keywords": "Keywords",
+    "relatedAreas": "Related Areas",
+    "contactUs": "Contact Us",
+    "description": "Contact us to learn more about how we can help you in this area.",
+    "loading": "Loading area...",
+    "notFound": "Area not found"
+  },
+  "opportunitiesPage": {
+    "title": "Opportunities",
+    "subtitle": "Legal Investment Marketplace",
+    "description": "Explore exclusive opportunities selected by our legal experts.",
+    "properties": "Real Estate",
+    "courtOrders": "Court Orders",
+    "taxCredits": "Tax Credits",
+    "otherAssets": "Other Assets",
+    "location": "Location",
+    "entity": "Entity",
+    "type": "Type",
+    "responsibleLawyer": "Responsible Lawyer",
+    "publishedOn": "Published on",
+    "contactInterest": "Contact for Interest"
+  },
+  "lawyerProfile": {
+    "backToTeam": "Back to Team",
+    "specialties": "Specialties",
+    "education": "Education",
+    "publications": "Publications",
+    "contact": "Contact",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "loading": "Loading profile...",
+    "notFound": "Lawyer not found"
+  },
   "common": {
     "loading": "Loading...",
     "error": "Error",
