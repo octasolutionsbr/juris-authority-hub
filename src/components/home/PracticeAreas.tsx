@@ -54,7 +54,7 @@ const PracticeAreas = () => {
             <p className="text-muted-foreground">{t("practiceAreas.loading")}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           {practiceAreas.map((area, index) => {
             const translatedArea = getTranslatedPracticeArea(area, i18n.language);
             const Icon = iconMap[area.icon] || FileText;
