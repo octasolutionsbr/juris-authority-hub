@@ -12,6 +12,7 @@ import {
   Leaf,
   Lightbulb,
   Globe,
+  Scale,
   ArrowRight,
 } from "lucide-react";
 
@@ -24,6 +25,7 @@ const iconMap: Record<string, any> = {
   Leaf,
   Lightbulb,
   Globe,
+  Scale,
 };
 
 const PracticeAreas = () => {
