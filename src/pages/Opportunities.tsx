@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building2, FileText, Receipt, Briefcase, MapPin, Calendar, User, Mail } from "lucide-react";
+import { Building2, FileText, Briefcase, MapPin, Calendar, User, Mail } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 // Mock data para exemplo
@@ -44,18 +44,6 @@ const opportunities = {
       date: "08/11/2025",
     },
   ],
-  creditos: [
-    {
-      id: "4",
-      title: "Crédito Tributário ICMS",
-      description: "Crédito acumulado de ICMS para compensação",
-      price: "R$ 320.000",
-      type: "ICMS",
-      lawyer: "Dra. Ana Paula",
-      lawyerEmail: "ana.paula@juriscompany.com",
-      date: "12/11/2025",
-    },
-  ],
   outros: [
     {
       id: "5",
@@ -89,7 +77,6 @@ const Opportunities = () => {
           <div className="flex items-center gap-3">
             {type === "imoveis" && <Building2 className="w-6 h-6 text-primary" />}
             {type === "precatorios" && <FileText className="w-6 h-6 text-primary" />}
-            {type === "creditos" && <Receipt className="w-6 h-6 text-primary" />}
             {type === "outros" && <Briefcase className="w-6 h-6 text-primary" />}
             <div>
               <CardTitle className="text-xl group-hover:text-primary transition-colors">
@@ -122,7 +109,7 @@ const Opportunities = () => {
 
           {opportunity.type && (
             <div className="flex items-center text-muted-foreground">
-              <Receipt className="w-4 h-4 mr-2" />
+              <Briefcase className="w-4 h-4 mr-2" />
               <span>{opportunity.type}</span>
             </div>
           )}
@@ -170,7 +157,7 @@ const Opportunities = () => {
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-12 h-auto">
+              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3 mb-12 h-auto">
                 <TabsTrigger value="imoveis" className="text-base py-3">
                   <Building2 className="w-5 h-5 mr-2" />
                   {t("opportunitiesPage.properties")}
@@ -178,10 +165,6 @@ const Opportunities = () => {
                 <TabsTrigger value="precatorios" className="text-base py-3">
                   <FileText className="w-5 h-5 mr-2" />
                   {t("opportunitiesPage.courtOrders")}
-                </TabsTrigger>
-                <TabsTrigger value="creditos" className="text-base py-3">
-                  <Receipt className="w-5 h-5 mr-2" />
-                  {t("opportunitiesPage.taxCredits")}
                 </TabsTrigger>
                 <TabsTrigger value="outros" className="text-base py-3">
                   <Briefcase className="w-5 h-5 mr-2" />
@@ -205,13 +188,6 @@ const Opportunities = () => {
                 </div>
               </TabsContent>
 
-              <TabsContent value="creditos" className="mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {opportunities.creditos.map((opp) => (
-                    <OpportunityCard key={opp.id} opportunity={opp} type="creditos" />
-                  ))}
-                </div>
-              </TabsContent>
 
               <TabsContent value="outros" className="mt-0">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
