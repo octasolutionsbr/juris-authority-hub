@@ -69,24 +69,24 @@ const PracticeAreas = () => {
                   opacity: 0,
                 }}
               >
-                <Card className="h-full p-8 border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-elegant hover:-translate-y-2 bg-background">
-                  <div className="mb-6">
-                    <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
-                      <Icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors" />
+                <Card className="h-full p-5 border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-elegant hover:-translate-y-2 bg-background">
+                  <div className="mb-4">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
+                      <Icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                     </div>
                   </div>
 
-                  <h3 className="font-heading text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="font-heading text-base font-semibold mb-2 text-foreground group-hover:text-primary transition-colors leading-tight">
                     {translatedArea.title}
                   </h3>
 
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  <p className="text-muted-foreground text-xs leading-relaxed mb-3 line-clamp-2">
                     {translatedArea.description}
                   </p>
 
-                  <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
+                  <div className="flex items-center text-primary text-xs font-medium group-hover:gap-1 transition-all">
                     {t("practiceAreas.learnMore")}
-                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </Card>
               </Link>
