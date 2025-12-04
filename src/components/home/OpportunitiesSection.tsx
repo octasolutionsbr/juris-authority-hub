@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building2, FileText, Receipt, Briefcase, ArrowRight } from "lucide-react";
+import { Building2, FileText, Briefcase, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const OpportunitiesSection = () => {
@@ -21,13 +21,6 @@ const OpportunitiesSection = () => {
       description: t("opportunities.categories.precatorios.description"),
       count: t("opportunities.categories.precatorios.count", { count: 8 }),
       categoryParam: "precatorios",
-    },
-    {
-      icon: Receipt,
-      title: t("opportunities.categories.credits.title"),
-      description: t("opportunities.categories.credits.description"),
-      count: t("opportunities.categories.credits.count", { count: 15 }),
-      categoryParam: "creditos",
     },
     {
       icon: Briefcase,
@@ -50,7 +43,7 @@ const OpportunitiesSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {categories.map((category, index) => (
             <Link
               key={category.title}
