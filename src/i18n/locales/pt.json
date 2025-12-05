@@ -241,5 +241,12 @@
     "loading": "Carregando...",
     "error": "Erro",
     "success": "Sucesso"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "A página que você está procurando não existe ou foi movida.",
+    "backHome": "Voltar ao Início",
+    "contact": "Fale Conosco",
+    "attemptedPath": "Caminho tentado"
   }
 }

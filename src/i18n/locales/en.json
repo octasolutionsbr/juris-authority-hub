@@ -241,5 +241,12 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home",
+    "contact": "Contact Us",
+    "attemptedPath": "Attempted path"
   }
 }
