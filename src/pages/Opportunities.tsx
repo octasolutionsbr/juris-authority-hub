@@ -2,61 +2,11 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building2, FileText, Briefcase, MapPin, Calendar, User, Mail } from "lucide-react";
+import { Building2, FileText, Briefcase } from "lucide-react";
 import { useTranslation } from "react-i18next";
-
-// Mock data para exemplo
-const opportunities = {
-  imoveis: [
-    {
-      id: "1",
-      title: "Apartamento Centro - 3 Quartos",
-      description: "Apartamento de luxo com 3 quartos, 2 vagas, próximo ao centro comercial",
-      price: "R$ 850.000",
-      location: "Centro, São Paulo",
-      lawyer: "Dr. João Silva",
-      lawyerEmail: "joao.silva@juriscompany.com",
-      date: "15/11/2025",
-    },
-    {
-      id: "2",
-      title: "Casa Condomínio Fechado",
-      description: "Casa térrea em condomínio fechado com área de lazer completa",
-      price: "R$ 1.200.000",
-      location: "Alphaville, SP",
-      lawyer: "Dra. Maria Santos",
-      lawyerEmail: "maria.santos@juriscompany.com",
-      date: "10/11/2025",
-    },
-  ],
-  precatorios: [
-    {
-      id: "3",
-      title: "Precatório Federal - INSS",
-      description: "Precatório federal referente a ação previdenciária",
-      price: "R$ 450.000",
-      entity: "União Federal",
-      lawyer: "Dr. Pedro Costa",
-      lawyerEmail: "pedro.costa@juriscompany.com",
-      date: "08/11/2025",
-    },
-  ],
-  outros: [
-    {
-      id: "5",
-      title: "Participação Societária",
-      description: "Cota de participação em empresa do setor de tecnologia",
-      price: "R$ 200.000",
-      type: "Participação",
-      lawyer: "Dr. Carlos Mendes",
-      lawyerEmail: "carlos.mendes@juriscompany.com",
-      date: "14/11/2025",
-    },
-  ],
-};
+import { useListings } from "@/hooks/useListings";
+import { OpportunityCard } from "@/components/opportunities/OpportunityCard";
 
 const Opportunities = () => {
   const { t } = useTranslation();
@@ -64,75 +14,24 @@ const Opportunities = () => {
   const categoryParam = searchParams.get("categoria");
   const [activeTab, setActiveTab] = useState(categoryParam || "imoveis");
 
+  const { data: listings = [], isLoading } = useListings();
+
   useEffect(() => {
     if (categoryParam) {
       setActiveTab(categoryParam);
     }
   }, [categoryParam]);
 
-  const OpportunityCard = ({ opportunity, type }: { opportunity: any; type: string }) => (
-    <Card className="hover:shadow-lg transition-all duration-300 group">
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            {type === "imoveis" && <Building2 className="w-6 h-6 text-primary" />}
-            {type === "precatorios" && <FileText className="w-6 h-6 text-primary" />}
-            {type === "outros" && <Briefcase className="w-6 h-6 text-primary" />}
-            <div>
-              <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                {opportunity.title}
-              </CardTitle>
-              <CardDescription className="mt-1">{opportunity.description}</CardDescription>
-            </div>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-primary">{opportunity.price}</span>
-        </div>
+  // Filter only available listings by category
+  const availableListings = listings.filter((l) => l.status === "available");
+  const imoveis = availableListings.filter((l) => l.category === "imoveis");
+  const precatorios = availableListings.filter((l) => l.category === "precatorios");
+  const outros = availableListings.filter((l) => l.category === "outros" || l.category === "creditos");
 
-        <div className="space-y-2 text-sm">
-          {opportunity.location && (
-            <div className="flex items-center text-muted-foreground">
-              <MapPin className="w-4 h-4 mr-2" />
-              <span>{opportunity.location}</span>
-            </div>
-          )}
-
-          {opportunity.entity && (
-            <div className="flex items-center text-muted-foreground">
-              <Building2 className="w-4 h-4 mr-2" />
-              <span>{opportunity.entity}</span>
-            </div>
-          )}
-
-          {opportunity.type && (
-            <div className="flex items-center text-muted-foreground">
-              <Briefcase className="w-4 h-4 mr-2" />
-              <span>{opportunity.type}</span>
-            </div>
-          )}
-
-          <div className="flex items-center text-muted-foreground">
-            <User className="w-4 h-4 mr-2" />
-            <span>{opportunity.lawyer}</span>
-          </div>
-
-          <div className="flex items-center text-muted-foreground">
-            <Calendar className="w-4 h-4 mr-2" />
-            <span>{opportunity.date}</span>
-          </div>
-        </div>
-
-        <Button className="w-full group" asChild>
-          <a href={`mailto:${opportunity.lawyerEmail}`}>
-            <Mail className="w-4 h-4 mr-2" />
-            {t("opportunitiesPage.contactInterest")}
-          </a>
-        </Button>
-      </CardContent>
-    </Card>
+  const EmptyState = () => (
+    <div className="text-center py-12">
+      <p className="text-muted-foreground">{t("opportunitiesPage.noListings", "Nenhuma oportunidade disponível no momento.")}</p>
+    </div>
   );
 
   return (
@@ -156,47 +55,64 @@ const Opportunities = () => {
         {/* Opportunities Content */}
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3 mb-12 h-auto">
-                <TabsTrigger value="imoveis" className="text-base py-3">
-                  <Building2 className="w-5 h-5 mr-2" />
-                  {t("opportunitiesPage.properties")}
-                </TabsTrigger>
-                <TabsTrigger value="precatorios" className="text-base py-3">
-                  <FileText className="w-5 h-5 mr-2" />
-                  {t("opportunitiesPage.courtOrders")}
-                </TabsTrigger>
-                <TabsTrigger value="outros" className="text-base py-3">
-                  <Briefcase className="w-5 h-5 mr-2" />
-                  {t("opportunitiesPage.otherAssets")}
-                </TabsTrigger>
-              </TabsList>
+            {isLoading ? (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">Carregando...</p>
+              </div>
+            ) : (
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3 mb-12 h-auto">
+                  <TabsTrigger value="imoveis" className="text-base py-3">
+                    <Building2 className="w-5 h-5 mr-2" />
+                    {t("opportunitiesPage.properties")}
+                  </TabsTrigger>
+                  <TabsTrigger value="precatorios" className="text-base py-3">
+                    <FileText className="w-5 h-5 mr-2" />
+                    {t("opportunitiesPage.courtOrders")}
+                  </TabsTrigger>
+                  <TabsTrigger value="outros" className="text-base py-3">
+                    <Briefcase className="w-5 h-5 mr-2" />
+                    {t("opportunitiesPage.otherAssets")}
+                  </TabsTrigger>
+                </TabsList>
 
-              <TabsContent value="imoveis" className="mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {opportunities.imoveis.map((opp) => (
-                    <OpportunityCard key={opp.id} opportunity={opp} type="imoveis" />
-                  ))}
-                </div>
-              </TabsContent>
+                <TabsContent value="imoveis" className="mt-0">
+                  {imoveis.length === 0 ? (
+                    <EmptyState />
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {imoveis.map((listing) => (
+                        <OpportunityCard key={listing.id} listing={listing} />
+                      ))}
+                    </div>
+                  )}
+                </TabsContent>
 
-              <TabsContent value="precatorios" className="mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {opportunities.precatorios.map((opp) => (
-                    <OpportunityCard key={opp.id} opportunity={opp} type="precatorios" />
-                  ))}
-                </div>
-              </TabsContent>
+                <TabsContent value="precatorios" className="mt-0">
+                  {precatorios.length === 0 ? (
+                    <EmptyState />
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {precatorios.map((listing) => (
+                        <OpportunityCard key={listing.id} listing={listing} />
+                      ))}
+                    </div>
+                  )}
+                </TabsContent>
 
-
-              <TabsContent value="outros" className="mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {opportunities.outros.map((opp) => (
-                    <OpportunityCard key={opp.id} opportunity={opp} type="outros" />
-                  ))}
-                </div>
-              </TabsContent>
-            </Tabs>
+                <TabsContent value="outros" className="mt-0">
+                  {outros.length === 0 ? (
+                    <EmptyState />
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {outros.map((listing) => (
+                        <OpportunityCard key={listing.id} listing={listing} />
+                      ))}
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
+            )}
           </div>
         </section>
       </main>
