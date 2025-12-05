@@ -6,13 +6,17 @@ export interface TeamMember {
   name: string;
   role: string;
   title: string;
+  title_en: string | null;
   areas: string[] | null;
   bio: string;
+  bio_en: string | null;
   photo: string | null;
   email: string | null;
   whatsapp: string | null;
   publications: string[] | null;
+  publications_en: string[] | null;
   education: string[] | null;
+  education_en: string[] | null;
   order_index: number;
 }
 
