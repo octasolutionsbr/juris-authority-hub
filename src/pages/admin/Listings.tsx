@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,9 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Upload, X, ImageIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useListings, useCreateListing, useDeleteListing } from "@/hooks/useListings";
+import { supabase } from "@/integrations/supabase/client";
 
 const categoryLabels: Record<string, string> = {
   imoveis: "Imóveis",
@@ -34,10 +35,60 @@ export default function AdminListings() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState<string>("available");
+  const [images, setImages] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data: listings = [], isLoading } = useListings();
   const createListing = useCreateListing();
   const deleteListing = useDeleteListing();
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploading(true);
+    const uploadedUrls: string[] = [];
+
+    try {
+      for (const file of Array.from(files)) {
+        const fileExt = file.name.split(".").pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+        const filePath = `listings/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("listing-images")
+          .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        const { data } = supabase.storage
+          .from("listing-images")
+          .getPublicUrl(filePath);
+
+        uploadedUrls.push(data.publicUrl);
+      }
+
+      setImages((prev) => [...prev, ...uploadedUrls]);
+      toast({ title: "Imagens enviadas com sucesso!" });
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast({
+        title: "Erro ao enviar imagens",
+        description: "Não foi possível enviar as imagens.",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +109,7 @@ export default function AdminListings() {
         description,
         price: price ? parseFloat(price) : null,
         status: status as any,
-        images: null,
+        images: images.length > 0 ? images : null,
       });
 
       toast({ title: "Anúncio criado com sucesso!" });
@@ -70,6 +121,7 @@ export default function AdminListings() {
       setDescription("");
       setPrice("");
       setStatus("available");
+      setImages([]);
     } catch (error) {
       toast({
         title: "Erro ao criar anúncio",
@@ -181,11 +233,64 @@ export default function AdminListings() {
                   </div>
                 </div>
 
+                {/* Image Upload Section */}
+                <div className="space-y-2">
+                  <Label>Imagens (para imóveis)</Label>
+                  <div className="border-2 border-dashed border-border rounded-lg p-4">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                    <div className="flex flex-col items-center gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={uploading}
+                      >
+                        <Upload className="mr-2 h-4 w-4" />
+                        {uploading ? "Enviando..." : "Enviar Imagens"}
+                      </Button>
+                      <p className="text-sm text-muted-foreground">
+                        PNG, JPG até 5MB
+                      </p>
+                    </div>
+
+                    {/* Image Preview */}
+                    {images.length > 0 && (
+                      <div className="grid grid-cols-3 gap-2 mt-4">
+                        {images.map((url, index) => (
+                          <div key={index} className="relative group">
+                            <img
+                              src={url}
+                              alt={`Preview ${index + 1}`}
+                              className="w-full h-24 object-cover rounded-md"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeImage(index)}
+                              className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 <div className="flex gap-2 justify-end">
                   <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
                     Cancelar
                   </Button>
-                  <Button type="submit">Criar Anúncio</Button>
+                  <Button type="submit" disabled={createListing.isPending}>
+                    {createListing.isPending ? "Criando..." : "Criar Anúncio"}
+                  </Button>
                 </div>
               </form>
             </DialogContent>
@@ -210,6 +315,7 @@ export default function AdminListings() {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead className="w-12">Img</TableHead>
                     <TableHead>Título</TableHead>
                     <TableHead>Categoria</TableHead>
                     <TableHead>Preço</TableHead>
@@ -220,6 +326,19 @@ export default function AdminListings() {
                 <TableBody>
                   {listings.map((listing) => (
                     <TableRow key={listing.id}>
+                      <TableCell>
+                        {listing.images && listing.images.length > 0 ? (
+                          <img
+                            src={listing.images[0]}
+                            alt={listing.title}
+                            className="w-10 h-10 object-cover rounded"
+                          />
+                        ) : (
+                          <div className="w-10 h-10 bg-muted rounded flex items-center justify-center">
+                            <ImageIcon className="w-4 h-4 text-muted-foreground" />
+                          </div>
+                        )}
+                      </TableCell>
                       <TableCell className="font-medium">{listing.title}</TableCell>
                       <TableCell>{categoryLabels[listing.category]}</TableCell>
                       <TableCell>
