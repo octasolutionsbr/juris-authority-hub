@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Check, X, Shield } from "lucide-react";
+import { Check, X, Shield, Ban, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { 
   usePendingProfiles, 
@@ -19,6 +19,8 @@ import {
   useUserRoles,
   useAddUserRole,
   useRemoveUserRole,
+  useBlockUser,
+  useDeleteUser,
   Profile
 } from "@/hooks/useUsers";
 import { format } from "date-fns";
@@ -41,6 +43,8 @@ export default function AdminUsers() {
   const updateProfile = useUpdateProfile();
   const addUserRole = useAddUserRole();
   const removeUserRole = useRemoveUserRole();
+  const blockUser = useBlockUser();
+  const deleteUser = useDeleteUser();
 
   const handleApprove = async (userId: string) => {
     try {
@@ -71,6 +75,34 @@ export default function AdminUsers() {
   const handleEdit = (user: Profile) => {
     setEditingUser(user);
     setEditName(user.name);
+  };
+
+  const handleBlock = async (userId: string, userName: string) => {
+    if (confirm(`Tem certeza que deseja bloquear o acesso de ${userName}?`)) {
+      try {
+        await blockUser.mutateAsync(userId);
+        toast({ title: "Usuário bloqueado com sucesso!" });
+      } catch (error) {
+        toast({ 
+          title: "Erro ao bloquear usuário",
+          variant: "destructive" 
+        });
+      }
+    }
+  };
+
+  const handleDelete = async (userId: string, userName: string) => {
+    if (confirm(`Tem certeza que deseja EXCLUIR permanentemente ${userName}? Esta ação não pode ser desfeita.`)) {
+      try {
+        await deleteUser.mutateAsync(userId);
+        toast({ title: "Usuário excluído permanentemente", variant: "destructive" });
+      } catch (error) {
+        toast({ 
+          title: "Erro ao excluir usuário",
+          variant: "destructive" 
+        });
+      }
+    }
   };
 
   // Atualizar roles quando o dialog abre
@@ -243,13 +275,33 @@ export default function AdminUsers() {
                         <Badge variant="default">Aprovado</Badge>
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => handleEdit(user)}
-                        >
-                          Editar
-                        </Button>
+                        <div className="flex justify-end gap-2">
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => handleEdit(user)}
+                          >
+                            Editar
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            className="text-amber-600 hover:text-amber-700 hover:bg-amber-50"
+                            onClick={() => handleBlock(user.id, user.name)}
+                          >
+                            <Ban className="mr-1 h-4 w-4" />
+                            Bloquear
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                            onClick={() => handleDelete(user.id, user.name)}
+                          >
+                            <Trash2 className="mr-1 h-4 w-4" />
+                            Excluir
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
