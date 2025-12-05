@@ -125,9 +125,6 @@ export default function AdminLogin() {
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? "Entrando..." : "Entrar"}
                 </Button>
-                <p className="text-xs text-muted-foreground text-center mt-4">
-                  Teste: admin@juriscompany.com.br / qualquer senha
-                </p>
               </form>
             </TabsContent>
             
