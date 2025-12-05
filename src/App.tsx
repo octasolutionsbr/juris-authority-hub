@@ -7,7 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
-import Areas from "./pages/Areas";
+
 import AreaDetail from "./pages/AreaDetail";
 import Team from "./pages/Team";
 import LawyerProfile from "./pages/LawyerProfile";
@@ -36,7 +36,7 @@ const App = () => (
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/areas" element={<Areas />} />
+            
             <Route path="/areas/:areaId" element={<AreaDetail />} />
             <Route path="/equipe" element={<Team />} />
             <Route path="/equipe/:lawyerId" element={<LawyerProfile />} />
