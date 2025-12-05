@@ -6,6 +6,11 @@ import { useTranslation } from "react-i18next";
 
 const Hero = () => {
   const { t } = useTranslation();
+
+  const scrollToAreas = () => {
+    const element = document.getElementById("areas-de-atuacao");
+    element?.scrollIntoView({ behavior: "smooth" });
+  };
   
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -52,9 +57,9 @@ const Hero = () => {
               size="lg"
               variant="outline"
               className="text-lg px-8 py-6 border-2 border-background bg-transparent text-background hover:border-primary hover:text-primary hover:bg-transparent transition-all"
-              asChild
+              onClick={scrollToAreas}
             >
-              <Link to="/areas">{t("hero.knowAreas")}</Link>
+              {t("hero.knowAreas")}
             </Button>
           </div>
         </div>
