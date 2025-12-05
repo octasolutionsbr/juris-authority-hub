@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -114,9 +115,8 @@ export default function AdminLogin() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="login-password">Senha</Label>
-                  <Input
+                  <PasswordInput
                     id="login-password"
-                    type="password"
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     required
@@ -157,9 +157,8 @@ export default function AdminLogin() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="register-password">Senha</Label>
-                  <Input
+                  <PasswordInput
                     id="register-password"
-                    type="password"
                     value={registerPassword}
                     onChange={(e) => setRegisterPassword(e.target.value)}
                     required
