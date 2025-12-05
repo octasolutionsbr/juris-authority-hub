@@ -95,15 +95,6 @@ const PracticeAreas = () => {
         </div>
         )}
 
-        <div className="text-center mt-12">
-          <Link
-            to="/areas"
-            className="inline-flex items-center text-primary font-medium hover:text-primary-dark transition-colors group"
-          >
-            {t("practiceAreas.viewAll")}
-            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
       </div>
     </section>
   );

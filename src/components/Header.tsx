@@ -23,7 +23,6 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { label: t("header.areas"), href: "/areas" },
     { label: t("header.team"), href: "/equipe" },
     { label: t("header.opportunities"), href: "/oportunidades" },
     { label: t("header.about"), href: "/sobre" },
