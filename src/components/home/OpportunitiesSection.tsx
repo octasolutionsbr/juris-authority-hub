@@ -3,30 +3,50 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, FileText, Briefcase, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const OpportunitiesSection = () => {
   const { t } = useTranslation();
+  
+  // Fetch real counts from the database
+  const { data: counts } = useQuery({
+    queryKey: ['listing-counts'],
+    queryFn: async () => {
+      const [imoveisRes, precatoriosRes, outrosRes] = await Promise.all([
+        supabase.from('listings').select('id', { count: 'exact', head: true }).eq('category', 'imoveis').eq('status', 'available'),
+        supabase.from('listings').select('id', { count: 'exact', head: true }).eq('category', 'precatorios').eq('status', 'available'),
+        supabase.from('listings').select('id', { count: 'exact', head: true }).eq('category', 'outros').eq('status', 'available'),
+      ]);
+      
+      return {
+        imoveis: imoveisRes.count ?? 0,
+        precatorios: precatoriosRes.count ?? 0,
+        outros: outrosRes.count ?? 0,
+      };
+    },
+  });
   
   const categories = [
     {
       icon: Building2,
       title: t("opportunities.categories.properties.title"),
       description: t("opportunities.categories.properties.description"),
-      count: t("opportunities.categories.properties.count", { count: 12 }),
+      count: counts?.imoveis ?? 0,
       categoryParam: "imoveis",
     },
     {
       icon: FileText,
       title: t("opportunities.categories.precatorios.title"),
       description: t("opportunities.categories.precatorios.description"),
-      count: t("opportunities.categories.precatorios.count", { count: 8 }),
+      count: counts?.precatorios ?? 0,
       categoryParam: "precatorios",
     },
     {
       icon: Briefcase,
       title: t("opportunities.categories.others.title"),
       description: t("opportunities.categories.others.description"),
-      count: t("opportunities.categories.others.count", { count: 6 }),
+      count: counts?.outros ?? 0,
       categoryParam: "outros",
     },
   ];
@@ -65,7 +85,7 @@ const OpportunitiesSection = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm font-medium text-muted-foreground">
-                    {category.count}
+                    {t("opportunities.categories.properties.count", { count: category.count })}
                   </p>
                 </CardContent>
               </Card>
