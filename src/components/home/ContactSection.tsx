@@ -114,9 +114,9 @@ const ContactSection = () => {
                   <div>
                     <h4 className="font-semibold text-foreground mb-1">{t("contact.info.address")}</h4>
                     <p className="text-muted-foreground">
-                      Av. Paulista, 1000 - Conjunto 101<br />
-                      Bela Vista, São Paulo - SP<br />
-                      CEP 01310-100
+                      R. Prof. Tostes, 783 - Centro<br />
+                      Macapá - AP<br />
+                      CEP 68900-022
                     </p>
                   </div>
                 </div>
