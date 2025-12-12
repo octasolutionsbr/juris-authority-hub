@@ -17,6 +17,9 @@ const LawyerProfile = () => {
   const { data: lawyer, isLoading: loadingLawyer } = useTeamMember(lawyerId || '');
   const { data: allAreas = [], isLoading: loadingAreas } = usePracticeAreas();
 
+  // Auto-translate profile when viewing in English - MUST be called before any early returns
+  useAutoTranslateSingleProfile(lawyer);
+
   if (loadingLawyer || loadingAreas) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -24,9 +27,6 @@ const LawyerProfile = () => {
       </div>
     );
   }
-
-  // Auto-translate profile when viewing in English
-  useAutoTranslateSingleProfile(lawyer);
 
   if (!lawyer) {
     return <NotFound />;
