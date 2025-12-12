@@ -71,7 +71,9 @@ const LawyerProfile = () => {
                   {lawyer.name}
                 </h1>
                 <p className="text-2xl text-primary-light font-medium mb-6">
-                  {translatedLawyer.title}
+                  {lawyer.main_area 
+                    ? getTranslatedPracticeArea(allAreas.find(a => a.id === lawyer.main_area) || { id: '', title: translatedLawyer.title, icon: '', description: '', long_description: null, keywords: null, order_index: 0 }, i18n.language).title 
+                    : translatedLawyer.title}
                 </p>
 
                 {/* Contact Buttons */}
