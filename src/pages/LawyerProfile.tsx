@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTeamMember } from "@/hooks/useTeamMembers";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
+import { useAutoTranslateSingleProfile } from "@/hooks/useAutoTranslateProfile";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen } from "lucide-react";
@@ -23,6 +24,9 @@ const LawyerProfile = () => {
       </div>
     );
   }
+
+  // Auto-translate profile when viewing in English
+  useAutoTranslateSingleProfile(lawyer);
 
   if (!lawyer) {
     return <NotFound />;
