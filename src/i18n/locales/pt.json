@@ -194,7 +194,13 @@
     "rights": "Todos os direitos reservados.",
     "privacy": "Política de Privacidade",
     "terms": "Termos de Uso",
-    "developedBy": "Desenvolvido por"
+    "developedBy": "Desenvolvido por",
+    "areas": {
+      "corporate": "Direito Empresarial",
+      "tax": "Direito Tributário",
+      "realEstate": "Direito Imobiliário",
+      "labor": "Direito Trabalhista"
+    }
   },
   "areasPage": {
     "title": "Áreas de Atuação",

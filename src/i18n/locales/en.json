@@ -194,7 +194,13 @@
     "rights": "All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
-    "developedBy": "Developed by"
+    "developedBy": "Developed by",
+    "areas": {
+      "corporate": "Corporate Law",
+      "tax": "Tax Law",
+      "realEstate": "Real Estate Law",
+      "labor": "Labor Law"
+    }
   },
   "areasPage": {
     "title": "Practice Areas",

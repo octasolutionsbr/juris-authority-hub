@@ -73,7 +73,7 @@ const Footer = () => {
                   to="/areas/direito-empresarial"
                   className="text-background/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  Direito Empresarial
+                  {t("footer.areas.corporate")}
                 </Link>
               </li>
               <li>
@@ -81,7 +81,7 @@ const Footer = () => {
                   to="/areas/direito-tributario"
                   className="text-background/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  Direito Tributário
+                  {t("footer.areas.tax")}
                 </Link>
               </li>
               <li>
@@ -89,7 +89,7 @@ const Footer = () => {
                   to="/areas/direito-imobiliario"
                   className="text-background/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  Direito Imobiliário
+                  {t("footer.areas.realEstate")}
                 </Link>
               </li>
               <li>
@@ -97,7 +97,7 @@ const Footer = () => {
                   to="/areas/direito-trabalhista"
                   className="text-background/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  Direito Trabalhista
+                  {t("footer.areas.labor")}
                 </Link>
               </li>
             </ul>
