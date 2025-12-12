@@ -64,22 +64,8 @@ const About = () => {
     <div className="min-h-screen">
       <Header />
       <main className="pt-20">
-        {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-foreground to-foreground/90">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
-                {t("aboutPage.title")}
-              </h1>
-              <p className="text-xl text-background/80 leading-relaxed">
-                {t("aboutPage.subtitle")}
-              </p>
-            </div>
-          </div>
-        </section>
-
         {/* Nossa História */}
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-background pt-24">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-8">
