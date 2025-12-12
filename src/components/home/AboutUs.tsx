@@ -59,34 +59,6 @@ const AboutUs = () => {
           ))}
         </div>
 
-        <div className="mt-20 bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-8 md:p-12 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">
-                20+
-              </div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                {t("aboutUs.stats.experience")}
-              </div>
-            </div>
-            <div className="border-x border-border/50">
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">
-                500+
-              </div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                {t("aboutUs.stats.cases")}
-              </div>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">
-                98%
-              </div>
-              <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                {t("aboutUs.stats.satisfaction")}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
