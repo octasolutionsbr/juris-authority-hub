@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, User, Loader2 } from "lucide-react";
+import { Upload, User, Loader2, Trash2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
@@ -104,10 +104,14 @@ export default function AdminProfile() {
     mutationFn: async () => {
       if (!user?.id) throw new Error("Usuário não autenticado");
 
-      let photoUrl = profile?.photo_url;
+      let photoUrl: string | null = profile?.photo_url || null;
 
+      // Handle photo removal
+      if (!photoPreview && !photoFile) {
+        photoUrl = null;
+      }
       // Upload photo if changed
-      if (photoFile) {
+      else if (photoFile) {
         const fileExt = photoFile.name.split('.').pop();
         const fileName = `${user.id}-${Date.now()}.${fileExt}`;
         
@@ -264,21 +268,38 @@ export default function AdminProfile() {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="photo-upload">
-                    <Button type="button" variant="outline" size="sm" asChild>
-                      <span>
-                        <Upload className="mr-2 h-4 w-4" />
-                        Fazer Upload
-                        <input
-                          id="photo-upload"
-                          type="file"
-                          accept="image/*"
-                          onChange={handlePhotoChange}
-                          className="sr-only"
-                        />
-                      </span>
-                    </Button>
-                  </label>
+                  <div className="flex items-center gap-2">
+                    <label htmlFor="photo-upload">
+                      <Button type="button" variant="outline" size="sm" asChild>
+                        <span>
+                          <Upload className="mr-2 h-4 w-4" />
+                          Fazer Upload
+                          <input
+                            id="photo-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handlePhotoChange}
+                            className="sr-only"
+                          />
+                        </span>
+                      </Button>
+                    </label>
+                    {photoPreview && (
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          setPhotoFile(null);
+                          setPhotoPreview(null);
+                        }}
+                        className="text-destructive hover:text-destructive"
+                      >
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        Remover
+                      </Button>
+                    )}
+                  </div>
                   <p className="text-xs text-muted-foreground">
                     JPG, PNG ou GIF. Máximo 2MB.
                   </p>
