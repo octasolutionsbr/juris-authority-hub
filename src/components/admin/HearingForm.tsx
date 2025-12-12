@@ -179,7 +179,7 @@ export function HearingForm({ hearing, onSubmit, onCancel }: HearingFormProps) {
           id="location"
           value={formData.location}
           onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-          placeholder="Ex: Av. Paulista, 1000 - 5º andar"
+          placeholder="Ex: R. Prof. Tostes, 783 - Centro, Macapá"
           required
         />
       </div>
