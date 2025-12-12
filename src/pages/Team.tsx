@@ -30,6 +30,7 @@ const Team = () => {
   };
 
   const filteredMembers = teamMembers.filter((member) => {
+    if (!member.published) return false;
     const areaMatch =
       selectedArea === "all" || member.areas?.includes(selectedArea);
     return areaMatch;
@@ -129,7 +130,9 @@ const Team = () => {
                         {member.name}
                       </h3>
                       <p className="text-primary text-sm font-medium mb-3">
-                        {translatedMember.title}
+                        {member.main_area 
+                          ? getTranslatedPracticeArea(practiceAreas.find(a => a.id === member.main_area) || { id: '', title: translatedMember.title, icon: '', description: '', long_description: null, keywords: null, order_index: 0 }, i18n.language).title 
+                          : translatedMember.title}
                       </p>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
                         {translatedMember.bio}

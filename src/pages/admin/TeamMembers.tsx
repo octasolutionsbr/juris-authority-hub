@@ -3,14 +3,24 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
+import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { useTranslateTeamMember } from "@/hooks/useTranslateTeamMember";
-import { Languages, Loader2, Check, X, RefreshCw } from "lucide-react";
+import { Languages, Loader2, Check, X, RefreshCw, Eye, EyeOff } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const TeamMembers = () => {
+  const queryClient = useQueryClient();
   const { data: members = [], isLoading } = useTeamMembers();
+  const { data: practiceAreas = [] } = usePracticeAreas();
   const { translateMember, translateAllMembers, isTranslating } = useTranslateTeamMember();
   const [translatingId, setTranslatingId] = useState<string | null>(null);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   const handleTranslateOne = async (member: typeof members[0]) => {
     setTranslatingId(member.id);
@@ -27,8 +37,53 @@ const TeamMembers = () => {
     }
   };
 
+  const handleUpdateMainArea = async (memberId: string, mainArea: string | null) => {
+    setUpdatingId(memberId);
+    try {
+      const { error } = await supabase
+        .from("team_members")
+        .update({ main_area: mainArea })
+        .eq("id", memberId);
+
+      if (error) throw error;
+      
+      await queryClient.invalidateQueries({ queryKey: ["team-members"] });
+      toast.success("Área principal atualizada");
+    } catch (error) {
+      console.error("Error updating main area:", error);
+      toast.error("Erro ao atualizar área principal");
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  const handleTogglePublished = async (memberId: string, published: boolean) => {
+    setUpdatingId(memberId);
+    try {
+      const { error } = await supabase
+        .from("team_members")
+        .update({ published })
+        .eq("id", memberId);
+
+      if (error) throw error;
+      
+      await queryClient.invalidateQueries({ queryKey: ["team-members"] });
+      toast.success(published ? "Perfil publicado" : "Perfil ocultado");
+    } catch (error) {
+      console.error("Error toggling published:", error);
+      toast.error("Erro ao atualizar status de publicação");
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
   const hasEnglishTranslation = (member: typeof members[0]) => {
     return !!(member.title_en && member.bio_en);
+  };
+
+  const getAreaTitle = (areaId: string | null) => {
+    if (!areaId) return null;
+    return practiceAreas.find(a => a.id === areaId)?.title || areaId;
   };
 
   return (
@@ -38,7 +93,7 @@ const TeamMembers = () => {
           <div>
             <h1 className="text-3xl font-heading font-bold">Equipe</h1>
             <p className="text-muted-foreground">
-              Gerencie as traduções dos perfis dos advogados
+              Gerencie perfis, áreas de atuação e publicação
             </p>
           </div>
           <Button
@@ -64,9 +119,9 @@ const TeamMembers = () => {
             {members.map((member) => (
               <Card key={member.id}>
                 <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center flex-shrink-0">
                         <span className="text-lg font-bold text-muted-foreground/50">
                           {member.name.split(" ").map((n) => n[0]).join("")}
                         </span>
@@ -76,7 +131,18 @@ const TeamMembers = () => {
                         <CardDescription>{member.title}</CardDescription>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      {member.published ? (
+                        <Badge variant="outline" className="text-green-600 border-green-600">
+                          <Eye className="w-3 h-3 mr-1" />
+                          Publicado
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="text-muted-foreground border-muted-foreground">
+                          <EyeOff className="w-3 h-3 mr-1" />
+                          Oculto
+                        </Badge>
+                      )}
                       {hasEnglishTranslation(member) ? (
                         <Badge variant="outline" className="text-green-600 border-green-600">
                           <Check className="w-3 h-3 mr-1" />
@@ -106,8 +172,63 @@ const TeamMembers = () => {
                     </div>
                   </div>
                 </CardHeader>
-                {hasEnglishTranslation(member) && (
-                  <CardContent className="pt-0">
+                <CardContent className="space-y-4">
+                  {/* Main Area Selection */}
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 p-4 bg-muted/50 rounded-lg">
+                    <Label className="font-medium min-w-fit">Área Principal:</Label>
+                    <Select
+                      value={member.main_area || "none"}
+                      onValueChange={(value) => handleUpdateMainArea(member.id, value === "none" ? null : value)}
+                      disabled={updatingId === member.id}
+                    >
+                      <SelectTrigger className="w-full sm:w-[280px]">
+                        <SelectValue placeholder="Selecione a área principal" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">Nenhuma (usar título)</SelectItem>
+                        {practiceAreas.map((area) => (
+                          <SelectItem key={area.id} value={area.id}>
+                            {area.title}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {member.main_area && (
+                      <span className="text-sm text-muted-foreground">
+                        Exibido como: <strong>{getAreaTitle(member.main_area)}</strong>
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Areas of Practice */}
+                  {member.areas && member.areas.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      <span className="text-sm text-muted-foreground mr-2">Áreas:</span>
+                      {member.areas.map((areaId) => (
+                        <Badge key={areaId} variant="secondary" className="text-xs">
+                          {getAreaTitle(areaId) || areaId}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Publish Toggle */}
+                  <div className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="space-y-0.5">
+                      <Label className="font-medium">Publicar Perfil</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Quando ativado, o perfil aparecerá nas páginas públicas do site
+                      </p>
+                    </div>
+                    <Switch
+                      checked={member.published}
+                      onCheckedChange={(checked) => handleTogglePublished(member.id, checked)}
+                      disabled={updatingId === member.id}
+                    />
+                  </div>
+
+                  {/* English Translation Preview */}
+                  {hasEnglishTranslation(member) && (
                     <div className="text-sm text-muted-foreground space-y-2 border-t pt-3">
                       <p>
                         <span className="font-medium">Título (EN):</span>{" "}
@@ -118,8 +239,8 @@ const TeamMembers = () => {
                         {member.bio_en}
                       </p>
                     </div>
-                  </CardContent>
-                )}
+                  )}
+                </CardContent>
               </Card>
             ))}
           </div>

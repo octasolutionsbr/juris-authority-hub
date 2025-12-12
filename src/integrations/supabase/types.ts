@@ -198,11 +198,13 @@ export type Database = {
           education_en: string[] | null
           email: string | null
           id: string
+          main_area: string | null
           name: string
           order_index: number
           photo: string | null
           publications: string[] | null
           publications_en: string[] | null
+          published: boolean
           role: string
           title: string
           title_en: string | null
@@ -217,11 +219,13 @@ export type Database = {
           education_en?: string[] | null
           email?: string | null
           id: string
+          main_area?: string | null
           name: string
           order_index?: number
           photo?: string | null
           publications?: string[] | null
           publications_en?: string[] | null
+          published?: boolean
           role: string
           title: string
           title_en?: string | null
@@ -236,11 +240,13 @@ export type Database = {
           education_en?: string[] | null
           email?: string | null
           id?: string
+          main_area?: string | null
           name?: string
           order_index?: number
           photo?: string | null
           publications?: string[] | null
           publications_en?: string[] | null
+          published?: boolean
           role?: string
           title?: string
           title_en?: string | null

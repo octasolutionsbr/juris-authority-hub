@@ -8,6 +8,7 @@ export interface TeamMember {
   title: string;
   title_en: string | null;
   areas: string[] | null;
+  main_area: string | null;
   bio: string;
   bio_en: string | null;
   photo: string | null;
@@ -18,6 +19,7 @@ export interface TeamMember {
   education: string[] | null;
   education_en: string[] | null;
   order_index: number;
+  published: boolean;
 }
 
 export const useTeamMembers = () => {

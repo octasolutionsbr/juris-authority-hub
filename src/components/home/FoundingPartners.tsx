@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Mail, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
+import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { useTranslation } from "react-i18next";
-import { getTranslatedTeamMember } from "@/lib/i18nHelpers";
+import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import {
   Carousel,
   CarouselContent,
@@ -24,7 +25,8 @@ const FoundingPartners = () => {
   const { t, i18n } = useTranslation();
   const [api, setApi] = useState<CarouselApi>();
   const { data: allMembers = [], isLoading } = useTeamMembers();
-  const members = allMembers.slice(0, 20);
+  const { data: practiceAreas = [] } = usePracticeAreas();
+  const members = allMembers.filter(m => m.published).slice(0, 20);
   
   const photoMap: Record<string, string> = {
     "carlos-mendes": carlosMendesPhoto,
@@ -99,7 +101,9 @@ const FoundingPartners = () => {
                         {member.name}
                       </h3>
                       <p className="text-primary text-sm font-medium mb-3">
-                        {translatedMember.title}
+                        {member.main_area 
+                          ? getTranslatedPracticeArea(practiceAreas.find(a => a.id === member.main_area) || { id: '', title: translatedMember.title, icon: '', description: '', long_description: null, keywords: null, order_index: 0 }, i18n.language).title 
+                          : translatedMember.title}
                       </p>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-3">
                         {translatedMember.bio}
