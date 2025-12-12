@@ -209,6 +209,7 @@ export type Database = {
           role: string
           title: string
           title_en: string | null
+          user_id: string | null
           whatsapp: string | null
         }
         Insert: {
@@ -231,6 +232,7 @@ export type Database = {
           role: string
           title: string
           title_en?: string | null
+          user_id?: string | null
           whatsapp?: string | null
         }
         Update: {
@@ -253,6 +255,7 @@ export type Database = {
           role?: string
           title?: string
           title_en?: string | null
+          user_id?: string | null
           whatsapp?: string | null
         }
         Relationships: []
