@@ -65,14 +65,27 @@ const About = () => {
       <Header />
       <main className="pt-20">
         {/* Nossa História */}
-        <section className="py-20 bg-background pt-24">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-8">
-                {t("aboutPage.ourStory")}
-              </h2>
-              <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                <p>{t("aboutPage.storyContent1")}</p>
+        <section className="relative py-24 pt-32 bg-gradient-to-br from-foreground via-foreground/95 to-primary/20 overflow-hidden">
+          {/* Background decorative elements */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/50 rounded-full blur-3xl" />
+          </div>
+          
+          <div className="container mx-auto px-4 lg:px-8 relative z-10">
+            <div className="max-w-5xl mx-auto">
+              <div className="mb-12">
+                <span className="inline-block px-4 py-2 bg-primary/20 text-primary-foreground/80 rounded-full text-sm font-medium tracking-wide uppercase mb-6">
+                  {t("aboutPage.title")}
+                </span>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-background mb-8 leading-tight">
+                  {t("aboutPage.ourStory")}
+                </h1>
+                <div className="w-24 h-1.5 bg-gradient-to-r from-primary to-primary/50 rounded-full" />
+              </div>
+              
+              <div className="space-y-6 text-lg md:text-xl text-background/80 leading-relaxed max-w-4xl">
+                <p className="text-background/90 font-medium">{t("aboutPage.storyContent1")}</p>
                 <p>{t("aboutPage.storyContent2")}</p>
                 <p>{t("aboutPage.storyContent3")}</p>
               </div>
