@@ -143,7 +143,7 @@ const Footer = () => {
             <p className="text-background/60 text-sm">
               © {currentYear} Juris Company. {t("footer.rights")}
             </p>
-            <div className="flex space-x-6">
+            <div className="flex items-center space-x-6">
               <Link
                 to="/privacidade"
                 className="text-background/60 hover:text-primary-light transition-colors text-sm"
@@ -156,20 +156,18 @@ const Footer = () => {
               >
                 {t("footer.terms")}
               </Link>
+              <div className="flex items-center">
+                <span className="text-background/60 text-sm mr-2">{t("footer.developedBy")}</span>
+                <a 
+                  href="https://www.octasolutions.com.br" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block hover:opacity-80 transition-opacity"
+                >
+                  <img src={octaLogo} alt="Octa Solutions" className="h-5" />
+                </a>
+              </div>
             </div>
-          </div>
-          
-          {/* Desenvolvido por */}
-          <div className="mt-6 pt-6 border-t border-background/20 flex justify-center items-center">
-            <span className="text-background/60 text-sm mr-3">{t("footer.developedBy")}</span>
-            <a 
-              href="https://www.octasolutions.com.br" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-block hover:opacity-80 transition-opacity"
-            >
-              <img src={octaLogo} alt="Octa Solutions" className="h-6" />
-            </a>
           </div>
         </div>
       </div>
