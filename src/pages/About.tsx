@@ -65,27 +65,27 @@ const About = () => {
       <Header />
       <main className="pt-20">
         {/* Nossa História */}
-        <section className="relative py-24 pt-32 bg-gradient-to-br from-foreground via-foreground/95 to-primary/20 overflow-hidden">
+        <section className="relative py-16 pt-8 bg-gradient-to-br from-[#722F37] via-[#5C252C] to-[#3D1A1E] overflow-hidden">
           {/* Background decorative elements */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-primary rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary/50 rounded-full blur-3xl" />
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-10 right-20 w-64 h-64 bg-[#8B3A42] rounded-full blur-3xl" />
+            <div className="absolute bottom-5 left-10 w-80 h-80 bg-[#4A2228] rounded-full blur-3xl" />
           </div>
           
           <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <div className="max-w-5xl mx-auto">
-              <div className="mb-12">
-                <span className="inline-block px-4 py-2 bg-primary/20 text-primary-foreground/80 rounded-full text-sm font-medium tracking-wide uppercase mb-6">
+              <div className="mb-8">
+                <span className="inline-block px-4 py-2 bg-white/10 text-white/80 rounded-full text-sm font-medium tracking-wide uppercase mb-4">
                   {t("aboutPage.title")}
                 </span>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-background mb-8 leading-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 leading-tight">
                   {t("aboutPage.ourStory")}
                 </h1>
-                <div className="w-24 h-1.5 bg-gradient-to-r from-primary to-primary/50 rounded-full" />
+                <div className="w-20 h-1 bg-gradient-to-r from-white/80 to-white/30 rounded-full" />
               </div>
               
-              <div className="space-y-6 text-lg md:text-xl text-background/80 leading-relaxed max-w-4xl">
-                <p className="text-background/90 font-medium">{t("aboutPage.storyContent1")}</p>
+              <div className="space-y-5 text-base md:text-lg text-white/85 leading-relaxed max-w-4xl">
+                <p className="text-white/95 font-medium">{t("aboutPage.storyContent1")}</p>
                 <p>{t("aboutPage.storyContent2")}</p>
                 <p>{t("aboutPage.storyContent3")}</p>
               </div>
