@@ -41,7 +41,7 @@ const AreaDetail = () => {
         <section className="py-16 bg-gradient-to-br from-foreground to-foreground/90">
           <div className="container mx-auto px-4 lg:px-8">
             <Link
-              to="/areas"
+              to="/#areas-de-atuacao"
               className="inline-flex items-center text-background/70 hover:text-background mb-6 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
