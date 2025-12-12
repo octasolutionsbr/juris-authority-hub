@@ -25,8 +25,8 @@ const LanguageSwitcher = ({ isScrolled = true, isHomePage = false }: LanguageSwi
       )}
     >
       <Languages className="h-5 w-5" />
-      <span className="uppercase text-xs font-semibold flex items-center gap-1">
-        {i18n.language === 'pt' ? '🇧🇷 PT' : '🇺🇸 EN'}
+      <span className="uppercase text-xs font-semibold">
+        {i18n.language === 'pt' ? 'PT' : 'EN'}
       </span>
     </button>
   );
