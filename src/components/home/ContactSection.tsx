@@ -99,10 +99,10 @@ const ContactSection = () => {
                   <div>
                     <h4 className="font-semibold text-foreground mb-1">{t("contact.info.phone")}</h4>
                     <a
-                      href="tel:+5511999999999"
+                      href="tel:+559632231425"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      (11) 99999-9999
+                      (96) 93223-1425
                     </a>
                   </div>
                 </div>
