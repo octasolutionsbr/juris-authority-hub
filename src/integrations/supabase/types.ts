@@ -202,6 +202,7 @@ export type Database = {
           name: string
           order_index: number
           photo: string | null
+          photo_url: string | null
           publications: string[] | null
           publications_en: string[] | null
           published: boolean
@@ -223,6 +224,7 @@ export type Database = {
           name: string
           order_index?: number
           photo?: string | null
+          photo_url?: string | null
           publications?: string[] | null
           publications_en?: string[] | null
           published?: boolean
@@ -244,6 +246,7 @@ export type Database = {
           name?: string
           order_index?: number
           photo?: string | null
+          photo_url?: string | null
           publications?: string[] | null
           publications_en?: string[] | null
           published?: boolean

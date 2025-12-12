@@ -12,6 +12,7 @@ export interface TeamMember {
   bio: string;
   bio_en: string | null;
   photo: string | null;
+  photo_url: string | null;
   email: string | null;
   whatsapp: string | null;
   publications: string[] | null;

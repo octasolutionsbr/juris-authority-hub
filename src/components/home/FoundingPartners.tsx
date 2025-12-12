@@ -76,7 +76,13 @@ const FoundingPartners = () => {
                   <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
                     {/* Photo */}
                     <div className="relative h-80 overflow-hidden">
-                      {member.photo && photoMap[member.photo] ? (
+                      {member.photo_url ? (
+                        <img
+                          src={member.photo_url}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : member.photo && photoMap[member.photo] ? (
                         <img
                           src={photoMap[member.photo]}
                           alt={member.name}

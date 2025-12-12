@@ -53,14 +53,22 @@ const LawyerProfile = () => {
               <div className="lg:col-span-1">
                 <Card className="overflow-hidden border-2 border-primary/20">
                   <div className="relative aspect-[3/4] bg-gradient-to-br from-muted to-muted-foreground/20">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-8xl font-heading font-bold text-muted-foreground/30">
-                        {lawyer.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
+                    {lawyer.photo_url ? (
+                      <img
+                        src={lawyer.photo_url}
+                        alt={lawyer.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-8xl font-heading font-bold text-muted-foreground/30">
+                          {lawyer.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </Card>
               </div>
