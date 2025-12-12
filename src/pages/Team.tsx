@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
+import { useAutoTranslateProfile } from "@/hooks/useAutoTranslateProfile";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageCircle } from "lucide-react";
@@ -20,6 +21,9 @@ const Team = () => {
   const [selectedArea, setSelectedArea] = useState<string>("all");
   const { data: teamMembers = [], isLoading: loadingMembers } = useTeamMembers();
   const { data: practiceAreas = [], isLoading: loadingAreas } = usePracticeAreas();
+  
+  // Auto-translate profiles when viewing in English
+  useAutoTranslateProfile(teamMembers);
   
   const photoMap: Record<string, string> = {
     "carlos-mendes": carlosMendesPhoto,

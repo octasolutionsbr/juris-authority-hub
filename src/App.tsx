@@ -21,7 +21,6 @@ import AdminProfile from "./pages/admin/Profile";
 import AdminListings from "./pages/admin/Listings";
 import AdminUsers from "./pages/admin/Users";
 import AdminHearings from "./pages/admin/Hearings";
-import AdminTeamMembers from "./pages/admin/TeamMembers";
 import HearingPublic from "./pages/HearingPublic";
 
 const queryClient = new QueryClient();
@@ -51,7 +50,6 @@ const App = () => (
             <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
             <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
             <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
-            <Route path="/admin/team" element={<ProtectedRoute requireAdmin><AdminTeamMembers /></ProtectedRoute>} />
             <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
