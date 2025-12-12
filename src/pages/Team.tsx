@@ -106,7 +106,13 @@ const Team = () => {
                   >
                     {/* Photo */}
                     <div className="relative h-80 overflow-hidden">
-                      {member.photo && photoMap[member.photo] ? (
+                      {member.photo_url ? (
+                        <img
+                          src={member.photo_url}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : member.photo && photoMap[member.photo] ? (
                         <img
                           src={photoMap[member.photo]}
                           alt={member.name}

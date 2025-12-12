@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { useTranslateTeamMember } from "@/hooks/useTranslateTeamMember";
-import { Languages, Loader2, Check, X, RefreshCw, Eye, EyeOff } from "lucide-react";
+import { Languages, Loader2, Check, X, RefreshCw, Eye, EyeOff, Upload, Camera, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
@@ -21,6 +21,8 @@ const TeamMembers = () => {
   const { translateMember, translateAllMembers, isTranslating } = useTranslateTeamMember();
   const [translatingId, setTranslatingId] = useState<string | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [uploadingId, setUploadingId] = useState<string | null>(null);
+  const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
   const handleTranslateOne = async (member: typeof members[0]) => {
     setTranslatingId(member.id);
@@ -77,6 +79,80 @@ const TeamMembers = () => {
     }
   };
 
+  const handlePhotoUpload = async (memberId: string, file: File) => {
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      toast.error("Por favor, selecione uma imagem válida");
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("A imagem deve ter no máximo 5MB");
+      return;
+    }
+
+    setUploadingId(memberId);
+    try {
+      // Generate unique filename
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${memberId}-${Date.now()}.${fileExt}`;
+
+      // Upload to storage
+      const { error: uploadError } = await supabase.storage
+        .from("team-photos")
+        .upload(fileName, file, {
+          cacheControl: "3600",
+          upsert: true,
+        });
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from("team-photos")
+        .getPublicUrl(fileName);
+
+      // Update team member with photo URL
+      const { error: updateError } = await supabase
+        .from("team_members")
+        .update({ photo_url: publicUrl })
+        .eq("id", memberId);
+
+      if (updateError) throw updateError;
+
+      await queryClient.invalidateQueries({ queryKey: ["team-members"] });
+      toast.success("Foto atualizada com sucesso");
+    } catch (error) {
+      console.error("Error uploading photo:", error);
+      toast.error("Erro ao fazer upload da foto");
+    } finally {
+      setUploadingId(null);
+    }
+  };
+
+  const handleRemovePhoto = async (memberId: string) => {
+    setUploadingId(memberId);
+    try {
+      const { error } = await supabase
+        .from("team_members")
+        .update({ photo_url: null })
+        .eq("id", memberId);
+
+      if (error) throw error;
+
+      await queryClient.invalidateQueries({ queryKey: ["team-members"] });
+      toast.success("Foto removida");
+    } catch (error) {
+      console.error("Error removing photo:", error);
+      toast.error("Erro ao remover foto");
+    } finally {
+      setUploadingId(null);
+    }
+  };
+
   const hasEnglishTranslation = (member: typeof members[0]) => {
     return !!(member.title_en && member.bio_en);
   };
@@ -120,11 +196,64 @@ const TeamMembers = () => {
               <Card key={member.id}>
                 <CardHeader className="pb-3">
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center flex-shrink-0">
-                        <span className="text-lg font-bold text-muted-foreground/50">
-                          {member.name.split(" ").map((n) => n[0]).join("")}
-                        </span>
+                    <div className="flex items-center gap-4">
+                      {/* Photo Upload Section */}
+                      <div className="relative group">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          ref={(el) => (fileInputRefs.current[member.id] = el)}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handlePhotoUpload(member.id, file);
+                            e.target.value = "";
+                          }}
+                        />
+                        {member.photo_url ? (
+                          <div className="relative w-16 h-16 rounded-full overflow-hidden">
+                            <img
+                              src={member.photo_url}
+                              alt={member.name}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7 text-white hover:text-white hover:bg-white/20"
+                                onClick={() => fileInputRefs.current[member.id]?.click()}
+                                disabled={uploadingId === member.id}
+                              >
+                                <Camera className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7 text-white hover:text-red-400 hover:bg-white/20"
+                                onClick={() => handleRemovePhoto(member.id)}
+                                disabled={uploadingId === member.id}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => fileInputRefs.current[member.id]?.click()}
+                            disabled={uploadingId === member.id}
+                            className="w-16 h-16 rounded-full bg-gradient-to-br from-muted to-muted-foreground/20 flex items-center justify-center flex-shrink-0 hover:ring-2 hover:ring-primary transition-all cursor-pointer disabled:cursor-not-allowed"
+                          >
+                            {uploadingId === member.id ? (
+                              <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                            ) : (
+                              <div className="text-center">
+                                <Upload className="h-5 w-5 mx-auto text-muted-foreground/50 group-hover:text-primary transition-colors" />
+                                <span className="text-[10px] text-muted-foreground/50">Foto</span>
+                              </div>
+                            )}
+                          </button>
+                        )}
                       </div>
                       <div>
                         <CardTitle className="text-lg">{member.name}</CardTitle>
