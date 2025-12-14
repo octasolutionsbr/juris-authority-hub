@@ -25,9 +25,12 @@ export type Database = {
           description: string
           id: string
           is_shared: boolean
+          lawyer_email: string | null
           lawyer_id: string
+          lawyer_phone: string | null
           location: string
           notes: string | null
+          required_documents: string[] | null
           share_token: string | null
           status: Database["public"]["Enums"]["hearing_status"]
           type: Database["public"]["Enums"]["hearing_type"]
@@ -43,9 +46,12 @@ export type Database = {
           description: string
           id?: string
           is_shared?: boolean
+          lawyer_email?: string | null
           lawyer_id: string
+          lawyer_phone?: string | null
           location: string
           notes?: string | null
+          required_documents?: string[] | null
           share_token?: string | null
           status?: Database["public"]["Enums"]["hearing_status"]
           type: Database["public"]["Enums"]["hearing_type"]
@@ -61,9 +67,12 @@ export type Database = {
           description?: string
           id?: string
           is_shared?: boolean
+          lawyer_email?: string | null
           lawyer_id?: string
+          lawyer_phone?: string | null
           location?: string
           notes?: string | null
+          required_documents?: string[] | null
           share_token?: string | null
           status?: Database["public"]["Enums"]["hearing_status"]
           type?: Database["public"]["Enums"]["hearing_type"]

@@ -8,9 +8,10 @@ import { Switch } from "@/components/ui/switch";
 import { Hearing, HearingType, HearingStatus } from "@/types/hearing";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Plus, X } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 interface HearingFormProps {
   hearing?: Hearing;
@@ -32,7 +33,12 @@ export function HearingForm({ hearing, onSubmit, onCancel }: HearingFormProps) {
     notes: hearing?.notes || "",
     status: hearing?.status || "agendada" as HearingStatus,
     isShared: hearing?.isShared || false,
+    lawyerPhone: hearing?.lawyerPhone || "",
+    lawyerEmail: hearing?.lawyerEmail || "",
+    requiredDocuments: hearing?.requiredDocuments || [] as string[],
   });
+
+  const [newDocument, setNewDocument] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +51,30 @@ export function HearingForm({ hearing, onSubmit, onCancel }: HearingFormProps) {
       ...formData,
       dateTime,
     });
+  };
+
+  const addDocument = () => {
+    if (newDocument.trim()) {
+      setFormData({
+        ...formData,
+        requiredDocuments: [...formData.requiredDocuments, newDocument.trim()],
+      });
+      setNewDocument("");
+    }
+  };
+
+  const removeDocument = (index: number) => {
+    setFormData({
+      ...formData,
+      requiredDocuments: formData.requiredDocuments.filter((_, i) => i !== index),
+    });
+  };
+
+  const handleDocumentKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addDocument();
+    }
   };
 
   return (
@@ -206,18 +236,83 @@ export function HearingForm({ hearing, onSubmit, onCancel }: HearingFormProps) {
         />
       </div>
 
-      <div className="flex items-center justify-between p-4 border rounded-lg">
-        <div className="space-y-0.5">
-          <Label htmlFor="isShared">Compartilhar com Cliente</Label>
-          <p className="text-sm text-muted-foreground">
-            Permite que o cliente veja os detalhes via link
-          </p>
+      {/* Required Documents Section */}
+      <div className="space-y-2">
+        <Label>Documentos Necessários</Label>
+        <p className="text-xs text-muted-foreground mb-2">
+          Lista de documentos que o cliente deve levar para a audiência
+        </p>
+        <div className="flex gap-2">
+          <Input
+            value={newDocument}
+            onChange={(e) => setNewDocument(e.target.value)}
+            onKeyDown={handleDocumentKeyDown}
+            placeholder="Ex: RG e CPF, Comprovante de residência..."
+          />
+          <Button type="button" variant="outline" onClick={addDocument}>
+            <Plus className="h-4 w-4" />
+          </Button>
         </div>
-        <Switch
-          id="isShared"
-          checked={formData.isShared}
-          onCheckedChange={(checked) => setFormData({ ...formData, isShared: checked })}
-        />
+        {formData.requiredDocuments.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {formData.requiredDocuments.map((doc, index) => (
+              <Badge key={index} variant="secondary" className="gap-1 py-1">
+                {doc}
+                <button
+                  type="button"
+                  onClick={() => removeDocument(index)}
+                  className="ml-1 hover:text-destructive"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </Badge>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Sharing Section */}
+      <div className="border rounded-lg p-4 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="space-y-0.5">
+            <Label htmlFor="isShared">Compartilhar com Cliente</Label>
+            <p className="text-sm text-muted-foreground">
+              Permite que o cliente veja os detalhes via link
+            </p>
+          </div>
+          <Switch
+            id="isShared"
+            checked={formData.isShared}
+            onCheckedChange={(checked) => setFormData({ ...formData, isShared: checked })}
+          />
+        </div>
+
+        {formData.isShared && (
+          <div className="grid gap-4 md:grid-cols-2 pt-2 border-t">
+            <div className="space-y-2">
+              <Label htmlFor="lawyerPhone">Seu Telefone/WhatsApp</Label>
+              <Input
+                id="lawyerPhone"
+                value={formData.lawyerPhone}
+                onChange={(e) => setFormData({ ...formData, lawyerPhone: e.target.value })}
+                placeholder="(96) 99999-9999"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="lawyerEmail">Seu E-mail de Contato</Label>
+              <Input
+                id="lawyerEmail"
+                type="email"
+                value={formData.lawyerEmail}
+                onChange={(e) => setFormData({ ...formData, lawyerEmail: e.target.value })}
+                placeholder="seu@email.com"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground md:col-span-2">
+              Estas informações serão exibidas na página pública para o cliente entrar em contato
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="flex gap-2 justify-end pt-4">
