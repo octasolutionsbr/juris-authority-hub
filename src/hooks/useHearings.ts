@@ -18,6 +18,9 @@ export interface Hearing {
   is_shared: boolean;
   share_token: string | null;
   lawyer_id: string;
+  lawyer_phone: string | null;
+  lawyer_email: string | null;
+  required_documents: string[] | null;
   created_at: string;
   updated_at: string;
 }

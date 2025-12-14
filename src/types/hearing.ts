@@ -28,6 +28,9 @@ export interface Hearing {
   shareToken?: string;
   lawyerId: string;
   lawyerName: string;
+  lawyerPhone?: string;
+  lawyerEmail?: string;
+  requiredDocuments?: string[];
   createdAt: Date;
   updatedAt: Date;
 }

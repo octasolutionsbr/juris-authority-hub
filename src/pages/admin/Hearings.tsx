@@ -44,6 +44,9 @@ export default function AdminHearings() {
     shareToken: h.share_token || undefined,
     lawyerId: h.lawyer_id,
     lawyerName: user?.name || 'Advogado',
+    lawyerPhone: h.lawyer_phone || undefined,
+    lawyerEmail: h.lawyer_email || undefined,
+    requiredDocuments: h.required_documents || [],
     createdAt: new Date(h.created_at),
     updatedAt: new Date(h.updated_at),
   }));
@@ -63,6 +66,9 @@ export default function AdminHearings() {
         status: data.status || 'agendada',
         is_shared: data.isShared || false,
         share_token: null,
+        lawyer_phone: data.lawyerPhone || null,
+        lawyer_email: data.lawyerEmail || null,
+        required_documents: data.requiredDocuments || [],
       });
       
       setIsFormOpen(false);
@@ -103,6 +109,9 @@ export default function AdminHearings() {
       if (data.notes !== undefined) updates.notes = data.notes;
       if (data.status) updates.status = data.status;
       if (data.isShared !== undefined) updates.is_shared = data.isShared;
+      if (data.lawyerPhone !== undefined) updates.lawyer_phone = data.lawyerPhone;
+      if (data.lawyerEmail !== undefined) updates.lawyer_email = data.lawyerEmail;
+      if (data.requiredDocuments !== undefined) updates.required_documents = data.requiredDocuments;
       
       await updateHearing.mutateAsync({
         id: selectedHearing.id,
