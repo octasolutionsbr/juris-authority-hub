@@ -15,6 +15,12 @@ import anaSilvaPhoto from "@/assets/team/ana-silva.jpg";
 import robertoCostaPhoto from "@/assets/team/roberto-costa.jpg";
 import patriciaOliveiraPhoto from "@/assets/team/patricia-oliveira.jpg";
 import fernandoAlvesPhoto from "@/assets/team/fernando-alves.jpg";
+import marceloAndradePhoto from "@/assets/team/marcelo-andrade.jpg";
+import julianaMartinsPhoto from "@/assets/team/juliana-martins.jpg";
+import rafaelSantosPhoto from "@/assets/team/rafael-santos.jpg";
+import camilaRibeiroPhoto from "@/assets/team/camila-ribeiro.jpg";
+import eduardoLimaPhoto from "@/assets/team/eduardo-lima.jpg";
+import fernandaCostaPhoto from "@/assets/team/fernanda-costa.jpg";
 
 const Team = () => {
   const { t, i18n } = useTranslation();
@@ -31,6 +37,12 @@ const Team = () => {
     "roberto-costa": robertoCostaPhoto,
     "patricia-oliveira": patriciaOliveiraPhoto,
     "fernando-alves": fernandoAlvesPhoto,
+    "marcelo-andrade": marceloAndradePhoto,
+    "juliana-martins": julianaMartinsPhoto,
+    "rafael-santos": rafaelSantosPhoto,
+    "camila-ribeiro": camilaRibeiroPhoto,
+    "eduardo-lima": eduardoLimaPhoto,
+    "fernanda-costa": fernandaCostaPhoto,
   };
 
   const filteredMembers = teamMembers.filter((member) => {
