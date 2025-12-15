@@ -82,13 +82,20 @@ export type Database = {
       }
       listings: {
         Row: {
+          area: number | null
           category: Database["public"]["Enums"]["listing_category"]
           created_at: string
           created_by: string
           description: string
           description_en: string | null
+          features: string[] | null
+          features_en: string[] | null
           id: string
           images: string[] | null
+          location: string | null
+          location_en: string | null
+          long_description: string | null
+          long_description_en: string | null
           price: number | null
           status: Database["public"]["Enums"]["listing_status"]
           title: string
@@ -96,13 +103,20 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          area?: number | null
           category: Database["public"]["Enums"]["listing_category"]
           created_at?: string
           created_by: string
           description: string
           description_en?: string | null
+          features?: string[] | null
+          features_en?: string[] | null
           id?: string
           images?: string[] | null
+          location?: string | null
+          location_en?: string | null
+          long_description?: string | null
+          long_description_en?: string | null
           price?: number | null
           status?: Database["public"]["Enums"]["listing_status"]
           title: string
@@ -110,13 +124,20 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          area?: number | null
           category?: Database["public"]["Enums"]["listing_category"]
           created_at?: string
           created_by?: string
           description?: string
           description_en?: string | null
+          features?: string[] | null
+          features_en?: string[] | null
           id?: string
           images?: string[] | null
+          location?: string | null
+          location_en?: string | null
+          long_description?: string | null
+          long_description_en?: string | null
           price?: number | null
           status?: Database["public"]["Enums"]["listing_status"]
           title?: string

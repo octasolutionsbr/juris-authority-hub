@@ -230,7 +230,16 @@
     "type": "Tipo",
     "responsibleLawyer": "Advogado Responsável",
     "publishedOn": "Publicado em",
-    "contactInterest": "Entrar em Contato"
+    "contactInterest": "Entrar em Contato",
+    "noListings": "Nenhuma oportunidade disponível nesta categoria no momento."
+  },
+  "opportunityDetail": {
+    "backToOpportunities": "Voltar para Oportunidades",
+    "notFound": "Oportunidade não encontrada",
+    "description": "Descrição",
+    "details": "Detalhes Completos",
+    "features": "Características",
+    "viewDetails": "Ver Detalhes"
   },
   "lawyerProfile": {
     "backToTeam": "Voltar para Equipe",
