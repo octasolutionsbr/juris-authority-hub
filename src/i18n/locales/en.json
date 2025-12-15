@@ -230,7 +230,16 @@
     "type": "Type",
     "responsibleLawyer": "Responsible Lawyer",
     "publishedOn": "Published on",
-    "contactInterest": "Contact for Interest"
+    "contactInterest": "Contact for Interest",
+    "noListings": "No opportunities available in this category at the moment."
+  },
+  "opportunityDetail": {
+    "backToOpportunities": "Back to Opportunities",
+    "notFound": "Opportunity not found",
+    "description": "Description",
+    "details": "Full Details",
+    "features": "Features",
+    "viewDetails": "View Details"
   },
   "lawyerProfile": {
     "backToTeam": "Back to Team",

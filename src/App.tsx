@@ -12,6 +12,7 @@ import AreaDetail from "./pages/AreaDetail";
 import Team from "./pages/Team";
 import LawyerProfile from "./pages/LawyerProfile";
 import Opportunities from "./pages/Opportunities";
+import OpportunityDetail from "./pages/OpportunityDetail";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/equipe" element={<Team />} />
             <Route path="/equipe/:lawyerId" element={<LawyerProfile />} />
             <Route path="/oportunidades" element={<Opportunities />} />
+            <Route path="/oportunidades/:id" element={<OpportunityDetail />} />
             <Route path="/sobre" element={<About />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="/audiencia/:token" element={<HearingPublic />} />

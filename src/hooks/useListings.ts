@@ -8,11 +8,20 @@ type ListingStatus = 'available' | 'pending' | 'sold';
 export interface Listing {
   id: string;
   title: string;
+  title_en: string | null;
   description: string;
+  description_en: string | null;
   category: ListingCategory;
   price: number | null;
   status: ListingStatus;
   images: string[] | null;
+  location: string | null;
+  location_en: string | null;
+  area: number | null;
+  features: string[] | null;
+  features_en: string[] | null;
+  long_description: string | null;
+  long_description_en: string | null;
   created_by: string;
   created_at: string;
   updated_at: string;
@@ -34,12 +43,48 @@ export const useListings = () => {
   });
 };
 
+export const useListing = (id: string | undefined) => {
+  return useQuery({
+    queryKey: ['listing', id],
+    queryFn: async () => {
+      if (!id) return null;
+      
+      const { data, error } = await supabase
+        .from('listings')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle();
+
+      if (error) throw error;
+      
+      return data as Listing | null;
+    },
+    enabled: !!id,
+  });
+};
+
 export const useCreateListing = () => {
   const queryClient = useQueryClient();
   const { user } = useAuth();
 
   return useMutation({
-    mutationFn: async (listing: Omit<Listing, 'id' | 'created_at' | 'updated_at' | 'created_by'>) => {
+    mutationFn: async (listing: {
+      category: ListingCategory;
+      title: string;
+      description: string;
+      price?: number | null;
+      status?: ListingStatus;
+      images?: string[] | null;
+      title_en?: string | null;
+      description_en?: string | null;
+      location?: string | null;
+      location_en?: string | null;
+      area?: number | null;
+      features?: string[] | null;
+      features_en?: string[] | null;
+      long_description?: string | null;
+      long_description_en?: string | null;
+    }) => {
       const { data, error } = await supabase
         .from('listings')
         .insert({
@@ -73,8 +118,9 @@ export const useUpdateListing = () => {
       if (error) throw error;
       return data;
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['listings'] });
+      queryClient.invalidateQueries({ queryKey: ['listing', variables.id] });
     },
   });
 };
