@@ -31,11 +31,14 @@ const Header = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  // Header should have solid background when scrolled, not on homepage, or when mobile menu is open
+  const shouldHaveSolidBg = isScrolled || !isHomePage || isMobileMenuOpen;
+
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        (isScrolled || !isHomePage)
+        shouldHaveSolidBg
           ? "bg-background/95 backdrop-blur-md shadow-md"
           : "bg-transparent"
       )}
@@ -46,7 +49,7 @@ const Header = () => {
           <Link to="/" className="flex items-center space-x-2">
             <div className={cn(
               "text-2xl font-heading font-bold transition-colors",
-              (isScrolled || !isHomePage) ? "text-foreground" : "text-background"
+              shouldHaveSolidBg ? "text-foreground" : "text-background"
             )}>
               Juris <span className="text-primary">Company</span>
             </div>
@@ -62,7 +65,7 @@ const Header = () => {
                   "text-sm font-medium transition-colors hover:text-primary relative py-2",
                   isActive(link.href)
                     ? "text-primary"
-                    : (isScrolled || !isHomePage) ? "text-foreground/80" : "text-background"
+                    : shouldHaveSolidBg ? "text-foreground/80" : "text-background"
                 )}
               >
                 {link.label}
@@ -75,7 +78,7 @@ const Header = () => {
 
           {/* Language Switcher & CTA Button */}
           <div className="hidden lg:flex items-center space-x-2">
-            <LanguageSwitcher isScrolled={isScrolled} isHomePage={isHomePage} />
+            <LanguageSwitcher isScrolled={shouldHaveSolidBg} isHomePage={!shouldHaveSolidBg} />
             <Button size="sm" className="gradient-wine" asChild>
               <Link to="/contato">{t("header.scheduleConsultation")}</Link>
             </Button>
@@ -83,7 +86,10 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className={cn(
+              "lg:hidden p-2 transition-colors",
+              shouldHaveSolidBg ? "text-foreground hover:text-primary" : "text-background hover:text-background/80"
+            )}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
