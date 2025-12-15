@@ -11,6 +11,23 @@ import { useTranslation } from "react-i18next";
 import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import NotFound from "./NotFound";
 
+// Import team photos
+import marceloAndradePhoto from "@/assets/team/marcelo-andrade.jpg";
+import julianaMartinsPhoto from "@/assets/team/juliana-martins.jpg";
+import rafaelSantosPhoto from "@/assets/team/rafael-santos.jpg";
+import camilaRibeiroPhoto from "@/assets/team/camila-ribeiro.jpg";
+import eduardoLimaPhoto from "@/assets/team/eduardo-lima.jpg";
+import fernandaCostaPhoto from "@/assets/team/fernanda-costa.jpg";
+
+const photoMap: Record<string, string> = {
+  "marcelo-andrade": marceloAndradePhoto,
+  "juliana-martins": julianaMartinsPhoto,
+  "rafael-santos": rafaelSantosPhoto,
+  "camila-ribeiro": camilaRibeiroPhoto,
+  "eduardo-lima": eduardoLimaPhoto,
+  "fernanda-costa": fernandaCostaPhoto,
+};
+
 const LawyerProfile = () => {
   const { t, i18n } = useTranslation();
   const { lawyerId } = useParams();
@@ -36,6 +53,8 @@ const LawyerProfile = () => {
   const lawyerAreas = allAreas.filter((area) =>
     lawyer.areas?.includes(area.id)
   );
+  
+  const photoSrc = lawyer.photo_url || (lawyer.photo && photoMap[lawyer.photo]) || null;
 
   return (
     <div className="min-h-screen">
@@ -57,9 +76,9 @@ const LawyerProfile = () => {
               <div className="lg:col-span-1">
                 <Card className="overflow-hidden border-2 border-primary/20">
                   <div className="relative aspect-[3/4] bg-gradient-to-br from-muted to-muted-foreground/20">
-                    {lawyer.photo_url ? (
+                    {photoSrc ? (
                       <img
-                        src={lawyer.photo_url}
+                        src={photoSrc}
                         alt={lawyer.name}
                         className="w-full h-full object-cover"
                       />
