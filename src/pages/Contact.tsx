@@ -56,7 +56,7 @@ const Contact = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-grow pt-20">
+      <main className="flex-grow">
         {/* Contact Content */}
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
