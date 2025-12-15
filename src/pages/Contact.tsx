@@ -56,19 +56,7 @@ const Contact = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="pt-28 pb-10 border-b border-border">
-          <div className="container mx-auto px-4 lg:px-8">
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">
-              <span className="text-primary">{t("contact.title")}</span>
-            </h1>
-            <p className="text-muted-foreground">
-              {t("contact.description")}
-            </p>
-          </div>
-        </section>
-
+      <main className="flex-grow pt-20">
         {/* Contact Content */}
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4 lg:px-8">
@@ -93,10 +81,10 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold text-foreground mb-2 text-lg">{t("contact.info.email")}</h3>
                         <a
-                          href="mailto:contato@juriscompany.com"
+                          href="mailto:contato@juriscompany.net"
                           className="text-muted-foreground hover:text-primary transition-colors"
                         >
-                          contato@juriscompany.com
+                          contato@juriscompany.net
                         </a>
                       </div>
                     </div>
