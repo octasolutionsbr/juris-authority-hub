@@ -39,16 +39,14 @@ const Opportunities = () => {
       <Header />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-foreground to-foreground/90">
+        <section className="py-10 border-b border-border">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="max-w-3xl">
-              <h1 className="text-5xl md:text-6xl font-heading font-bold text-background mb-6">
-                {t("opportunitiesPage.title")}
-              </h1>
-              <p className="text-xl text-background/80 leading-relaxed">
-                {t("opportunitiesPage.description")}
-              </p>
-            </div>
+            <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">
+              <span className="text-primary">{t("opportunitiesPage.title")}</span>
+            </h1>
+            <p className="text-muted-foreground">
+              {t("opportunitiesPage.description")}
+            </p>
           </div>
         </section>
 
