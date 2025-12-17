@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -6,27 +7,49 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
+
+// Eager load only the Index page for fast initial load
 import Index from "./pages/Index";
 
-import AreaDetail from "./pages/AreaDetail";
-import Team from "./pages/Team";
-import LawyerProfile from "./pages/LawyerProfile";
-import Opportunities from "./pages/Opportunities";
-import OpportunityDetail from "./pages/OpportunityDetail";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
-import AdminLogin from "./pages/admin/Login";
-import AdminResetPassword from "./pages/admin/ResetPassword";
-import AdminDashboard from "./pages/admin/Dashboard";
-import AdminProfile from "./pages/admin/Profile";
-import AdminListings from "./pages/admin/Listings";
-import AdminUsers from "./pages/admin/Users";
-import AdminHearings from "./pages/admin/Hearings";
-import AdminSettings from "./pages/admin/Settings";
-import HearingPublic from "./pages/HearingPublic";
+// Lazy load all other pages
+const AreaDetail = lazy(() => import("./pages/AreaDetail"));
+const Team = lazy(() => import("./pages/Team"));
+const LawyerProfile = lazy(() => import("./pages/LawyerProfile"));
+const Opportunities = lazy(() => import("./pages/Opportunities"));
+const OpportunityDetail = lazy(() => import("./pages/OpportunityDetail"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const HearingPublic = lazy(() => import("./pages/HearingPublic"));
 
-const queryClient = new QueryClient();
+// Lazy load admin pages
+const AdminLogin = lazy(() => import("./pages/admin/Login"));
+const AdminResetPassword = lazy(() => import("./pages/admin/ResetPassword"));
+const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
+const AdminProfile = lazy(() => import("./pages/admin/Profile"));
+const AdminListings = lazy(() => import("./pages/admin/Listings"));
+const AdminUsers = lazy(() => import("./pages/admin/Users"));
+const AdminHearings = lazy(() => import("./pages/admin/Hearings"));
+const AdminSettings = lazy(() => import("./pages/admin/Settings"));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="animate-pulse text-muted-foreground">Carregando...</div>
+  </div>
+);
+
+// Configure QueryClient with optimized caching
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      gcTime: 1000 * 60 * 30, // 30 minutes (formerly cacheTime)
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -36,31 +59,33 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            
-            <Route path="/areas/:areaId" element={<AreaDetail />} />
-            <Route path="/equipe" element={<Team />} />
-            <Route path="/equipe/:lawyerId" element={<LawyerProfile />} />
-            <Route path="/oportunidades" element={<Opportunities />} />
-            <Route path="/oportunidades/:id" element={<OpportunityDetail />} />
-            <Route path="/sobre" element={<About />} />
-            <Route path="/contato" element={<Contact />} />
-            <Route path="/audiencia/:token" element={<HearingPublic />} />
-            
-            {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/reset-password" element={<AdminResetPassword />} />
-            <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-            <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
-            <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
-            <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
-            <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
-            <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
-            
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              
+              <Route path="/areas/:areaId" element={<AreaDetail />} />
+              <Route path="/equipe" element={<Team />} />
+              <Route path="/equipe/:lawyerId" element={<LawyerProfile />} />
+              <Route path="/oportunidades" element={<Opportunities />} />
+              <Route path="/oportunidades/:id" element={<OpportunityDetail />} />
+              <Route path="/sobre" element={<About />} />
+              <Route path="/contato" element={<Contact />} />
+              <Route path="/audiencia/:token" element={<HearingPublic />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin/reset-password" element={<AdminResetPassword />} />
+              <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+              <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
+              <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
+              <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
+              <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
+              <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
+              
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
