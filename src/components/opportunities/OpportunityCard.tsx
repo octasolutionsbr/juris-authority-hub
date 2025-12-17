@@ -35,6 +35,8 @@ export const OpportunityCard = ({ listing }: OpportunityCardProps) => {
                 src={listing.images![0]}
                 alt={title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                decoding="async"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">

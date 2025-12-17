@@ -1,9 +1,11 @@
 import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTeamMember } from "@/hooks/useTeamMembers";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { useAutoTranslateSingleProfile } from "@/hooks/useAutoTranslateProfile";
+import { loadTeamPhotos } from "@/hooks/useTeamPhotos";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen } from "lucide-react";
@@ -11,28 +13,17 @@ import { useTranslation } from "react-i18next";
 import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import NotFound from "./NotFound";
 
-// Import team photos
-import marceloAndradePhoto from "@/assets/team/marcelo-andrade.jpg";
-import julianaMartinsPhoto from "@/assets/team/juliana-martins.jpg";
-import rafaelSantosPhoto from "@/assets/team/rafael-santos.jpg";
-import camilaRibeiroPhoto from "@/assets/team/camila-ribeiro.jpg";
-import eduardoLimaPhoto from "@/assets/team/eduardo-lima.jpg";
-import fernandaCostaPhoto from "@/assets/team/fernanda-costa.jpg";
-
-const photoMap: Record<string, string> = {
-  "marcelo-andrade": marceloAndradePhoto,
-  "juliana-martins": julianaMartinsPhoto,
-  "rafael-santos": rafaelSantosPhoto,
-  "camila-ribeiro": camilaRibeiroPhoto,
-  "eduardo-lima": eduardoLimaPhoto,
-  "fernanda-costa": fernandaCostaPhoto,
-};
-
 const LawyerProfile = () => {
   const { t, i18n } = useTranslation();
   const { lawyerId } = useParams();
+  const [photoMap, setPhotoMap] = useState<Record<string, string>>({});
   const { data: lawyer, isLoading: loadingLawyer } = useTeamMember(lawyerId || '');
   const { data: allAreas = [], isLoading: loadingAreas } = usePracticeAreas();
+
+  // Lazy load photos
+  useEffect(() => {
+    loadTeamPhotos().then(setPhotoMap);
+  }, []);
 
   // Auto-translate profile when viewing in English - MUST be called before any early returns
   useAutoTranslateSingleProfile(lawyer);
@@ -81,6 +72,8 @@ const LawyerProfile = () => {
                         src={photoSrc}
                         alt={lawyer.name}
                         className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">

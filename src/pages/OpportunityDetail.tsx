@@ -128,6 +128,8 @@ export default function OpportunityDetail() {
                                 src={image}
                                 alt={`${title} - ${index + 1}`}
                                 className="w-full h-full object-cover"
+                                loading="lazy"
+                                decoding="async"
                               />
                             </div>
                           </CarouselItem>
@@ -157,6 +159,8 @@ export default function OpportunityDetail() {
                       src={image}
                       alt={`Thumb ${index + 1}`}
                       className="w-20 h-14 object-cover rounded-md border-2 border-transparent hover:border-primary cursor-pointer transition-colors"
+                      loading="lazy"
+                      decoding="async"
                     />
                   ))}
                 </div>
