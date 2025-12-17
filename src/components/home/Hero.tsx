@@ -21,7 +21,7 @@ const Hero = () => {
           alt="Juris Company - Advocacia Premium"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/45" />
       </div>
 
       {/* Content */}
