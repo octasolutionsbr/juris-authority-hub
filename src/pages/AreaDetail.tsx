@@ -88,7 +88,7 @@ const AreaDetail = () => {
         <Header />
         <main className="pt-20">
           {/* Hero Section */}
-          <section className="py-20 md:py-28 bg-gradient-to-br from-foreground to-foreground/90">
+          <section className="py-12 md:py-16 bg-gradient-to-br from-foreground to-foreground/90">
             <div className="container mx-auto px-4 lg:px-8">
               <Link
                 to="/#areas-de-atuacao"
