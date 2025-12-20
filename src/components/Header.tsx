@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 import logo from "@/assets/logo.png";
+import logoDark from "@/assets/logo-dark.png";
+
 const Header = () => {
   const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,12 +50,9 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src={logo} 
+              src={shouldHaveSolidBg ? logoDark : logo} 
               alt="Juris Company" 
-              className={cn(
-                "h-10 transition-all",
-                shouldHaveSolidBg ? "brightness-0" : "brightness-100"
-              )}
+              className="h-10 transition-all"
             />
           </Link>
 
