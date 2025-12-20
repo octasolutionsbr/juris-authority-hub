@@ -15,9 +15,11 @@ i18n
     lng: 'pt',
     fallbackLng: 'pt',
     detection: {
-      order: ['localStorage'],
-      caches: ['localStorage'],
+      order: ['localStorage', 'cookie'],
+      caches: ['localStorage', 'cookie'],
       lookupLocalStorage: 'i18nextLng',
+      lookupCookie: 'i18nextLng',
+      cookieMinutes: 525600, // 1 ano
     },
     interpolation: {
       escapeValue: false,
