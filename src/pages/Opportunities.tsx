@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Building2, FileText, Briefcase } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useListings } from "@/hooks/useListings";
+import { useAvailableListingsByCategory } from "@/hooks/useListings";
 import { OpportunityCard } from "@/components/opportunities/OpportunityCard";
+import { OpportunityCardSkeleton } from "@/components/opportunities/OpportunityCardSkeleton";
 import SEOHead from "@/components/SEOHead";
+
+type CategoryType = "imoveis" | "precatorios" | "outros";
 
 const Opportunities = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const categoryParam = searchParams.get("categoria");
-  const [activeTab, setActiveTab] = useState(categoryParam || "imoveis");
-
-  const { data: listings = [], isLoading } = useListings();
+  const categoryParam = searchParams.get("categoria") as CategoryType | null;
+  const [activeTab, setActiveTab] = useState<CategoryType>(categoryParam || "imoveis");
 
   useEffect(() => {
     if (categoryParam) {
@@ -23,15 +24,30 @@ const Opportunities = () => {
     }
   }, [categoryParam]);
 
-  // Filter only available listings by category
-  const availableListings = listings.filter((l) => l.status === "available");
-  const imoveis = availableListings.filter((l) => l.category === "imoveis");
-  const precatorios = availableListings.filter((l) => l.category === "precatorios");
-  const outros = availableListings.filter((l) => l.category === "outros" || l.category === "creditos");
+  // Fetch only the active category - lazy loading
+  const { data: imoveis = [], isLoading: isLoadingImoveis } = useAvailableListingsByCategory("imoveis");
+  const { data: precatorios = [], isLoading: isLoadingPrecatorios } = useAvailableListingsByCategory("precatorios");
+  const { data: outrosRaw = [], isLoading: isLoadingOutros } = useAvailableListingsByCategory("outros");
+  const { data: creditosRaw = [], isLoading: isLoadingCreditos } = useAvailableListingsByCategory("creditos" as any);
+
+  // Combine outros and creditos
+  const outros = useMemo(() => [...outrosRaw, ...creditosRaw], [outrosRaw, creditosRaw]);
+
+  const isLoading = activeTab === "imoveis" ? isLoadingImoveis : 
+                    activeTab === "precatorios" ? isLoadingPrecatorios : 
+                    (isLoadingOutros || isLoadingCreditos);
 
   const EmptyState = () => (
     <div className="text-center py-12">
       <p className="text-muted-foreground">{t("opportunitiesPage.noListings", "Nenhuma oportunidade disponível no momento.")}</p>
+    </div>
+  );
+
+  const LoadingSkeleton = ({ showImage = false }: { showImage?: boolean }) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[1, 2, 3].map((i) => (
+        <OpportunityCardSkeleton key={i} showImage={showImage} />
+      ))}
     </div>
   );
 
@@ -81,64 +97,64 @@ const Opportunities = () => {
           {/* Opportunities Content */}
           <section className="py-20 bg-background">
             <div className="container mx-auto px-4 lg:px-8">
-              {isLoading ? (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground">Carregando...</p>
-                </div>
-              ) : (
-                <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                  <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3 mb-12 h-auto">
-                    <TabsTrigger value="imoveis" className="text-base py-3">
-                      <Building2 className="w-5 h-5 mr-2" />
-                      {t("opportunitiesPage.properties")}
-                    </TabsTrigger>
-                    <TabsTrigger value="precatorios" className="text-base py-3">
-                      <FileText className="w-5 h-5 mr-2" />
-                      {t("opportunitiesPage.courtOrders")}
-                    </TabsTrigger>
-                    <TabsTrigger value="outros" className="text-base py-3">
-                      <Briefcase className="w-5 h-5 mr-2" />
-                      {t("opportunitiesPage.otherAssets")}
-                    </TabsTrigger>
-                  </TabsList>
+              <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as CategoryType)} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3 mb-12 h-auto">
+                  <TabsTrigger value="imoveis" className="text-base py-3">
+                    <Building2 className="w-5 h-5 mr-2" />
+                    {t("opportunitiesPage.properties")}
+                  </TabsTrigger>
+                  <TabsTrigger value="precatorios" className="text-base py-3">
+                    <FileText className="w-5 h-5 mr-2" />
+                    {t("opportunitiesPage.courtOrders")}
+                  </TabsTrigger>
+                  <TabsTrigger value="outros" className="text-base py-3">
+                    <Briefcase className="w-5 h-5 mr-2" />
+                    {t("opportunitiesPage.otherAssets")}
+                  </TabsTrigger>
+                </TabsList>
 
-                  <TabsContent value="imoveis" className="mt-0">
-                    {imoveis.length === 0 ? (
-                      <EmptyState />
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {imoveis.map((listing) => (
-                          <OpportunityCard key={listing.id} listing={listing} />
-                        ))}
-                      </div>
-                    )}
-                  </TabsContent>
+                <TabsContent value="imoveis" className="mt-0">
+                  {isLoadingImoveis ? (
+                    <LoadingSkeleton showImage />
+                  ) : imoveis.length === 0 ? (
+                    <EmptyState />
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {imoveis.map((listing) => (
+                        <OpportunityCard key={listing.id} listing={listing} />
+                      ))}
+                    </div>
+                  )}
+                </TabsContent>
 
-                  <TabsContent value="precatorios" className="mt-0">
-                    {precatorios.length === 0 ? (
-                      <EmptyState />
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {precatorios.map((listing) => (
-                          <OpportunityCard key={listing.id} listing={listing} />
-                        ))}
-                      </div>
-                    )}
-                  </TabsContent>
+                <TabsContent value="precatorios" className="mt-0">
+                  {isLoadingPrecatorios ? (
+                    <LoadingSkeleton />
+                  ) : precatorios.length === 0 ? (
+                    <EmptyState />
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {precatorios.map((listing) => (
+                        <OpportunityCard key={listing.id} listing={listing} />
+                      ))}
+                    </div>
+                  )}
+                </TabsContent>
 
-                  <TabsContent value="outros" className="mt-0">
-                    {outros.length === 0 ? (
-                      <EmptyState />
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {outros.map((listing) => (
-                          <OpportunityCard key={listing.id} listing={listing} />
-                        ))}
-                      </div>
-                    )}
-                  </TabsContent>
-                </Tabs>
-              )}
+                <TabsContent value="outros" className="mt-0">
+                  {isLoadingOutros || isLoadingCreditos ? (
+                    <LoadingSkeleton />
+                  ) : outros.length === 0 ? (
+                    <EmptyState />
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {outros.map((listing) => (
+                        <OpportunityCard key={listing.id} listing={listing} />
+                      ))}
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
             </div>
           </section>
         </main>
