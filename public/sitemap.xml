@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://juriscompany.net/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/?lang=en"/>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- About Page -->
+  <url>
+    <loc>https://juriscompany.net/sobre</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/sobre"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/sobre?lang=en"/>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Team Page -->
+  <url>
+    <loc>https://juriscompany.net/equipe</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/equipe"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/equipe?lang=en"/>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Contact Page -->
+  <url>
+    <loc>https://juriscompany.net/contato</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/contato"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/contato?lang=en"/>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Opportunities Page -->
+  <url>
+    <loc>https://juriscompany.net/oportunidades</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/oportunidades"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/oportunidades?lang=en"/>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Practice Areas - Dynamic pages would be added here -->
+  <!-- Direito Empresarial -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-empresarial</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Direito Tributário -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-tributario</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Direito Ambiental -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-ambiental</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Direito Administrativo -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-administrativo</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Direito Trabalhista -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-trabalhista</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Direito Imobiliário -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-imobiliario</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

@@ -1,7 +1,19 @@
+# Robots.txt for Juris Company
+# https://juriscompany.net
+
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+User-agent: DuckDuckBot
 Allow: /
 
 User-agent: Twitterbot
@@ -10,5 +22,21 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
 User-agent: *
 Allow: /
+
+# Disallow admin pages
+User-agent: *
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://juriscompany.net/sitemap.xml
+
+# Host
+Host: https://juriscompany.net

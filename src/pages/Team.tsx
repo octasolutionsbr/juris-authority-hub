@@ -11,6 +11,7 @@ import { Mail, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
+import SEOHead from "@/components/SEOHead";
 
 // Memoized team member card
 const TeamCard = memo(({ 
@@ -31,7 +32,7 @@ const TeamCard = memo(({
       {member.photo_url ? (
         <img
           src={member.photo_url}
-          alt={member.name}
+          alt={`${member.name} - Advogado especialista em ${areaTitle} em Macapá`}
           className="w-full h-full object-cover"
           loading="lazy"
           decoding="async"
@@ -39,7 +40,7 @@ const TeamCard = memo(({
       ) : member.photo && photoMap[member.photo] ? (
         <img
           src={photoMap[member.photo]}
-          alt={member.name}
+          alt={`${member.name} - Advogado especialista em ${areaTitle} em Macapá`}
           className="w-full h-full object-cover"
           loading="lazy"
           decoding="async"
@@ -116,107 +117,135 @@ const Team = () => {
     return areaMatch;
   });
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://juriscompany.net/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Equipe",
+        "item": "https://juriscompany.net/equipe"
+      }
+    ]
+  };
+
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main className="pt-20">
-        {/* Hero Section */}
-        <section className="py-10 border-b border-border">
-          <div className="container mx-auto px-4 lg:px-8">
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">
-              <span className="text-primary">{t("team.title")}</span>
-            </h1>
-            <p className="text-muted-foreground">
-              {t("team.description")}
-            </p>
-          </div>
-        </section>
-
-        {/* Filters */}
-        <section className="py-4 bg-secondary sticky top-20 z-40 border-b border-border">
-          <div className="container mx-auto px-4 lg:px-8">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1 max-w-md">
-                <label className="text-sm font-medium mb-2 block">
-                  {t("team.filterByArea")}
-                </label>
-                <select
-                  value={selectedArea}
-                  onChange={(e) => setSelectedArea(e.target.value)}
-                  className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="all">{t("team.allAreas")}</option>
-                  {practiceAreas.map((area) => {
-                    const translatedArea = getTranslatedPracticeArea(area, i18n.language);
-                    return (
-                      <option key={area.id} value={area.id}>
-                        {translatedArea.title}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Team Members Section */}
-        {loadingMembers || loadingAreas ? (
-          <section className="py-16 bg-background">
-            <div className="container mx-auto px-4 lg:px-8 text-center">
-              <p className="text-muted-foreground">{t("common.loading")}</p>
-            </div>
-          </section>
-        ) : filteredMembers.length > 0 ? (
-          <section className="py-16 bg-background">
+    <>
+      <SEOHead 
+        title="Nossa Equipe de Advogados Especialistas"
+        description="Conheça os advogados especialistas da Juris Company em Macapá-AP. Profissionais experientes em direito empresarial, petróleo e gás, tributário, ambiental e mais áreas."
+        keywords="advogados Macapá, equipe jurídica Amapá, advogado especialista petróleo, advogado empresarial Macapá"
+        canonicalUrl="/equipe"
+        structuredData={breadcrumbSchema}
+      />
+      <div className="min-h-screen">
+        <Header />
+        <main className="pt-20">
+          {/* Hero Section */}
+          <section className="py-10 border-b border-border">
             <div className="container mx-auto px-4 lg:px-8">
-              <h2 className="text-3xl font-heading font-semibold mb-8">
-                {t("team.lawyers")}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredMembers.map((member) => {
-                  const translatedMember = getTranslatedTeamMember(member, i18n.language);
-                  const areaTitle = member.main_area 
-                    ? getTranslatedPracticeArea(
-                        practiceAreas.find(a => a.id === member.main_area) || { 
-                          id: '', 
-                          title: translatedMember.title, 
-                          icon: '', 
-                          description: '', 
-                          long_description: null, 
-                          keywords: null, 
-                          order_index: 0 
-                        }, 
-                        i18n.language
-                      ).title 
-                    : translatedMember.title;
-                  
-                  return (
-                    <TeamCard
-                      key={member.id}
-                      member={member}
-                      photoMap={photoMap}
-                      translatedMember={translatedMember}
-                      areaTitle={areaTitle}
-                      t={t}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-        ) : (
-          <section className="py-20 bg-background text-center">
-            <div className="container mx-auto px-4 lg:px-8">
-              <p className="text-muted-foreground text-lg">
-                {t("team.noResults")}
+              <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">
+                <span className="text-primary">{t("team.title")}</span>
+              </h1>
+              <p className="text-muted-foreground">
+                {t("team.description")}
               </p>
             </div>
           </section>
-        )}
-      </main>
-      <Footer />
-    </div>
+
+          {/* Filters */}
+          <section className="py-4 bg-secondary sticky top-20 z-40 border-b border-border">
+            <div className="container mx-auto px-4 lg:px-8">
+              <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex-1 max-w-md">
+                  <label className="text-sm font-medium mb-2 block">
+                    {t("team.filterByArea")}
+                  </label>
+                  <select
+                    value={selectedArea}
+                    onChange={(e) => setSelectedArea(e.target.value)}
+                    className="w-full px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="all">{t("team.allAreas")}</option>
+                    {practiceAreas.map((area) => {
+                      const translatedArea = getTranslatedPracticeArea(area, i18n.language);
+                      return (
+                        <option key={area.id} value={area.id}>
+                          {translatedArea.title}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Team Members Section */}
+          {loadingMembers || loadingAreas ? (
+            <section className="py-16 bg-background">
+              <div className="container mx-auto px-4 lg:px-8 text-center">
+                <p className="text-muted-foreground">{t("common.loading")}</p>
+              </div>
+            </section>
+          ) : filteredMembers.length > 0 ? (
+            <section className="py-16 bg-background">
+              <div className="container mx-auto px-4 lg:px-8">
+                <h2 className="text-3xl font-heading font-semibold mb-8">
+                  {t("team.lawyers")}
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredMembers.map((member) => {
+                    const translatedMember = getTranslatedTeamMember(member, i18n.language);
+                    const areaTitle = member.main_area 
+                      ? getTranslatedPracticeArea(
+                          practiceAreas.find(a => a.id === member.main_area) || { 
+                            id: '', 
+                            title: translatedMember.title, 
+                            icon: '', 
+                            description: '', 
+                            long_description: null, 
+                            keywords: null, 
+                            order_index: 0 
+                          }, 
+                          i18n.language
+                        ).title 
+                      : translatedMember.title;
+                    
+                    return (
+                      <TeamCard
+                        key={member.id}
+                        member={member}
+                        photoMap={photoMap}
+                        translatedMember={translatedMember}
+                        areaTitle={areaTitle}
+                        t={t}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+          ) : (
+            <section className="py-20 bg-background text-center">
+              <div className="container mx-auto px-4 lg:px-8">
+                <p className="text-muted-foreground text-lg">
+                  {t("team.noResults")}
+                </p>
+              </div>
+            </section>
+          )}
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 

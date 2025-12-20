@@ -6,12 +6,30 @@ import PracticeAreas from "@/components/home/PracticeAreas";
 import OpportunitiesSection from "@/components/home/OpportunitiesSection";
 import FoundingPartners from "@/components/home/FoundingPartners";
 import ContactSection from "@/components/home/ContactSection";
+import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": "https://juriscompany.net/"
+      }
+    ]
+  };
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
+    <>
+      <SEOHead 
+        canonicalUrl="/"
+        structuredData={breadcrumbSchema}
+      />
+      <div className="min-h-screen">
+        <Header />
+        <main>
         <Hero />
         <AboutUs />
         <PracticeAreas />
@@ -20,7 +38,8 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
-    </div>
+      </div>
+    </>
   );
 };
 
