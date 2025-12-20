@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
@@ -8,6 +8,7 @@ import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { useTranslation } from "react-i18next";
 import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import { loadTeamPhotos, getTeamPhotoMap } from "@/hooks/useTeamPhotos";
+import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -100,6 +101,10 @@ const FoundingPartners = () => {
   const [photoMap, setPhotoMap] = useState<Record<string, string>>({});
   const { data: allMembers = [], isLoading } = useTeamMembers();
   const { data: practiceAreas = [] } = usePracticeAreas();
+  
+  const autoplayPlugin = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
   const members = allMembers.filter(m => m.published).slice(0, 20);
 
   // Lazy load photos only when component mounts
@@ -135,6 +140,7 @@ const FoundingPartners = () => {
                 align: "start",
                 loop: true,
               }}
+              plugins={[autoplayPlugin.current]}
               setApi={setApi}
               className="w-full max-w-7xl mx-auto"
             >
