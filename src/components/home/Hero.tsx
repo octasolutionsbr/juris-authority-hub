@@ -36,9 +36,9 @@ const Hero = () => {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-background mb-8 leading-tight animate-fade-in">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-background mb-8 leading-tight animate-fade-in">
             {t("hero.title")}{" "}
-            <span className="text-primary-light sm:whitespace-nowrap">{t("hero.subtitle")}</span>
+            <span className="text-primary-light">{t("hero.subtitle")}</span>
           </h1>
 
           <p className="text-xl md:text-2xl text-background/80 mb-12 leading-relaxed max-w-2xl animate-fade-in" style={{ animationDelay: "0.2s" }}>
