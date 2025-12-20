@@ -9,49 +9,21 @@ interface LanguageSwitcherProps {
 const LanguageSwitcher = ({ isScrolled = true, isHomePage = false }: LanguageSwitcherProps) => {
   const { i18n } = useTranslation();
 
-  const changeToPortuguese = () => {
-    if (i18n.language !== 'pt') {
-      i18n.changeLanguage('pt');
-    }
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'pt' ? 'en' : 'pt';
+    i18n.changeLanguage(newLang);
   };
 
-  const changeToEnglish = () => {
-    if (i18n.language !== 'en') {
-      i18n.changeLanguage('en');
-    }
-  };
+  const isPortuguese = i18n.language === 'pt';
 
   return (
-    <div className="flex items-center gap-1">
-      <button
-        onClick={changeToPortuguese}
-        className={cn(
-          "w-7 h-5 rounded overflow-hidden transition-all focus:outline-none",
-          i18n.language === 'pt' 
-            ? "ring-2 ring-primary ring-offset-1" 
-            : "opacity-60 hover:opacity-100"
-        )}
-        aria-label="Português"
-        title="Português"
-      >
-        <svg viewBox="0 0 36 24" className="w-full h-full">
-          <rect fill="#009B3A" width="36" height="24"/>
-          <polygon fill="#FEDF00" points="18,2 34,12 18,22 2,12"/>
-          <circle fill="#002776" cx="18" cy="12" r="6"/>
-          <path d="M11,12 Q18,8 25,12" stroke="#FFFFFF" strokeWidth="0.5" fill="none"/>
-        </svg>
-      </button>
-      <button
-        onClick={changeToEnglish}
-        className={cn(
-          "w-7 h-5 rounded overflow-hidden transition-all focus:outline-none",
-          i18n.language === 'en' 
-            ? "ring-2 ring-primary ring-offset-1" 
-            : "opacity-60 hover:opacity-100"
-        )}
-        aria-label="English"
-        title="English"
-      >
+    <button
+      onClick={toggleLanguage}
+      className="w-7 h-5 rounded overflow-hidden transition-all focus:outline-none hover:scale-110"
+      aria-label={isPortuguese ? "Switch to English" : "Mudar para Português"}
+      title={isPortuguese ? "Switch to English" : "Mudar para Português"}
+    >
+      {isPortuguese ? (
         <svg viewBox="0 0 60 30" className="w-full h-full">
           <clipPath id="uk">
             <rect width="60" height="30"/>
@@ -64,8 +36,15 @@ const LanguageSwitcher = ({ isScrolled = true, isHomePage = false }: LanguageSwi
             <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" strokeWidth="6"/>
           </g>
         </svg>
-      </button>
-    </div>
+      ) : (
+        <svg viewBox="0 0 36 24" className="w-full h-full">
+          <rect fill="#009B3A" width="36" height="24"/>
+          <polygon fill="#FEDF00" points="18,2 34,12 18,22 2,12"/>
+          <circle fill="#002776" cx="18" cy="12" r="6"/>
+          <path d="M11,12 Q18,8 25,12" stroke="#FFFFFF" strokeWidth="0.5" fill="none"/>
+        </svg>
+      )}
+    </button>
   );
 };
 
