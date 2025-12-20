@@ -24,6 +24,13 @@ const LanguageSwitcher = ({ isScrolled = true, isHomePage = false }: LanguageSwi
       title={isPortuguese ? "Switch to English" : "Mudar para Português"}
     >
       {isPortuguese ? (
+        <svg viewBox="0 0 36 24" className="w-full h-full">
+          <rect fill="#009B3A" width="36" height="24"/>
+          <polygon fill="#FEDF00" points="18,2 34,12 18,22 2,12"/>
+          <circle fill="#002776" cx="18" cy="12" r="6"/>
+          <path d="M11,12 Q18,8 25,12" stroke="#FFFFFF" strokeWidth="0.5" fill="none"/>
+        </svg>
+      ) : (
         <svg viewBox="0 0 60 30" className="w-full h-full">
           <clipPath id="uk">
             <rect width="60" height="30"/>
@@ -35,13 +42,6 @@ const LanguageSwitcher = ({ isScrolled = true, isHomePage = false }: LanguageSwi
             <path fill="#FFFFFF" d="M30,0 V30 M0,15 H60" stroke="#FFFFFF" strokeWidth="10"/>
             <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" strokeWidth="6"/>
           </g>
-        </svg>
-      ) : (
-        <svg viewBox="0 0 36 24" className="w-full h-full">
-          <rect fill="#009B3A" width="36" height="24"/>
-          <polygon fill="#FEDF00" points="18,2 34,12 18,22 2,12"/>
-          <circle fill="#002776" cx="18" cy="12" r="6"/>
-          <path d="M11,12 Q18,8 25,12" stroke="#FFFFFF" strokeWidth="0.5" fill="none"/>
         </svg>
       )}
     </button>
