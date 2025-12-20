@@ -194,17 +194,16 @@ const AreaDetail = () => {
           )}
 
           {/* CTA Section */}
-          <section className="py-16 bg-primary text-primary-foreground">
+          <section className="py-16 bg-background">
             <div className="container mx-auto px-4 lg:px-8 text-center">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-foreground">
                 {t("areaDetail.contactUs")}
               </h2>
-              <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
+              <p className="text-lg mb-8 max-w-2xl mx-auto text-muted-foreground">
                 {t("areaDetail.description")}
               </p>
               <Button
                 size="lg"
-                variant="secondary"
                 className="text-lg px-8"
                 asChild
               >
