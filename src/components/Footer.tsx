@@ -138,23 +138,25 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-background/20">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-background/60 text-sm">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-background/60 text-sm text-center md:text-left">
               © {currentYear} Juris Company. {t("footer.rights")}
             </p>
-            <div className="flex items-center space-x-6">
-              <Link
-                to="/privacidade"
-                className="text-background/60 hover:text-primary-light transition-colors text-sm"
-              >
-                {t("footer.privacy")}
-              </Link>
-              <Link
-                to="/termos"
-                className="text-background/60 hover:text-primary-light transition-colors text-sm"
-              >
-                {t("footer.terms")}
-              </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
+              <div className="flex items-center gap-4 sm:gap-6">
+                <Link
+                  to="/privacidade"
+                  className="text-background/60 hover:text-primary-light transition-colors text-sm"
+                >
+                  {t("footer.privacy")}
+                </Link>
+                <Link
+                  to="/termos"
+                  className="text-background/60 hover:text-primary-light transition-colors text-sm"
+                >
+                  {t("footer.terms")}
+                </Link>
+              </div>
               <div className="flex items-center">
                 <span className="text-background/60 text-sm mr-2">{t("footer.developedBy")}</span>
                 <a 
