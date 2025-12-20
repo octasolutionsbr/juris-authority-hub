@@ -1,4 +1,4 @@
-import { useState, useEffect, memo, useRef } from "react";
+import { useState, useEffect, memo } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
@@ -8,7 +8,6 @@ import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { useTranslation } from "react-i18next";
 import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import { loadTeamPhotos, getTeamPhotoMap } from "@/hooks/useTeamPhotos";
-import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -31,7 +30,7 @@ const TeamMemberCard = memo(({
   areaTitle: string;
 }) => (
   <Link to={`/equipe/${member.id}`} className="block">
-    <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full hover:-translate-y-2">
+    <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
       <div className="relative h-80 overflow-hidden">
         {member.photo_url ? (
           <img
@@ -101,10 +100,6 @@ const FoundingPartners = () => {
   const [photoMap, setPhotoMap] = useState<Record<string, string>>({});
   const { data: allMembers = [], isLoading } = useTeamMembers();
   const { data: practiceAreas = [] } = usePracticeAreas();
-  
-  const autoplayPlugin = useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true })
-  );
   const members = allMembers.filter(m => m.published).slice(0, 20);
 
   // Lazy load photos only when component mounts
@@ -140,12 +135,11 @@ const FoundingPartners = () => {
                 align: "start",
                 loop: true,
               }}
-              plugins={[autoplayPlugin.current]}
               setApi={setApi}
               className="w-full max-w-7xl mx-auto"
             >
               <CarouselContent className="-ml-2 md:-ml-4">
-                {members.map((member, index) => {
+                {members.map((member) => {
                   const translatedMember = getTranslatedTeamMember(member, i18n.language);
                   const areaTitle = member.main_area 
                     ? getTranslatedPracticeArea(
@@ -165,8 +159,7 @@ const FoundingPartners = () => {
                   return (
                     <CarouselItem 
                       key={member.id} 
-                      className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 animate-fade-in"
-                      style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'backwards' }}
+                      className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
                     >
                       <TeamMemberCard
                         member={member}
