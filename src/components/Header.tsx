@@ -85,17 +85,20 @@ const Header = () => {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className={cn(
-              "lg:hidden p-2 transition-colors",
-              shouldHaveSolidBg ? "text-foreground hover:text-primary" : "text-background hover:text-background/80"
-            )}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: Language Switcher & Menu Button */}
+          <div className="lg:hidden flex items-center space-x-2">
+            <LanguageSwitcher isScrolled={shouldHaveSolidBg} isHomePage={!shouldHaveSolidBg} />
+            <button
+              className={cn(
+                "p-2 transition-colors",
+                shouldHaveSolidBg ? "text-foreground hover:text-primary" : "text-background hover:text-background/80"
+              )}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -117,11 +120,8 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="flex flex-col px-4 pt-4 space-y-2">
-                <div className="flex justify-center">
-                  <LanguageSwitcher isScrolled={true} isHomePage={false} />
-                </div>
-                <Button size="sm" className="gradient-wine" asChild>
+              <div className="px-4 pt-4">
+                <Button size="sm" className="gradient-wine w-full" asChild>
                   <Link to="/contato" onClick={() => setIsMobileMenuOpen(false)}>
                     {t("header.scheduleConsultation")}
                   </Link>
