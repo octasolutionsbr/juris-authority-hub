@@ -8,94 +8,95 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Juris Company Premium Design System - Burgundy/Maroon Palette */
+    /* Juris Company Premium Design System - Burgundy Palette */
+    /* #6F132A (dark) | #8F2235 (main) | #FFFFFF (white) */
     --background: 0 0% 100%;
-    --foreground: 354 30% 15%;
+    --foreground: 349 73% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 354 30% 15%;
+    --card-foreground: 349 73% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 354 30% 15%;
+    --popover-foreground: 349 73% 15%;
 
-    /* Brand Colors - Deep Burgundy (#722F37) */
-    --primary: 354 42% 32%;
+    /* Brand Colors - Burgundy (#8F2235 main, #6F132A dark) */
+    --primary: 349 63% 35%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 354 42% 42%;
-    --primary-dark: 354 45% 22%;
+    --primary-light: 349 55% 45%;
+    --primary-dark: 349 73% 25%;
 
     /* Secondary - Warm Grays */
-    --secondary: 354 5% 96%;
-    --secondary-foreground: 354 30% 15%;
+    --secondary: 349 5% 96%;
+    --secondary-foreground: 349 73% 15%;
 
     /* Muted Elements */
-    --muted: 354 5% 95%;
-    --muted-foreground: 354 10% 45%;
+    --muted: 349 5% 95%;
+    --muted-foreground: 349 10% 45%;
 
     /* Accent - Lighter Burgundy */
-    --accent: 354 38% 45%;
+    --accent: 349 50% 40%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
-    --border: 354 10% 88%;
-    --input: 354 10% 88%;
-    --ring: 354 42% 32%;
+    --border: 349 10% 88%;
+    --input: 349 10% 88%;
+    --ring: 349 63% 35%;
 
     --radius: 0.25rem;
     
     /* Custom Design Tokens */
-    --gradient-wine: linear-gradient(135deg, hsl(354, 42%, 32%), hsl(354, 45%, 22%));
-    --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(354, 5%, 98%));
+    --gradient-wine: linear-gradient(135deg, hsl(349, 63%, 35%), hsl(349, 73%, 25%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(349, 5%, 98%));
     
     --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
     --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1);
     --shadow-lg: 0 10px 25px -5px hsl(0 0% 0% / 0.1);
-    --shadow-elegant: 0 20px 40px -10px hsl(354 42% 32% / 0.15);
+    --shadow-elegant: 0 20px 40px -10px hsl(349 63% 35% / 0.15);
     
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --sidebar-background: 354 5% 98%;
-    --sidebar-foreground: 354 30% 20%;
-    --sidebar-primary: 354 42% 32%;
+    --sidebar-background: 349 5% 98%;
+    --sidebar-foreground: 349 73% 20%;
+    --sidebar-primary: 349 63% 35%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 354 5% 95%;
-    --sidebar-accent-foreground: 354 30% 15%;
-    --sidebar-border: 354 10% 90%;
-    --sidebar-ring: 354 42% 32%;
+    --sidebar-accent: 349 5% 95%;
+    --sidebar-accent-foreground: 349 73% 15%;
+    --sidebar-border: 349 10% 90%;
+    --sidebar-ring: 349 63% 35%;
   }
 
   .dark {
-    --background: 354 15% 8%;
+    --background: 349 15% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 354 15% 10%;
+    --card: 349 15% 10%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 354 15% 10%;
+    --popover: 349 15% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 354 42% 45%;
+    --primary: 349 55% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 354 10% 15%;
+    --secondary: 349 10% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 354 10% 15%;
-    --muted-foreground: 354 5% 65%;
+    --muted: 349 10% 15%;
+    --muted-foreground: 349 5% 65%;
 
-    --accent: 354 38% 50%;
+    --accent: 349 50% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 354 10% 20%;
-    --input: 354 10% 20%;
-    --ring: 354 42% 45%;
+    --border: 349 10% 20%;
+    --input: 349 10% 20%;
+    --ring: 349 55% 45%;
   }
 }
 
