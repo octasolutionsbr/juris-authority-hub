@@ -27,19 +27,47 @@ export interface Listing {
   updated_at: string;
 }
 
-export const useListings = () => {
+export const useListings = (options?: { status?: ListingStatus; category?: ListingCategory }) => {
   return useQuery({
-    queryKey: ['listings'],
+    queryKey: ['listings', options?.status, options?.category],
+    queryFn: async () => {
+      let query = supabase
+        .from('listings')
+        .select('id, title, title_en, description, description_en, category, price, status, images, location, area');
+
+      if (options?.status) {
+        query = query.eq('status', options.status);
+      }
+      if (options?.category) {
+        query = query.eq('category', options.category);
+      }
+
+      const { data, error } = await query.order('created_at', { ascending: false });
+
+      if (error) throw error;
+      
+      return data as Listing[];
+    },
+    staleTime: 1000 * 60 * 5, // 5 minutos de cache
+  });
+};
+
+export const useAvailableListingsByCategory = (category: ListingCategory) => {
+  return useQuery({
+    queryKey: ['listings', 'available', category],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('listings')
-        .select('*')
+        .select('id, title, title_en, description, description_en, category, price, status, images, location, area')
+        .eq('status', 'available')
+        .eq('category', category)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
       
       return data as Listing[];
     },
+    staleTime: 1000 * 60 * 5,
   });
 };
 
