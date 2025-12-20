@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useCallback, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react";
@@ -98,6 +98,8 @@ const FoundingPartners = () => {
   const { t, i18n } = useTranslation();
   const [api, setApi] = useState<CarouselApi>();
   const [photoMap, setPhotoMap] = useState<Record<string, string>>({});
+  const [isHovered, setIsHovered] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const { data: allMembers = [], isLoading } = useTeamMembers();
   const { data: practiceAreas = [] } = usePracticeAreas();
   const members = allMembers.filter(m => m.published).slice(0, 20);
@@ -106,6 +108,30 @@ const FoundingPartners = () => {
   useEffect(() => {
     loadTeamPhotos().then(setPhotoMap);
   }, []);
+
+  // Autoplay with pause on hover
+  useEffect(() => {
+    if (!api || isHovered) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      return;
+    }
+
+    intervalRef.current = setInterval(() => {
+      api.scrollNext();
+    }, 4000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [api, isHovered]);
+
+  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
   return (
     <section className="py-24 bg-background overflow-hidden">
@@ -129,7 +155,11 @@ const FoundingPartners = () => {
             <p className="text-muted-foreground">{t("team.loading")}</p>
           </div>
         ) : (
-          <div className="relative px-0 md:px-20">
+          <div 
+            className="relative px-0 md:px-20"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             <Carousel
               opts={{
                 align: "start",
