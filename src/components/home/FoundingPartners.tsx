@@ -30,7 +30,7 @@ const TeamMemberCard = memo(({
   areaTitle: string;
 }) => (
   <Link to={`/equipe/${member.id}`} className="block">
-    <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
+    <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full hover:-translate-y-2">
       <div className="relative h-80 overflow-hidden">
         {member.photo_url ? (
           <img
@@ -139,7 +139,7 @@ const FoundingPartners = () => {
               className="w-full max-w-7xl mx-auto"
             >
               <CarouselContent className="-ml-2 md:-ml-4">
-                {members.map((member) => {
+                {members.map((member, index) => {
                   const translatedMember = getTranslatedTeamMember(member, i18n.language);
                   const areaTitle = member.main_area 
                     ? getTranslatedPracticeArea(
@@ -159,7 +159,8 @@ const FoundingPartners = () => {
                   return (
                     <CarouselItem 
                       key={member.id} 
-                      className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                      className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 animate-fade-in"
+                      style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'backwards' }}
                     >
                       <TeamMemberCard
                         member={member}
