@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
-
+import logo from "@/assets/logo.png";
 const Header = () => {
   const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,13 +46,15 @@ const Header = () => {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className={cn(
-              "text-2xl font-heading font-bold transition-colors",
-              shouldHaveSolidBg ? "text-foreground" : "text-background"
-            )}>
-              Juris <span className="text-primary">Company</span>
-            </div>
+          <Link to="/" className="flex items-center">
+            <img 
+              src={logo} 
+              alt="Juris Company" 
+              className={cn(
+                "h-10 transition-all",
+                shouldHaveSolidBg ? "brightness-0" : "brightness-100"
+              )}
+            />
           </Link>
 
           {/* Desktop Navigation */}
