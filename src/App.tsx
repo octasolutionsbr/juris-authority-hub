@@ -3,10 +3,25 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
+
+// Component to handle /admin redirect
+const AdminRedirect = () => {
+  const { isAuthenticated, loading } = useAuth();
+  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse text-muted-foreground">Carregando...</div>
+      </div>
+    );
+  }
+  
+  return <Navigate to={isAuthenticated ? "/admin/dashboard" : "/admin/login"} replace />;
+};
 
 // Eager load only the Index page for fast initial load
 import Index from "./pages/Index";
@@ -73,6 +88,7 @@ const App = () => (
               <Route path="/audiencia/:token" element={<HearingPublic />} />
               
               {/* Admin Routes */}
+              <Route path="/admin" element={<AdminRedirect />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin/reset-password" element={<AdminResetPassword />} />
               <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
