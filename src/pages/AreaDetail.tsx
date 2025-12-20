@@ -88,54 +88,21 @@ const AreaDetail = () => {
         <Header />
         <main className="pt-20">
           {/* Hero Section */}
-          <section className="py-16 bg-gradient-to-br from-foreground to-foreground/90">
+          <section className="py-20 md:py-28 bg-gradient-to-br from-foreground to-foreground/90">
             <div className="container mx-auto px-4 lg:px-8">
               <Link
                 to="/#areas-de-atuacao"
-                className="inline-flex items-center text-background/70 hover:text-background mb-6 transition-colors"
+                className="inline-flex items-center text-background/70 hover:text-background mb-8 transition-colors"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 {t("areaDetail.backToAreas")}
               </Link>
-              <h1 className="text-4xl md:text-5xl font-heading font-bold text-background mb-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-background mb-6">
                 {translatedArea.title}
               </h1>
-              <p className="text-xl text-background/80 max-w-3xl">
-                {translatedArea.description}
+              <p className="text-lg md:text-xl text-background/90 max-w-4xl leading-relaxed">
+                {translatedArea.long_description || translatedArea.description}
               </p>
-            </div>
-          </section>
-
-          {/* Content Section */}
-          <section className="py-16 bg-background">
-            <div className="container mx-auto px-4 lg:px-8">
-              <div className="max-w-4xl">
-                <h2 className="text-3xl font-heading font-semibold mb-6">
-                  {t("practiceAreas.title")}
-                </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  {translatedArea.long_description}
-                </p>
-
-                {/* Keywords */}
-                {translatedArea.keywords && translatedArea.keywords.length > 0 && (
-                  <div className="mb-12">
-                    <h3 className="text-xl font-heading font-semibold mb-4">
-                      {t("areaDetail.keywords")}
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {translatedArea.keywords.map((keyword) => (
-                        <span
-                          key={keyword}
-                          className="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium"
-                        >
-                          {keyword}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
             </div>
           </section>
 
