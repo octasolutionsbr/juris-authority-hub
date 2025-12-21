@@ -27,6 +27,7 @@ const AdminRedirect = () => {
 import Index from "./pages/Index";
 
 // Lazy load all other pages
+const AreasIndex = lazy(() => import("./pages/AreasIndex"));
 const AreaDetail = lazy(() => import("./pages/AreaDetail"));
 const Team = lazy(() => import("./pages/Team"));
 const LawyerProfile = lazy(() => import("./pages/LawyerProfile"));
@@ -78,6 +79,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               
+              <Route path="/areas" element={<AreasIndex />} />
               <Route path="/areas/:areaId" element={<AreaDetail />} />
               <Route path="/equipe" element={<Team />} />
               <Route path="/equipe/:lawyerId" element={<LawyerProfile />} />

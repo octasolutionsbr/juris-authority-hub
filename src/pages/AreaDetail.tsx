@@ -1,15 +1,61 @@
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { usePracticeArea } from "@/hooks/usePracticeAreas";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, MessageCircle, ArrowLeft } from "lucide-react";
+import { Mail, MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { getTranslatedPracticeArea, getTranslatedTeamMember } from "@/lib/i18nHelpers";
 import NotFound from "./NotFound";
 import SEOHead from "@/components/SEOHead";
+import { getAreaFAQs, FAQItem } from "@/data/faqData";
+import { useState } from "react";
+
+const FAQSection = ({ faqs }: { faqs: FAQItem[] }) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { t } = useTranslation();
+
+  if (faqs.length === 0) return null;
+
+  return (
+    <section className="py-16 bg-secondary">
+      <div className="container mx-auto px-4 lg:px-8">
+        <h2 className="text-3xl font-heading font-semibold mb-8 text-center">
+          {t("faq.title", "Perguntas Frequentes")}
+        </h2>
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqs.map((faq, index) => (
+            <div 
+              key={index}
+              className="bg-background rounded-lg border border-border overflow-hidden"
+            >
+              <button
+                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-muted/50 transition-colors"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                aria-expanded={openIndex === index}
+              >
+                <span className="font-medium text-foreground pr-4">{faq.question}</span>
+                {openIndex === index ? (
+                  <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                )}
+              </button>
+              {openIndex === index && (
+                <div className="px-6 pb-4 text-muted-foreground leading-relaxed">
+                  {faq.answer}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const AreaDetail = () => {
   const { t, i18n } = useTranslation();
@@ -33,6 +79,7 @@ const AreaDetail = () => {
   const specialists = allMembers.filter((member) =>
     member.areas?.includes(area.id)
   );
+  const faqs = getAreaFAQs(areaId || '');
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -48,7 +95,7 @@ const AreaDetail = () => {
         "@type": "ListItem",
         "position": 2,
         "name": "Áreas de Atuação",
-        "item": "https://juriscompany.net/#areas-de-atuacao"
+        "item": "https://juriscompany.net/areas"
       },
       {
         "@type": "ListItem",
@@ -62,27 +109,65 @@ const AreaDetail = () => {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": translatedArea.title,
-    "description": translatedArea.description,
+    "serviceType": translatedArea.title,
+    "name": `${translatedArea.title} em Macapá - Juris Company`,
+    "description": translatedArea.long_description || translatedArea.description,
     "provider": {
       "@type": "LegalService",
       "name": "Juris Company",
-      "url": "https://juriscompany.net"
+      "url": "https://juriscompany.net",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Macapá",
+        "addressRegion": "Amapá",
+        "addressCountry": "BR"
+      },
+      "telephone": "+55 96 99999-9999"
     },
-    "areaServed": {
-      "@type": "State",
-      "name": "Amapá"
+    "areaServed": [
+      {
+        "@type": "State",
+        "name": "Amapá"
+      },
+      {
+        "@type": "City", 
+        "name": "Macapá"
+      }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": `Serviços de ${translatedArea.title}`,
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": `Consultoria em ${translatedArea.title}`
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": `Assessoria Jurídica em ${translatedArea.title}`
+          }
+        }
+      ]
     }
   };
+
+  const seoTitle = `${translatedArea.title} em Macapá-AP | Advogado Especialista ${translatedArea.title} Amapá`;
+  const seoDescription = `${translatedArea.description} Escritório de advocacia especializado em ${translatedArea.title.toLowerCase()} em Macapá-AP. Assessoria jurídica para empresas de petróleo e gás no Amapá. Consulta inicial gratuita.`;
 
   return (
     <>
       <SEOHead 
-        title={`${translatedArea.title} - Assessoria Jurídica Especializada`}
-        description={`${translatedArea.description} Especialistas em ${translatedArea.title.toLowerCase()} em Macapá-AP. Atendimento para empresas de petróleo e gás no Amapá.`}
+        title={seoTitle}
+        description={seoDescription}
         keywords={translatedArea.keywords?.join(", ") || `${translatedArea.title}, advogado Macapá, assessoria jurídica Amapá`}
         canonicalUrl={`/areas/${areaId}`}
-        structuredData={breadcrumbSchema}
+        structuredData={[breadcrumbSchema, serviceSchema]}
+        faqItems={faqs}
       />
       <div className="min-h-screen">
         <Header />
@@ -90,13 +175,13 @@ const AreaDetail = () => {
           {/* Hero Section */}
           <section className="py-12 md:py-16 bg-gradient-to-br from-foreground to-foreground/90">
             <div className="container mx-auto px-4 lg:px-8">
-              <Link
-                to="/#areas-de-atuacao"
-                className="inline-flex items-center text-background/70 hover:text-background mb-8 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                {t("areaDetail.backToAreas")}
-              </Link>
+              <Breadcrumbs 
+                items={[
+                  { label: t("nav.areas", "Áreas de Atuação"), href: "/areas" },
+                  { label: translatedArea.title }
+                ]}
+                className="mb-6"
+              />
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-background mb-6">
                 {translatedArea.title}
               </h1>
@@ -108,7 +193,7 @@ const AreaDetail = () => {
 
           {/* Specialists Section */}
           {specialists.length > 0 && (
-            <section className="py-16 bg-secondary">
+            <section className="py-16 bg-muted">
               <div className="container mx-auto px-4 lg:px-8">
                 <h2 className="text-3xl font-heading font-semibold mb-8">
                   {t("lawyerProfile.specialties")} - {translatedArea.title}
@@ -192,6 +277,9 @@ const AreaDetail = () => {
               </div>
             </section>
           )}
+
+          {/* FAQ Section */}
+          <FAQSection faqs={faqs} />
 
           {/* CTA Section */}
           <section className="py-16 bg-background">

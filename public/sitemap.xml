@@ -10,9 +10,21 @@
     <loc>https://juriscompany.net/</loc>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/?lang=en"/>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  
+  <!-- Practice Areas Index -->
+  <url>
+    <loc>https://juriscompany.net/areas</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
   </url>
   
   <!-- About Page -->
@@ -20,7 +32,8 @@
     <loc>https://juriscompany.net/sobre</loc>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/sobre"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/sobre?lang=en"/>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/sobre"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -30,7 +43,8 @@
     <loc>https://juriscompany.net/equipe</loc>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/equipe"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/equipe?lang=en"/>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/equipe"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -40,7 +54,8 @@
     <loc>https://juriscompany.net/contato</loc>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/contato"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/contato?lang=en"/>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/contato"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -50,40 +65,54 @@
     <loc>https://juriscompany.net/oportunidades</loc>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/oportunidades"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/oportunidades?lang=en"/>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/oportunidades"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
-  <!-- Practice Areas - Dynamic pages would be added here -->
+  <!-- ========== PRACTICE AREAS ========== -->
+  
   <!-- Direito Empresarial -->
   <url>
     <loc>https://juriscompany.net/areas/direito-empresarial</loc>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-empresarial"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-empresarial?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-empresarial"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
   
   <!-- Direito Tributário -->
   <url>
     <loc>https://juriscompany.net/areas/direito-tributario</loc>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-tributario"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-tributario?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-tributario"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
   
   <!-- Direito Ambiental -->
   <url>
     <loc>https://juriscompany.net/areas/direito-ambiental</loc>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-ambiental"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-ambiental?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-ambiental"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
   
   <!-- Direito Administrativo -->
   <url>
     <loc>https://juriscompany.net/areas/direito-administrativo</loc>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-administrativo"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-administrativo?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-administrativo"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -91,17 +120,135 @@
   <!-- Direito Trabalhista -->
   <url>
     <loc>https://juriscompany.net/areas/direito-trabalhista</loc>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-trabalhista"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-trabalhista?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-trabalhista"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   
   <!-- Direito Imobiliário -->
   <url>
     <loc>https://juriscompany.net/areas/direito-imobiliario</loc>
-    <lastmod>2024-12-20</lastmod>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-imobiliario"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-imobiliario?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-imobiliario"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  
+  <!-- Direito Penal -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-penal</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-penal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-penal?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-penal"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  
+  <!-- Direito de Família e Sucessões -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-familia-sucessoes</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-familia-sucessoes"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-familia-sucessoes?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-familia-sucessoes"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  
+  <!-- Direito Eleitoral -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-eleitoral</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-eleitoral"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-eleitoral?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-eleitoral"/>
+    <lastmod>2025-12-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  
+  <!-- Direito do Consumidor -->
+  <url>
+    <loc>https://juriscompany.net/areas/direito-consumidor</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/areas/direito-consumidor"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/areas/direito-consumidor?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/areas/direito-consumidor"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- ========== TEAM MEMBERS ========== -->
+  
+  <!-- Dr. Marcelo Andrade -->
+  <url>
+    <loc>https://juriscompany.net/equipe/marcelo-andrade</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/equipe/marcelo-andrade"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/equipe/marcelo-andrade?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/equipe/marcelo-andrade"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  
+  <!-- Dra. Juliana Martins -->
+  <url>
+    <loc>https://juriscompany.net/equipe/juliana-martins</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/equipe/juliana-martins"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/equipe/juliana-martins?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/equipe/juliana-martins"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  
+  <!-- Dr. Rafael Santos -->
+  <url>
+    <loc>https://juriscompany.net/equipe/rafael-santos</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/equipe/rafael-santos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/equipe/rafael-santos?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/equipe/rafael-santos"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  
+  <!-- Dra. Camila Ribeiro -->
+  <url>
+    <loc>https://juriscompany.net/equipe/camila-ribeiro</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/equipe/camila-ribeiro"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/equipe/camila-ribeiro?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/equipe/camila-ribeiro"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  
+  <!-- Dr. Eduardo Lima -->
+  <url>
+    <loc>https://juriscompany.net/equipe/eduardo-lima</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/equipe/eduardo-lima"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/equipe/eduardo-lima?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/equipe/eduardo-lima"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  
+  <!-- Dra. Fernanda Costa -->
+  <url>
+    <loc>https://juriscompany.net/equipe/fernanda-costa</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://juriscompany.net/equipe/fernanda-costa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://juriscompany.net/equipe/fernanda-costa?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://juriscompany.net/equipe/fernanda-costa"/>
+    <lastmod>2025-12-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
 
 </urlset>
