@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 import octaLogo from "@/assets/octa-logo.png";
 import logo from "@/assets/logo.png";
 import { useTranslation } from "react-i18next";
@@ -18,6 +18,27 @@ const Footer = () => {
             <p className="text-white/70 text-sm leading-relaxed">
               {t("footer.description")}
             </p>
+            {/* Social Media Icons */}
+            <div className="flex items-center gap-4 mt-4">
+              <a
+                href="https://instagram.com/juris.company"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-primary-light transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://facebook.com/juris.company"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 hover:text-primary-light transition-colors"
+                aria-label="Facebook"
+              >
+                <Facebook size={20} />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
