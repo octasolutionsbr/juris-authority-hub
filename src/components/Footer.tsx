@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 import octaLogo from "@/assets/octa-logo.png";
-import logo from "@/assets/logo.png";
+import Logo from "./Logo";
 import { useTranslation } from "react-i18next";
 
 const Footer = () => {
@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <img src={logo} alt="Juris Company" className="h-10 mb-4" />
+            <Logo variant="light" className="mb-4" />
             <p className="text-white/70 text-sm leading-relaxed">
               {t("footer.description")}
             </p>
