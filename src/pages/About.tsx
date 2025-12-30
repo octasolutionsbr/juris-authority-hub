@@ -185,29 +185,6 @@ const About = () => {
             </div>
           </section>
 
-          {/* Números */}
-          <section className="py-20 bg-gradient-to-br from-primary to-primary/80">
-            <div className="container mx-auto px-4 lg:px-8">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-foreground mb-12 text-center">
-                  {t("aboutPage.ourNumbers")}
-                </h2>
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                  {stats.map((stat, index) => (
-                    <div key={index} className="text-center">
-                      <div className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-2">
-                        {stat.number}
-                      </div>
-                      <div className="text-lg text-primary-foreground/80">
-                        {stat.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* Diferenciais */}
           <section className="py-20 bg-background">
             <div className="container mx-auto px-4 lg:px-8">
