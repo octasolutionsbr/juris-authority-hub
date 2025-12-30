@@ -9,10 +9,10 @@
     "scheduleConsultation": "Schedule a Consultation"
   },
   "hero": {
-    "title": "Legal Excellence",
-    "subtitle": "With Outstanding Results",
-    "description": "Complex legal solutions with unmatched expertise for companies and executives who demand exceptional results.",
-    "badge": "PREMIUM SPECIALIZED LAW FIRM",
+    "title": "Collaborative Law Practice",
+    "subtitle": "With Commitment and Ethics",
+    "description": "Multidisciplinary legal advisory with 26 independent lawyers, providing humanized service and personalized solutions for each need.",
+    "badge": "SPECIALIZED LAW OFFICE IN MACAPÁ",
     "cta": "Schedule a Consultation",
     "knowAreas": "Explore Our Areas"
   },
@@ -20,42 +20,42 @@
     "title": "About",
     "titleHighlight": "Us",
     "subtitle": "Learn Our Story",
-    "description": "Juris Company was born from the union of highly specialized professionals committed to offering legal solutions that go beyond the conventional. Our mission is to transform complex legal challenges into strategic opportunities for our clients.",
+    "description": "Juris Company was born from the union of specialized professionals committed to offering legal solutions that go beyond the conventional. Our mission is to transform legal challenges into growth opportunities for our clients.",
     "values": {
       "excellence": {
-        "title": "Legal Excellence",
+        "title": "Technical Excellence",
         "description": "Commitment to the highest practices and ethical standards of law."
       },
       "results": {
-        "title": "Proven Results",
-        "description": "Consistent track record of success in complex and strategic cases."
+        "title": "Professional Commitment",
+        "description": "Dedication and responsibility in every case we take on."
       },
       "service": {
-        "title": "Premium Service",
-        "description": "Close and personalized relationship with each client."
+        "title": "Personalized Service",
+        "description": "Close and humanized relationship with each client."
       },
       "strategy": {
-        "title": "Strategic Vision",
-        "description": "Innovative solutions that anticipate challenges and opportunities."
+        "title": "Collaborative Vision",
+        "description": "Integration among professionals for comprehensive legal solutions."
       }
     },
     "stats": {
       "experience": "Years of Experience",
-      "cases": "Successful Cases",
+      "cases": "Cases Handled",
       "satisfaction": "Client Satisfaction"
     }
   },
   "practiceAreas": {
     "title": "Practice Areas",
     "badge": "OUR SPECIALTIES",
-    "description": "Specialized legal expertise in multiple areas of law to meet the most complex demands.",
+    "description": "Specialized legal practice in multiple areas of law to meet diverse demands.",
     "learnMore": "Learn more",
     "viewAll": "View all practice areas",
     "loading": "Loading areas..."
   },
   "team": {
     "title": "Our Team",
-    "badge": "LEADERSHIP",
+    "badge": "PROFESSIONALS",
     "description": "Specialized independent lawyers ready to meet your legal demands.",
     "loading": "Loading team...",
     "viewAll": "Meet the Entire Team",
@@ -70,22 +70,22 @@
   "opportunities": {
     "title": "Investment",
     "titleHighlight": "Opportunities",
-    "description": "Explore exclusive opportunities selected by our experts. Secure investments with complete legal advice.",
+    "description": "Selected opportunities with specialized legal advisory for each negotiation.",
     "viewAll": "View All Opportunities",
     "categories": {
       "properties": {
         "title": "Real Estate",
-        "description": "Exclusive opportunities in residential and commercial properties",
+        "description": "Opportunities in residential and commercial properties",
         "count": "{{count}} listings"
       },
       "precatorios": {
         "title": "Court Orders",
-        "description": "Federal and state court orders with excellent returns",
+        "description": "Federal and state court orders available",
         "count": "{{count}} listings"
       },
       "credits": {
         "title": "Tax Credits",
-        "description": "Accumulated credits for immediate compensation",
+        "description": "Accumulated credits for compensation",
         "count": "{{count}} listings"
       },
       "others": {
@@ -98,10 +98,10 @@
   "contact": {
     "title": "Contact Us",
     "subtitle": "We're Ready to Help",
-    "description": "We're ready to discuss your legal needs and present customized solutions.",
+    "description": "We're ready to discuss your legal needs and present personalized solutions.",
     "talkToUs": "Talk to Us",
     "availability": "Our team is available to assist you Monday through Friday, from 9am to 6pm.",
-    "availabilityFull": "Our team is available to assist you and offer the best legal solutions for your case.",
+    "availabilityFull": "Our team is available to assist you and guide you on your legal matters.",
     "sendMessage": "Send Your Message",
     "form": {
       "name": "Full Name",
@@ -131,7 +131,7 @@
   },
   "aboutPage": {
     "title": "About Us",
-    "subtitle": "Legal excellence and commitment to results that transform businesses and protect interests.",
+    "subtitle": "Commitment to ethics and technical excellence in legal services.",
     "ourStory": "Our Story",
     "storyContent1": "Juris Company was founded in 2019, through the initiative of its CEO, who identified the need to build a legal space with its own identity, institutional solidity, and vision for the future. The idea emerged after professional experiences in other law firms, still at the beginning of his career, when, as an intern, he matured the purpose of creating an environment that represented evolution, belonging, and professional autonomy.",
     "storyContent2": "Driven by the commitment to contribute to strengthening legal practice in Amapá, as well as to give back the learning and opportunities received throughout his career, the CEO envisioned an innovative concept: bringing together independent lawyers in the same environment, structured to promote integration, collaboration, and collective professional growth.",
@@ -174,10 +174,10 @@
       },
       "specialization": {
         "title": "Specialization",
-        "description": "Highly qualified team in various areas of law."
+        "description": "Qualified team in various areas of law."
       },
       "results": {
-        "title": "Results",
+        "title": "Dedication",
         "description": "Focus on practical and effective solutions for our clients."
       },
       "transparency": {
@@ -187,7 +187,7 @@
     }
   },
   "footer": {
-    "description": "Legal excellence with strategic solutions for companies and individuals seeking outstanding results.",
+    "description": "Collaborative law office in Macapá, bringing together professionals specialized in various areas of Law.",
     "navigation": "Navigation",
     "highlightedAreas": "Featured Areas",
     "contact": "Contact",
@@ -204,7 +204,7 @@
   },
   "areasPage": {
     "title": "Practice Areas",
-    "subtitle": "Multidisciplinary legal expertise to meet the most complex market demands with excellence and strategy.",
+    "subtitle": "Multidisciplinary legal practice to meet our clients' demands with ethics and responsibility.",
     "loading": "Loading practice areas...",
     "learnMore": "Learn more"
   },
@@ -219,8 +219,8 @@
   },
   "opportunitiesPage": {
     "title": "Opportunities",
-    "subtitle": "Legal Investment Marketplace",
-    "description": "Explore exclusive opportunities selected by our legal experts.",
+    "subtitle": "Legal Marketplace",
+    "description": "Selected opportunities with specialized legal advisory.",
     "properties": "Real Estate",
     "courtOrders": "Court Orders",
     "taxCredits": "Tax Credits",
@@ -243,7 +243,7 @@
   },
   "lawyerProfile": {
     "backToTeam": "Back to Team",
-    "specialties": "Specialties",
+    "specialties": "Practice Areas",
     "education": "Education",
     "publications": "Publications",
     "contact": "Contact",
