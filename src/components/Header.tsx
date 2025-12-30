@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
-import logo from "@/assets/logo.png";
+import logoWhite from "@/assets/logo-white.png";
 import logoDark from "@/assets/logo-dark.png";
 
 const Header = () => {
@@ -50,7 +50,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src={shouldHaveSolidBg ? logoDark : logo} 
+              src={shouldHaveSolidBg ? logoDark : logoWhite} 
               alt="Juris Company" 
               className="h-10 transition-all"
             />
