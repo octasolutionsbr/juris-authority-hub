@@ -9,13 +9,13 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-foreground text-background pt-16 pb-8">
+    <footer className="bg-[hsl(0,0%,12%)] text-white pt-16 pb-8">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div>
             <img src={logo} alt="Juris Company" className="h-10 mb-4" />
-            <p className="text-background/70 text-sm leading-relaxed">
+            <p className="text-white/70 text-sm leading-relaxed">
               {t("footer.description")}
             </p>
           </div>
@@ -29,7 +29,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/areas"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("header.areas")}
                 </Link>
@@ -37,7 +37,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/equipe"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("header.team")}
                 </Link>
@@ -45,7 +45,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/sobre"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("header.about")}
                 </Link>
@@ -53,7 +53,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/contato"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("header.contact")}
                 </Link>
@@ -70,7 +70,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/areas/direito-empresarial"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("footer.areas.corporate")}
                 </Link>
@@ -78,7 +78,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/areas/direito-tributario"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("footer.areas.tax")}
                 </Link>
@@ -86,7 +86,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/areas/direito-imobiliario"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("footer.areas.realEstate")}
                 </Link>
@@ -94,7 +94,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/areas/direito-trabalhista"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("footer.areas.labor")}
                 </Link>
@@ -112,7 +112,7 @@ const Footer = () => {
                 <Mail size={18} className="text-primary-light mt-0.5 flex-shrink-0" />
                 <a
                   href="mailto:contato@juriscompany.net"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   contato@juriscompany.net
                 </a>
@@ -121,14 +121,14 @@ const Footer = () => {
                 <Phone size={18} className="text-primary-light mt-0.5 flex-shrink-0" />
                 <a
                   href="tel:+559632231425"
-                  className="text-background/70 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
                   +55 (96) 93223-1425
                 </a>
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="text-primary-light mt-0.5 flex-shrink-0" />
-                <span className="text-background/70 text-sm">
+                <span className="text-white/70 text-sm">
                   R. Prof. Tostes, 783 - Centro, Macapá - AP
                 </span>
               </li>
@@ -137,28 +137,28 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-background/20">
+        <div className="pt-8 border-t border-white/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-background/60 text-sm text-center md:text-left">
+            <p className="text-white/60 text-sm text-center md:text-left">
               © {currentYear} Juris Company. {t("footer.rights")}
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
               <div className="flex items-center gap-4 sm:gap-6">
                 <Link
                   to="/privacidade"
-                  className="text-background/60 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/60 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("footer.privacy")}
                 </Link>
                 <Link
                   to="/termos"
-                  className="text-background/60 hover:text-primary-light transition-colors text-sm"
+                  className="text-white/60 hover:text-primary-light transition-colors text-sm"
                 >
                   {t("footer.terms")}
                 </Link>
               </div>
               <div className="flex items-center">
-                <span className="text-background/60 text-sm mr-2">{t("footer.developedBy")}</span>
+                <span className="text-white/60 text-sm mr-2">{t("footer.developedBy")}</span>
                 <a 
                   href="https://www.octasolutions.com.br" 
                   target="_blank" 
