@@ -9,10 +9,10 @@
     "scheduleConsultation": "Agende uma Consulta"
   },
   "hero": {
-    "title": "Excelência Jurídica",
-    "subtitle": "Com Resultados Diferenciados",
-    "description": "Soluções jurídicas complexas com expertise incomparável para empresas e executivos que exigem resultados diferenciados.",
-    "badge": "ADVOCACIA PREMIUM ESPECIALIZADA",
+    "title": "Advocacia Colaborativa",
+    "subtitle": "Com Compromisso e Ética",
+    "description": "Assessoria jurídica multidisciplinar com 26 advogados autônomos, oferecendo atendimento humanizado e soluções personalizadas para cada necessidade.",
+    "badge": "ADVOCACIA ESPECIALIZADA EM MACAPÁ",
     "cta": "Agende uma Consulta",
     "knowAreas": "Conheça Nossas Áreas"
   },
@@ -20,42 +20,42 @@
     "title": "Sobre",
     "titleHighlight": "Nós",
     "subtitle": "Conheça Nossa História",
-    "description": "A Juris Company nasceu da união de profissionais altamente especializados, comprometidos em oferecer soluções jurídicas que vão além do convencional. Nossa missão é transformar desafios legais complexos em oportunidades estratégicas para nossos clientes.",
+    "description": "A Juris Company nasceu da união de profissionais especializados, comprometidos em oferecer soluções jurídicas que vão além do convencional. Nossa missão é transformar desafios legais em oportunidades de crescimento para nossos clientes.",
     "values": {
       "excellence": {
-        "title": "Excelência Jurídica",
+        "title": "Excelência Técnica",
         "description": "Comprometimento com as mais altas práticas e padrões éticos da advocacia."
       },
       "results": {
-        "title": "Resultados Comprovados",
-        "description": "Histórico consistente de sucessos em casos complexos e estratégicos."
+        "title": "Compromisso Profissional",
+        "description": "Dedicação e responsabilidade em cada caso que assumimos."
       },
       "service": {
-        "title": "Atendimento Premium",
-        "description": "Relacionamento próximo e personalizado com cada cliente."
+        "title": "Atendimento Personalizado",
+        "description": "Relacionamento próximo e humanizado com cada cliente."
       },
       "strategy": {
-        "title": "Visão Estratégica",
-        "description": "Soluções inovadoras que antecipam desafios e oportunidades."
+        "title": "Visão Colaborativa",
+        "description": "Integração entre profissionais para soluções jurídicas completas."
       }
     },
     "stats": {
       "experience": "Anos de Experiência",
-      "cases": "Casos de Sucesso",
+      "cases": "Casos Atendidos",
       "satisfaction": "Satisfação dos Clientes"
     }
   },
   "practiceAreas": {
     "title": "Áreas de Atuação",
     "badge": "NOSSAS ESPECIALIDADES",
-    "description": "Expertise jurídica especializada em múltiplas áreas do direito para atender às demandas mais complexas.",
+    "description": "Atuação jurídica especializada em múltiplas áreas do direito para atender às mais diversas demandas.",
     "learnMore": "Saiba mais",
     "viewAll": "Ver todas as áreas de atuação",
     "loading": "Carregando áreas..."
   },
   "team": {
     "title": "Nossa Equipe",
-    "badge": "LIDERANÇA",
+    "badge": "PROFISSIONAIS",
     "description": "Advogados autônomos especializados prontos para atender suas demandas jurídicas.",
     "loading": "Carregando equipe...",
     "viewAll": "Conheça Toda a Equipe",
@@ -70,22 +70,22 @@
   "opportunities": {
     "title": "Oportunidades de",
     "titleHighlight": "Investimento",
-    "description": "Explore oportunidades exclusivas selecionadas por nossos especialistas. Investimentos seguros com assessoria jurídica completa.",
+    "description": "Oportunidades selecionadas com assessoria jurídica especializada para cada negociação.",
     "viewAll": "Ver Todas as Oportunidades",
     "categories": {
       "properties": {
         "title": "Imóveis",
-        "description": "Oportunidades exclusivas em imóveis residenciais e comerciais",
+        "description": "Oportunidades em imóveis residenciais e comerciais",
         "count": "{{count}} anúncios"
       },
       "precatorios": {
         "title": "Precatórios",
-        "description": "Precatórios federais e estaduais com excelente retorno",
+        "description": "Precatórios federais e estaduais disponíveis",
         "count": "{{count}} anúncios"
       },
       "credits": {
         "title": "Créditos Tributários",
-        "description": "Créditos acumulados para compensação imediata",
+        "description": "Créditos acumulados para compensação",
         "count": "{{count}} anúncios"
       },
       "others": {
@@ -101,7 +101,7 @@
     "description": "Estamos prontos para discutir suas necessidades jurídicas e apresentar soluções personalizadas.",
     "talkToUs": "Fale Conosco",
     "availability": "Nossa equipe está disponível para atendê-lo de segunda a sexta, das 9h às 18h.",
-    "availabilityFull": "Nossa equipe está disponível para atendê-lo e oferecer as melhores soluções jurídicas para seu caso.",
+    "availabilityFull": "Nossa equipe está disponível para atendê-lo e orientá-lo sobre suas questões jurídicas.",
     "sendMessage": "Envie sua Mensagem",
     "form": {
       "name": "Nome Completo",
@@ -131,7 +131,7 @@
   },
   "aboutPage": {
     "title": "Sobre Nós",
-    "subtitle": "Excelência jurídica e compromisso com resultados que transformam negócios e protegem interesses.",
+    "subtitle": "Compromisso com a ética e a excelência técnica na prestação de serviços jurídicos.",
     "ourStory": "Nossa História",
     "storyContent1": "O Juris Company teve sua origem em 2019, a partir da iniciativa de seu CEO, que identificou a necessidade de construir um espaço jurídico com identidade própria, solidez institucional e visão de futuro. A ideia surgiu após experiências profissionais vivenciadas em outros escritórios, ainda no início de sua trajetória, quando, como estagiário, amadureceu o propósito de criar um ambiente que representasse evolução, pertencimento e autonomia profissional.",
     "storyContent2": "Movido pelo compromisso de contribuir para o fortalecimento da advocacia amapaense, bem como de retribuir o aprendizado e as oportunidades recebidas ao longo de sua carreira, o CEO idealizou um conceito inovador: a reunião de advogados autônomos em um mesmo ambiente, estruturado para promover integração, colaboração e crescimento profissional coletivo.",
@@ -174,10 +174,10 @@
       },
       "specialization": {
         "title": "Especialização",
-        "description": "Equipe altamente qualificada em diversas áreas do direito."
+        "description": "Equipe qualificada em diversas áreas do direito."
       },
       "results": {
-        "title": "Resultados",
+        "title": "Dedicação",
         "description": "Foco em soluções práticas e efetivas para nossos clientes."
       },
       "transparency": {
@@ -187,7 +187,7 @@
     }
   },
   "footer": {
-    "description": "Excelência jurídica com soluções estratégicas para empresas e indivíduos que buscam resultados diferenciados.",
+    "description": "Escritório de advocacia colaborativo em Macapá, reunindo profissionais especializados em diversas áreas do Direito.",
     "navigation": "Navegação",
     "highlightedAreas": "Áreas de Destaque",
     "contact": "Contato",
@@ -204,7 +204,7 @@
   },
   "areasPage": {
     "title": "Áreas de Atuação",
-    "subtitle": "Expertise jurídica multidisciplinar para atender às demandas mais complexas do mercado com excelência e estratégia.",
+    "subtitle": "Atuação jurídica multidisciplinar para atender às demandas dos nossos clientes com ética e responsabilidade.",
     "loading": "Carregando áreas de atuação...",
     "learnMore": "Saiba mais"
   },
@@ -219,8 +219,8 @@
   },
   "opportunitiesPage": {
     "title": "Oportunidades",
-    "subtitle": "Marketplace Jurídico de Investimentos",
-    "description": "Explore oportunidades exclusivas selecionadas por nossos especialistas jurídicos.",
+    "subtitle": "Marketplace Jurídico",
+    "description": "Oportunidades selecionadas com assessoria jurídica especializada.",
     "properties": "Imóveis",
     "courtOrders": "Precatórios",
     "taxCredits": "Créditos Tributários",
@@ -243,7 +243,7 @@
   },
   "lawyerProfile": {
     "backToTeam": "Voltar para Equipe",
-    "specialties": "Especialidades",
+    "specialties": "Áreas de Atuação",
     "education": "Formação",
     "publications": "Publicações",
     "contact": "Entre em Contato",
