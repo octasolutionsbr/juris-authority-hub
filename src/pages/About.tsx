@@ -32,10 +32,10 @@ const About = () => {
   ];
 
   const stats = [
-    { number: "25+", label: t("aboutPage.stats.experience") },
-    { number: "500+", label: t("aboutPage.stats.clients") },
-    { number: "1.000+", label: t("aboutPage.stats.cases") },
-    { number: "R$ 2Bi+", label: t("aboutPage.stats.operations") },
+    { number: "5+", label: t("aboutPage.stats.experience") },
+    { number: "26", label: t("aboutPage.stats.clients") },
+    { number: "10+", label: t("aboutPage.stats.cases") },
+    { number: "500+", label: t("aboutPage.stats.operations") },
   ];
 
   const differentials = [

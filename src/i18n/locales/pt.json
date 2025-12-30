@@ -133,38 +133,38 @@
     "title": "Sobre Nós",
     "subtitle": "Excelência jurídica e compromisso com resultados que transformam negócios e protegem interesses.",
     "ourStory": "Nossa História",
-    "storyContent1": "Fundado em 2000, o escritório nasceu da visão de profissionais experientes que acreditavam em uma advocacia diferente: estratégica, próxima e orientada por resultados concretos.",
-    "storyContent2": "Ao longo de mais de duas décadas, construímos uma trajetória sólida, assessorando desde startups inovadoras até grandes corporações em operações complexas que somam bilhões de reais.",
-    "storyContent3": "Hoje, somos reconhecidos como um dos principais escritórios de advocacia empresarial do país, com uma equipe multidisciplinar de especialistas dedicados a entregar soluções jurídicas de excelência.",
+    "storyContent1": "O Juris Company teve sua origem em 2019, a partir da iniciativa de seu CEO, que identificou a necessidade de construir um espaço jurídico com identidade própria, solidez institucional e visão de futuro. A ideia surgiu após experiências profissionais vivenciadas em outros escritórios, ainda no início de sua trajetória, quando, como estagiário, amadureceu o propósito de criar um ambiente que representasse evolução, pertencimento e autonomia profissional.",
+    "storyContent2": "Movido pelo compromisso de contribuir para o fortalecimento da advocacia amapaense, bem como de retribuir o aprendizado e as oportunidades recebidas ao longo de sua carreira, o CEO idealizou um conceito inovador: a reunião de advogados autônomos em um mesmo ambiente, estruturado para promover integração, colaboração e crescimento profissional coletivo.",
+    "storyContent3": "Com a conclusão das obras, em setembro de 2021, o Juris Company foi oficialmente inaugurado, passando a materializar esse modelo diferenciado de atuação, pautado na valorização da advocacia independente, na organização institucional e na excelência técnica. Atualmente, o Juris Company reúne vinte e seis advogados autônomos, atuantes nas mais diversas áreas do Direito, todos compartilhando o compromisso com a ética, a responsabilidade e a excelência na prestação de serviços jurídicos.",
     "mission": "Missão",
-    "missionText": "Oferecer soluções jurídicas estratégicas e personalizadas, protegendo os interesses de nossos clientes com excelência técnica, ética e comprometimento com resultados excepcionais.",
+    "missionText": "Promover integração, colaboração e crescimento profissional coletivo entre advogados autônomos, oferecendo um atendimento qualificado, humano e eficiente aos clientes e a toda a equipe que integra o escritório.",
     "vision": "Visão",
-    "visionText": "Ser reconhecido como referência nacional em advocacia empresarial, destacando-nos pela inovação, qualidade técnica e pela construção de relações duradouras baseadas em confiança e resultados.",
+    "visionText": "Ser referência na advocacia amapaense, destacando-se pela valorização da advocacia independente, pela organização institucional e pela excelência técnica, construindo um espaço que representa evolução, pertencimento e autonomia profissional.",
     "ourValues": "Nossos Valores",
     "values": {
       "excellence": {
-        "title": "Excelência Jurídica",
+        "title": "Excelência Técnica",
         "description": "Compromisso com a mais alta qualidade técnica em todas as nossas entregas."
       },
       "ethics": {
-        "title": "Ética e Integridade",
+        "title": "Ética e Responsabilidade",
         "description": "Conduta profissional pautada pelos mais rigorosos padrões éticos."
       },
       "client": {
-        "title": "Foco no Cliente",
+        "title": "Atendimento Humanizado",
         "description": "Relacionamento próximo e soluções personalizadas para cada necessidade."
       },
       "innovation": {
-        "title": "Inovação",
-        "description": "Uso de tecnologia e metodologias modernas para resultados superiores."
+        "title": "Colaboração",
+        "description": "Integração e crescimento profissional coletivo entre advogados autônomos."
       }
     },
     "ourNumbers": "Nossa Trajetória em Números",
     "stats": {
       "experience": "Anos de Experiência",
-      "clients": "Clientes Atendidos",
-      "cases": "Casos de Sucesso",
-      "operations": "Em Operações"
+      "clients": "Advogados Autônomos",
+      "cases": "Áreas do Direito",
+      "operations": "Clientes Atendidos"
     },
     "differentials": "Nossos Diferenciais",
     "diffList": {

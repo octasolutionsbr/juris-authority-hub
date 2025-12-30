@@ -133,38 +133,38 @@
     "title": "About Us",
     "subtitle": "Legal excellence and commitment to results that transform businesses and protect interests.",
     "ourStory": "Our Story",
-    "storyContent1": "Founded in 2000, the firm was born from the vision of experienced professionals who believed in a different kind of law practice: strategic, close, and results-oriented.",
-    "storyContent2": "Over more than two decades, we have built a solid track record, advising from innovative startups to large corporations in complex operations totaling billions of dollars.",
-    "storyContent3": "Today, we are recognized as one of the leading corporate law firms in the country, with a multidisciplinary team of experts dedicated to delivering excellent legal solutions.",
+    "storyContent1": "Juris Company was founded in 2019, through the initiative of its CEO, who identified the need to build a legal space with its own identity, institutional solidity, and vision for the future. The idea emerged after professional experiences in other law firms, still at the beginning of his career, when, as an intern, he matured the purpose of creating an environment that represented evolution, belonging, and professional autonomy.",
+    "storyContent2": "Driven by the commitment to contribute to strengthening legal practice in Amapá, as well as to give back the learning and opportunities received throughout his career, the CEO envisioned an innovative concept: bringing together independent lawyers in the same environment, structured to promote integration, collaboration, and collective professional growth.",
+    "storyContent3": "With the completion of construction in September 2021, Juris Company was officially inaugurated, materializing this differentiated model of practice, based on valuing independent legal practice, institutional organization, and technical excellence. Currently, Juris Company brings together twenty-six independent lawyers, working in the most diverse areas of Law, all sharing the commitment to ethics, responsibility, and excellence in providing legal services.",
     "mission": "Mission",
-    "missionText": "To offer strategic and personalized legal solutions, protecting our clients' interests with technical excellence, ethics, and commitment to exceptional results.",
+    "missionText": "To promote integration, collaboration, and collective professional growth among independent lawyers, offering qualified, humane, and efficient service to clients and the entire team that is part of the firm.",
     "vision": "Vision",
-    "visionText": "To be recognized as a national reference in corporate law, standing out for innovation, technical quality, and building lasting relationships based on trust and results.",
+    "visionText": "To be a reference in legal practice in Amapá, standing out for valuing independent legal practice, institutional organization, and technical excellence, building a space that represents evolution, belonging, and professional autonomy.",
     "ourValues": "Our Values",
     "values": {
       "excellence": {
-        "title": "Legal Excellence",
+        "title": "Technical Excellence",
         "description": "Commitment to the highest technical quality in all our deliveries."
       },
       "ethics": {
-        "title": "Ethics and Integrity",
+        "title": "Ethics and Responsibility",
         "description": "Professional conduct guided by the most rigorous ethical standards."
       },
       "client": {
-        "title": "Client Focus",
+        "title": "Humanized Service",
         "description": "Close relationship and customized solutions for each need."
       },
       "innovation": {
-        "title": "Innovation",
-        "description": "Use of technology and modern methodologies for superior results."
+        "title": "Collaboration",
+        "description": "Integration and collective professional growth among independent lawyers."
       }
     },
     "ourNumbers": "Our Journey in Numbers",
     "stats": {
       "experience": "Years of Experience",
-      "clients": "Clients Served",
-      "cases": "Successful Cases",
-      "operations": "In Operations"
+      "clients": "Independent Lawyers",
+      "cases": "Areas of Law",
+      "operations": "Clients Served"
     },
     "differentials": "Our Differentials",
     "diffList": {
