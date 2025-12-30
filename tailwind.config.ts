@@ -53,7 +53,6 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         heading: ['Montserrat', 'system-ui', '-apple-system', 'sans-serif'],
-        script: ['Great Vibes', 'cursive'],
       },
       borderRadius: {
         lg: "var(--radius)",
