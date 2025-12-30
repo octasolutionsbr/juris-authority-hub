@@ -5,8 +5,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
-import logo from "@/assets/logo.png";
-import logoDark from "@/assets/logo-dark.png";
+import Logo from "./Logo";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -49,11 +48,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img 
-              src={shouldHaveSolidBg ? logoDark : logo} 
-              alt="Juris Company" 
-              className="h-10 transition-all"
-            />
+            <Logo variant={shouldHaveSolidBg ? "dark" : "light"} />
           </Link>
 
           {/* Desktop Navigation */}
