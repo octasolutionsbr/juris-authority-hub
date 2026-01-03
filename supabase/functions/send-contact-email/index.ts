@@ -2,8 +2,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
-// Email de destino das notificações - CONFIGURAR COM O EMAIL DO CLIENTE
-const NOTIFICATION_EMAIL = "contato@juriscompany.net";
+// Email de destino das notificações - TEMPORÁRIO PARA TESTES
+const NOTIFICATION_EMAIL = "octasolutionsbr@gmail.com";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
