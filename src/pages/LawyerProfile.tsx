@@ -8,7 +8,7 @@ import { useAutoTranslateSingleProfile } from "@/hooks/useAutoTranslateProfile";
 import { loadTeamPhotos } from "@/hooks/useTeamPhotos";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen } from "lucide-react";
+import { Mail, MessageCircle, ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import NotFound from "./NotFound";
@@ -223,60 +223,6 @@ const LawyerProfile = () => {
             </div>
           </section>
 
-          {/* Education & Publications */}
-          {(translatedLawyer.education || translatedLawyer.publications) && (
-            <section className="py-16 bg-secondary">
-              <div className="container mx-auto px-4 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Education */}
-                  {translatedLawyer.education && translatedLawyer.education.length > 0 && (
-                    <Card className="p-8 border-2 border-border">
-                      <div className="flex items-center mb-6">
-                        <GraduationCap className="w-6 h-6 text-primary mr-3" />
-                        <h3 className="text-2xl font-heading font-semibold">
-                          {t("lawyerProfile.education")}
-                        </h3>
-                      </div>
-                      <ul className="space-y-3">
-                        {translatedLawyer.education.map((edu, index) => (
-                          <li
-                            key={index}
-                            className="text-muted-foreground leading-relaxed flex items-start"
-                          >
-                            <span className="text-primary mr-2">•</span>
-                            {edu}
-                          </li>
-                        ))}
-                      </ul>
-                    </Card>
-                  )}
-
-                  {/* Publications */}
-                  {translatedLawyer.publications && translatedLawyer.publications.length > 0 && (
-                    <Card className="p-8 border-2 border-border">
-                      <div className="flex items-center mb-6">
-                        <BookOpen className="w-6 h-6 text-primary mr-3" />
-                        <h3 className="text-2xl font-heading font-semibold">
-                          {t("lawyerProfile.publications")}
-                        </h3>
-                      </div>
-                      <ul className="space-y-3">
-                        {translatedLawyer.publications.map((pub, index) => (
-                          <li
-                            key={index}
-                            className="text-muted-foreground leading-relaxed flex items-start"
-                          >
-                            <span className="text-primary mr-2">•</span>
-                            {pub}
-                          </li>
-                        ))}
-                      </ul>
-                    </Card>
-                  )}
-                </div>
-              </div>
-            </section>
-          )}
 
           {/* CTA Section */}
           <section className="py-16 bg-primary text-primary-foreground">
