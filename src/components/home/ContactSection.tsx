@@ -3,12 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,7 +18,7 @@ const ContactSection = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validação básica
@@ -29,19 +31,44 @@ const ContactSection = () => {
       return;
     }
 
-    // Aqui você pode adicionar a lógica de envio do formulário
-    toast({
-      title: t("contact.form.success"),
-      description: t("contact.form.successMessage"),
-    });
+    setIsSubmitting(true);
 
-    // Limpar formulário
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || undefined,
+          message: formData.message,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      toast({
+        title: t("contact.form.success"),
+        description: t("contact.form.successMessage"),
+      });
+
+      // Limpar formulário
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error: any) {
+      console.error("Erro ao enviar contato:", error);
+      toast({
+        title: "Erro ao enviar mensagem",
+        description: "Por favor, tente novamente ou entre em contato por telefone.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -138,6 +165,7 @@ const ContactSection = () => {
                     onChange={handleChange}
                     placeholder={t("contact.form.namePlaceholder")}
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -153,6 +181,7 @@ const ContactSection = () => {
                     onChange={handleChange}
                     placeholder={t("contact.form.emailPlaceholder")}
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -167,6 +196,7 @@ const ContactSection = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder={t("contact.form.phonePlaceholder")}
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -182,6 +212,7 @@ const ContactSection = () => {
                     placeholder={t("contact.form.messagePlaceholder")}
                     rows={5}
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
 
@@ -189,9 +220,19 @@ const ContactSection = () => {
                   type="submit"
                   size="lg"
                   className="w-full gradient-wine group"
+                  disabled={isSubmitting}
                 >
-                  {t("contact.form.submit")}
-                  <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      {t("contact.form.submit")}
+                      <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </Button>
               </form>
             </div>

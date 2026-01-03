@@ -3,15 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Send, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Clock, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTranslation } from "react-i18next";
 import SEOHead from "@/components/SEOHead";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,7 +22,7 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.message) {
@@ -32,18 +34,45 @@ const Contact = () => {
       return;
     }
 
-    toast({
-      title: t("contact.form.success"),
-      description: t("contact.form.successMessage"),
-    });
+    setIsSubmitting(true);
 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    });
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || undefined,
+          subject: formData.subject || undefined,
+          message: formData.message,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      toast({
+        title: t("contact.form.success"),
+        description: t("contact.form.successMessage"),
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error: any) {
+      console.error("Erro ao enviar contato:", error);
+      toast({
+        title: "Erro ao enviar mensagem",
+        description: "Por favor, tente novamente ou entre em contato por telefone.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -178,6 +207,7 @@ const Contact = () => {
                             onChange={handleChange}
                             placeholder={t("contact.form.namePlaceholder")}
                             required
+                            disabled={isSubmitting}
                             className="h-9"
                           />
                         </div>
@@ -195,6 +225,7 @@ const Contact = () => {
                               onChange={handleChange}
                               placeholder={t("contact.form.emailPlaceholder")}
                               required
+                              disabled={isSubmitting}
                               className="h-9"
                             />
                           </div>
@@ -210,6 +241,7 @@ const Contact = () => {
                               value={formData.phone}
                               onChange={handleChange}
                               placeholder={t("contact.form.phonePlaceholder")}
+                              disabled={isSubmitting}
                               className="h-9"
                             />
                           </div>
@@ -226,6 +258,7 @@ const Contact = () => {
                             value={formData.subject}
                             onChange={handleChange}
                             placeholder={t("contact.form.subjectPlaceholder")}
+                            disabled={isSubmitting}
                             className="h-9"
                           />
                         </div>
@@ -242,6 +275,7 @@ const Contact = () => {
                             placeholder={t("contact.form.messagePlaceholder")}
                             rows={3}
                             required
+                            disabled={isSubmitting}
                             className="resize-none"
                           />
                         </div>
@@ -250,9 +284,19 @@ const Contact = () => {
                           type="submit"
                           size="default"
                           className="w-full group"
+                          disabled={isSubmitting}
                         >
-                          {t("contact.form.submit")}
-                          <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                              Enviando...
+                            </>
+                          ) : (
+                            <>
+                              {t("contact.form.submit")}
+                              <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </>
+                          )}
                         </Button>
                       </form>
                     </div>
