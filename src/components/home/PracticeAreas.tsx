@@ -54,7 +54,7 @@ const PracticeAreas = () => {
             <p className="text-muted-foreground">{t("practiceAreas.loading")}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
             {practiceAreas.map((area, index) => {
               const translatedArea = getTranslatedPracticeArea(area, i18n.language);
               const Icon = iconMap[area.icon] || FileText;
@@ -65,27 +65,18 @@ const PracticeAreas = () => {
                   className="group"
                   style={{
                     animation: `fade-up 0.6s ease-out forwards`,
-                    animationDelay: `${index * 0.08}s`,
+                    animationDelay: `${index * 0.05}s`,
                     opacity: 0,
                   }}
                 >
-                  <Card className="h-full p-5 border border-border hover:border-primary transition-all duration-300 hover:shadow-elegant hover:-translate-y-1 bg-background">
-                    <div className="flex items-start gap-4">
-                      <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
-                        <Icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+                  <Card className="h-full p-3 border border-border hover:border-primary transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 bg-background">
+                    <div className="flex flex-col items-center text-center gap-2">
+                      <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+                        <Icon className="w-4 h-4 text-primary group-hover:text-primary-foreground transition-colors" />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-heading text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight mb-1">
-                          {translatedArea.title}
-                        </h3>
-                        <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2">
-                          {translatedArea.description}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center text-primary text-xs font-medium mt-3 group-hover:gap-1 transition-all">
-                      {t("practiceAreas.learnMore")}
-                      <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                      <h3 className="font-heading text-xs font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
+                        {translatedArea.title}
+                      </h3>
                     </div>
                   </Card>
                 </Link>
