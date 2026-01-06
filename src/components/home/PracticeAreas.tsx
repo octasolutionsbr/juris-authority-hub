@@ -54,45 +54,44 @@ const PracticeAreas = () => {
             <p className="text-muted-foreground">{t("practiceAreas.loading")}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          {practiceAreas.map((area, index) => {
-            const translatedArea = getTranslatedPracticeArea(area, i18n.language);
-            const Icon = iconMap[area.icon] || FileText;
-            return (
-              <Link
-                key={area.id}
-                to={`/areas/${area.id}`}
-                className="group"
-                style={{
-                  animation: `fade-up 0.6s ease-out forwards`,
-                  animationDelay: `${index * 0.1}s`,
-                  opacity: 0,
-                }}
-              >
-                <Card className="h-full p-5 border-2 border-border hover:border-primary transition-all duration-300 hover:shadow-elegant hover:-translate-y-2 bg-background">
-                  <div className="mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
-                      <Icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {practiceAreas.map((area, index) => {
+              const translatedArea = getTranslatedPracticeArea(area, i18n.language);
+              const Icon = iconMap[area.icon] || FileText;
+              return (
+                <Link
+                  key={area.id}
+                  to={`/areas/${area.id}`}
+                  className="group"
+                  style={{
+                    animation: `fade-up 0.6s ease-out forwards`,
+                    animationDelay: `${index * 0.08}s`,
+                    opacity: 0,
+                  }}
+                >
+                  <Card className="h-full p-5 border border-border hover:border-primary transition-all duration-300 hover:shadow-elegant hover:-translate-y-1 bg-background">
+                    <div className="flex items-start gap-4">
+                      <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+                        <Icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-heading text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight mb-1">
+                          {translatedArea.title}
+                        </h3>
+                        <p className="text-muted-foreground text-xs leading-relaxed line-clamp-2">
+                          {translatedArea.description}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-
-                  <h3 className="font-heading text-base font-semibold mb-2 text-foreground group-hover:text-primary transition-colors leading-tight">
-                    {translatedArea.title}
-                  </h3>
-
-                  <p className="text-muted-foreground text-xs leading-relaxed mb-3 line-clamp-2">
-                    {translatedArea.description}
-                  </p>
-
-                  <div className="flex items-center text-primary text-xs font-medium group-hover:gap-1 transition-all">
-                    {t("practiceAreas.learnMore")}
-                    <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
+                    <div className="flex items-center text-primary text-xs font-medium mt-3 group-hover:gap-1 transition-all">
+                      {t("practiceAreas.learnMore")}
+                      <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
         )}
 
       </div>
