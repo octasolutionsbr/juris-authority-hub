@@ -1,15 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { Tables } from '@/integrations/supabase/types';
 
-export interface PracticeArea {
-  id: string;
-  title: string;
-  icon: string;
-  description: string;
-  long_description: string | null;
-  keywords: string[] | null;
-  order_index: number;
-}
+export type PracticeArea = Tables<'practice_areas'>;
 
 export const usePracticeAreas = () => {
   return useQuery({
