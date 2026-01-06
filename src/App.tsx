@@ -45,6 +45,7 @@ const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminProfile = lazy(() => import("./pages/admin/Profile"));
 const AdminListings = lazy(() => import("./pages/admin/Listings"));
 const AdminUsers = lazy(() => import("./pages/admin/Users"));
+const AdminTeam = lazy(() => import("./pages/admin/Team"));
 const AdminHearings = lazy(() => import("./pages/admin/Hearings"));
 const AdminSettings = lazy(() => import("./pages/admin/Settings"));
 
@@ -98,6 +99,7 @@ const App = () => (
               <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
               <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
               <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
+              <Route path="/admin/team" element={<ProtectedRoute requireAdmin><AdminTeam /></ProtectedRoute>} />
               <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

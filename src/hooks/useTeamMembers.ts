@@ -21,6 +21,7 @@ export interface TeamMember {
   education_en: string[] | null;
   order_index: number;
   published: boolean;
+  user_id: string | null;
 }
 
 export const useTeamMembers = () => {

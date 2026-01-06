@@ -1,4 +1,4 @@
-import { LayoutDashboard, User, Briefcase, Users, Calendar, LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, User, Briefcase, Users, Users2, Calendar, LogOut, Settings } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useAuth } from "@/contexts/AuthContext";
 import {
@@ -29,6 +29,7 @@ export function AdminSidebar() {
   ];
 
   if (isAdmin) {
+    menuItems.push({ title: "Equipe", url: "/admin/team", icon: Users2 });
     menuItems.push({ title: "Usuários", url: "/admin/users", icon: Users });
   }
 
