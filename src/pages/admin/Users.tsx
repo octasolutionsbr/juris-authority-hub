@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Check, X, Shield, Ban, Trash2 } from "lucide-react";
+import { Check, X, Ban, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { 
   usePendingProfiles, 
@@ -23,8 +23,11 @@ import {
   useDeleteUser,
   Profile
 } from "@/hooks/useUsers";
+import { useLinkUserToMember } from "@/hooks/useTeamManagement";
+import { LinkUserDialog } from "@/components/admin/LinkUserDialog";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function AdminUsers() {
   const { toast } = useToast();
@@ -34,6 +37,10 @@ export default function AdminUsers() {
     admin: false,
     lawyer: false,
   });
+  
+  // Link dialog state
+  const [linkDialogOpen, setLinkDialogOpen] = useState(false);
+  const [pendingApprovalUser, setPendingApprovalUser] = useState<Profile | null>(null);
   
   const { data: pendingUsers = [], isLoading: loadingPending } = usePendingProfiles();
   const { data: approvedUsers = [], isLoading: loadingApproved } = useApprovedProfiles();
@@ -45,11 +52,50 @@ export default function AdminUsers() {
   const removeUserRole = useRemoveUserRole();
   const blockUser = useBlockUser();
   const deleteUser = useDeleteUser();
+  const linkUserToMember = useLinkUserToMember();
 
-  const handleApprove = async (userId: string) => {
+  // Open link dialog when approving
+  const handleApproveWithLink = (user: Profile) => {
+    setPendingApprovalUser(user);
+    setLinkDialogOpen(true);
+  };
+
+  // Handle approve and link
+  const handleConfirmApproval = async (memberId: string | null) => {
+    if (!pendingApprovalUser) return;
+    
     try {
-      await approveUser.mutateAsync(userId);
-      toast({ title: "Usuário aprovado com sucesso!" });
+      // First approve the user
+      await approveUser.mutateAsync(pendingApprovalUser.id);
+      
+      // If a member profile was selected, link it
+      if (memberId) {
+        await linkUserToMember.mutateAsync({
+          memberId,
+          userId: pendingApprovalUser.id,
+        });
+        toast({ title: "Usuário aprovado e vinculado ao perfil!" });
+      } else {
+        // Create a new team member for this user
+        const { error } = await supabase
+          .from('team_members')
+          .insert({
+            id: `lawyer-${pendingApprovalUser.id}`,
+            name: pendingApprovalUser.name,
+            title: 'Advogado',
+            bio: '',
+            role: 'advogado',
+            user_id: pendingApprovalUser.id,
+            published: false,
+            order_index: 999,
+          });
+
+        if (error) throw error;
+        toast({ title: "Usuário aprovado e novo perfil criado!" });
+      }
+      
+      setLinkDialogOpen(false);
+      setPendingApprovalUser(null);
     } catch (error) {
       toast({ 
         title: "Erro ao aprovar usuário",
@@ -218,7 +264,7 @@ export default function AdminUsers() {
                           <Button 
                             variant="outline" 
                             size="sm"
-                            onClick={() => handleApprove(user.id)}
+                            onClick={() => handleApproveWithLink(user)}
                           >
                             <Check className="mr-1 h-4 w-4" />
                             Aprovar
@@ -379,6 +425,15 @@ export default function AdminUsers() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Link User Dialog */}
+      <LinkUserDialog
+        open={linkDialogOpen}
+        onOpenChange={setLinkDialogOpen}
+        user={pendingApprovalUser}
+        onLink={handleConfirmApproval}
+        isLinking={approveUser.isPending || linkUserToMember.isPending}
+      />
     </AdminLayout>
   );
 }
