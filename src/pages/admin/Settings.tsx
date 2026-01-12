@@ -176,10 +176,10 @@ export default function Settings() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6 max-w-2xl">
         <div>
-          <h1 className="text-2xl font-heading font-bold">Configurações da Conta</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl md:text-3xl font-heading font-bold">Configurações da Conta</h1>
+          <p className="text-sm md:text-base text-muted-foreground mt-1 md:mt-2">
             Gerencie as configurações de segurança da sua conta
           </p>
         </div>

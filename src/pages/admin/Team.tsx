@@ -108,47 +108,105 @@ export default function AdminTeam() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 md:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-heading font-bold">Gerenciar Equipe</h1>
-            <p className="text-muted-foreground mt-2">
+            <h1 className="text-2xl md:text-3xl font-heading font-bold">Gerenciar Equipe</h1>
+            <p className="text-sm md:text-base text-muted-foreground mt-1 md:mt-2">
               Crie e gerencie os perfis dos membros da equipe
             </p>
           </div>
-          <Button onClick={handleCreate}>
+          <Button onClick={handleCreate} className="w-full sm:w-auto">
             <Plus className="mr-2 h-4 w-4" />
             Novo Membro
           </Button>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Membros da Equipe</CardTitle>
+          <CardHeader className="px-4 md:px-6">
+            <CardTitle className="text-lg md:text-xl">Membros da Equipe</CardTitle>
             <CardDescription>
               {members.length} membro(s) cadastrado(s)
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0 md:px-6">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
               </div>
             ) : members.length === 0 ? (
-              <p className="text-sm text-muted-foreground py-8 text-center">
+              <p className="text-sm text-muted-foreground py-8 text-center px-4">
                 Nenhum membro cadastrado ainda
               </p>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Membro</TableHead>
-                    <TableHead>Área Principal</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Vinculado</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
+              <>
+                {/* Mobile Cards */}
+                <div className="md:hidden space-y-3 px-4">
+                  {members.map((member) => (
+                    <div key={member.id} className="border rounded-lg p-4 space-y-3">
+                      <div className="flex items-start gap-3">
+                        <Avatar className="h-12 w-12 shrink-0">
+                          <AvatarImage src={member.photo_url || undefined} alt={member.name} />
+                          <AvatarFallback>
+                            <User className="h-6 w-6" />
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">{member.name}</p>
+                          <p className="text-xs text-muted-foreground truncate">{member.email || member.title}</p>
+                          <div className="flex flex-wrap gap-1.5 mt-2">
+                            {member.published ? (
+                              <Badge variant="default" className="text-xs">Publicado</Badge>
+                            ) : (
+                              <Badge variant="secondary" className="text-xs">Oculto</Badge>
+                            )}
+                            {member.user_id ? (
+                              <Badge variant="outline" className="text-green-600 border-green-600 text-xs">
+                                <Link2 className="mr-1 h-3 w-3" />
+                                Vinculado
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="text-muted-foreground text-xs">
+                                Não vinculado
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 pt-2 border-t">
+                        <Button variant="outline" size="sm" className="flex-1" onClick={() => handleEdit(member)}>
+                          <Pencil className="h-4 w-4 mr-1" />
+                          Editar
+                        </Button>
+                        {member.user_id ? (
+                          <Button variant="outline" size="sm" onClick={() => handleUnlinkUser(member)} className="text-amber-600">
+                            <Unlink className="h-4 w-4" />
+                          </Button>
+                        ) : (
+                          <Button variant="outline" size="sm" onClick={() => handleOpenLinkDialog(member)} disabled={unlinkedUsers.length === 0}>
+                            <Link2 className="h-4 w-4" />
+                          </Button>
+                        )}
+                        <Button variant="outline" size="sm" onClick={() => handleDelete(member)} className="text-destructive">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop Table */}
+                <div className="hidden md:block overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Membro</TableHead>
+                        <TableHead>Área Principal</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Vinculado</TableHead>
+                        <TableHead className="text-right">Ações</TableHead>
+                      </TableRow>
+                    </TableHeader>
                 <TableBody>
                   {members.map((member) => (
                     <TableRow key={member.id}>
@@ -236,8 +294,10 @@ export default function AdminTeam() {
                       </TableCell>
                     </TableRow>
                   ))}
-                </TableBody>
-              </Table>
+                  </TableBody>
+                </Table>
+              </div>
+              </>
             )}
           </CardContent>
         </Card>

@@ -228,23 +228,23 @@ export default function AdminListings() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 md:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-heading font-bold">Anúncios</h1>
-            <p className="text-muted-foreground mt-2">
+            <h1 className="text-2xl md:text-3xl font-heading font-bold">Anúncios</h1>
+            <p className="text-sm md:text-base text-muted-foreground mt-1 md:mt-2">
               Gerencie seus anúncios de oportunidades
             </p>
           </div>
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="w-full sm:w-auto">
                 <Plus className="mr-2 h-4 w-4" />
                 Novo Anúncio
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogContent className="max-w-4xl w-[95vw] max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>{editingListing ? "Editar Anúncio" : "Criar Novo Anúncio"}</DialogTitle>
                 <DialogDescription>
@@ -490,11 +490,11 @@ export default function AdminListings() {
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Meus Anúncios</CardTitle>
+          <CardHeader className="px-4 md:px-6">
+            <CardTitle className="text-lg md:text-xl">Meus Anúncios</CardTitle>
             <CardDescription>Lista de todos os seus anúncios cadastrados</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0 md:px-6">
             {isLoading ? (
               <div className="text-center py-8">
                 <p className="text-muted-foreground">Carregando anúncios...</p>
@@ -504,68 +504,121 @@ export default function AdminListings() {
                 <p className="text-muted-foreground">Nenhum anúncio cadastrado ainda.</p>
               </div>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-12">Img</TableHead>
-                    <TableHead>Título</TableHead>
-                    <TableHead>Categoria</TableHead>
-                    <TableHead>Preço</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+              <>
+                {/* Mobile Cards */}
+                <div className="md:hidden space-y-3 px-4">
                   {listings.map((listing) => (
-                    <TableRow key={listing.id}>
-                      <TableCell>
+                    <div key={listing.id} className="border rounded-lg p-4 space-y-3">
+                      <div className="flex gap-3">
                         {listing.images && listing.images.length > 0 ? (
                           <img
                             src={listing.images[0]}
                             alt={listing.title}
-                            className="w-10 h-10 object-cover rounded"
+                            className="w-16 h-16 object-cover rounded shrink-0"
                           />
                         ) : (
-                          <div className="w-10 h-10 bg-muted rounded flex items-center justify-center">
-                            <ImageIcon className="w-4 h-4 text-muted-foreground" />
+                          <div className="w-16 h-16 bg-muted rounded flex items-center justify-center shrink-0">
+                            <ImageIcon className="w-6 h-6 text-muted-foreground" />
                           </div>
                         )}
-                      </TableCell>
-                      <TableCell className="font-medium max-w-[200px] truncate">{listing.title}</TableCell>
-                      <TableCell>{categoryLabels[listing.category]}</TableCell>
-                      <TableCell>
-                        {listing.price 
-                          ? `R$ ${listing.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` 
-                          : "-"}
-                      </TableCell>
-                      <TableCell>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">{listing.title}</p>
+                          <p className="text-sm text-muted-foreground">{categoryLabels[listing.category]}</p>
+                          <p className="text-sm font-medium mt-1">
+                            {listing.price 
+                              ? `R$ ${listing.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` 
+                              : "Preço sob consulta"}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between pt-2 border-t">
                         <Badge variant={listing.status === "available" ? "default" : "secondary"}>
                           {statusLabels[listing.status]}
                         </Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-1">
-                          <Button variant="ghost" size="icon" asChild>
+                        <div className="flex gap-1">
+                          <Button variant="outline" size="sm" asChild>
                             <Link to={`/oportunidades/${listing.id}`} target="_blank">
                               <Eye className="h-4 w-4" />
                             </Link>
                           </Button>
-                          <Button variant="ghost" size="icon" onClick={() => openEditDialog(listing)}>
+                          <Button variant="outline" size="sm" onClick={() => openEditDialog(listing)}>
                             <Pencil className="h-4 w-4" />
                           </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="icon"
-                            onClick={() => handleDelete(listing.id)}
-                          >
+                          <Button variant="outline" size="sm" onClick={() => handleDelete(listing.id)} className="text-destructive">
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
-                      </TableCell>
-                    </TableRow>
+                      </div>
+                    </div>
                   ))}
-                </TableBody>
-              </Table>
+                </div>
+
+                {/* Desktop Table */}
+                <div className="hidden md:block overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-12">Img</TableHead>
+                        <TableHead>Título</TableHead>
+                        <TableHead>Categoria</TableHead>
+                        <TableHead>Preço</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Ações</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {listings.map((listing) => (
+                        <TableRow key={listing.id}>
+                          <TableCell>
+                            {listing.images && listing.images.length > 0 ? (
+                              <img
+                                src={listing.images[0]}
+                                alt={listing.title}
+                                className="w-10 h-10 object-cover rounded"
+                              />
+                            ) : (
+                              <div className="w-10 h-10 bg-muted rounded flex items-center justify-center">
+                                <ImageIcon className="w-4 h-4 text-muted-foreground" />
+                              </div>
+                            )}
+                          </TableCell>
+                          <TableCell className="font-medium max-w-[200px] truncate">{listing.title}</TableCell>
+                          <TableCell>{categoryLabels[listing.category]}</TableCell>
+                          <TableCell>
+                            {listing.price 
+                              ? `R$ ${listing.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` 
+                              : "-"}
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant={listing.status === "available" ? "default" : "secondary"}>
+                              {statusLabels[listing.status]}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex justify-end gap-1">
+                              <Button variant="ghost" size="icon" asChild>
+                                <Link to={`/oportunidades/${listing.id}`} target="_blank">
+                                  <Eye className="h-4 w-4" />
+                                </Link>
+                              </Button>
+                              <Button variant="ghost" size="icon" onClick={() => openEditDialog(listing)}>
+                                <Pencil className="h-4 w-4" />
+                              </Button>
+                              <Button 
+                                variant="ghost" 
+                                size="icon"
+                                onClick={() => handleDelete(listing.id)}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>

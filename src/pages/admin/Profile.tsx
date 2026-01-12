@@ -219,10 +219,10 @@ export default function AdminProfile() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6 max-w-4xl">
+      <div className="space-y-4 md:space-y-6 max-w-4xl">
         <div>
-          <h1 className="text-3xl font-heading font-bold">Meu Perfil</h1>
-          <p className="text-muted-foreground mt-2">
+          <h1 className="text-2xl md:text-3xl font-heading font-bold">Meu Perfil</h1>
+          <p className="text-sm md:text-base text-muted-foreground mt-1 md:mt-2">
             Gerencie suas informações profissionais
           </p>
         </div>
@@ -259,16 +259,16 @@ export default function AdminProfile() {
               <CardDescription>Adicione uma foto profissional</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-6">
-                <div className="h-24 w-24 rounded-full bg-muted flex items-center justify-center overflow-hidden">
+              <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-muted flex items-center justify-center overflow-hidden shrink-0">
                   {photoPreview ? (
                     <img src={photoPreview} alt="Preview" className="h-full w-full object-cover" />
                   ) : (
-                    <User className="h-12 w-12 text-muted-foreground" />
+                    <User className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground" />
                   )}
                 </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-2 text-center sm:text-left">
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                     <label htmlFor="photo-upload">
                       <Button type="button" variant="outline" size="sm" asChild>
                         <span>
