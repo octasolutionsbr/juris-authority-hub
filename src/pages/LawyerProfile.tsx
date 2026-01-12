@@ -79,7 +79,7 @@ const LawyerProfile = () => {
 
   const personSchema = {
     "@context": "https://schema.org",
-    "@type": "Person",
+    "@type": ["Person", "Attorney"],
     "name": lawyer.name,
     "jobTitle": mainAreaTitle,
     "description": translatedLawyer.bio,
@@ -88,8 +88,56 @@ const LawyerProfile = () => {
     "worksFor": {
       "@type": "LegalService",
       "name": "Juris Company",
-      "url": "https://juriscompany.net"
+      "url": "https://juriscompany.net",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "R. Prof. Tostes, 783 - Centro",
+        "addressLocality": "Macapá",
+        "addressRegion": "Amapá",
+        "addressCountry": "BR",
+        "postalCode": "68900-022"
+      }
     },
+    "workLocation": {
+      "@type": "Place",
+      "name": "Juris Company - Macapá",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Macapá",
+        "addressRegion": "Amapá",
+        "addressCountry": "BR"
+      }
+    },
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "OAB",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Ordem dos Advogados do Brasil"
+      }
+    },
+    "areaServed": [
+      {
+        "@type": "State",
+        "name": "Amapá"
+      },
+      {
+        "@type": "City",
+        "name": "Macapá"
+      }
+    ],
+    "availableChannel": [
+      {
+        "@type": "ServiceChannel",
+        "serviceType": "WhatsApp",
+        "serviceUrl": `https://wa.me/${lawyer.whatsapp?.replace(/\D/g, "")}`
+      },
+      {
+        "@type": "ServiceChannel",
+        "serviceType": "Email",
+        "serviceEmail": lawyer.email
+      }
+    ],
     "knowsAbout": lawyerAreas.map(area => getTranslatedPracticeArea(area, i18n.language).title)
   };
 

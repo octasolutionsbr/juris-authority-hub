@@ -80,15 +80,15 @@ export const SEOHead = ({
     "name": "Juris Company",
     "description": fullDescription,
     "url": BASE_URL,
-    "telephone": "+55 96 99999-9999",
+    "telephone": "+55 96 93223-1425",
     "email": "contato@juriscompany.net",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Av. Fab, 1234",
+      "streetAddress": "R. Prof. Tostes, 783 - Centro",
       "addressLocality": geoLocation.city,
       "addressRegion": geoLocation.region,
       "addressCountry": geoLocation.country,
-      "postalCode": "68900-000"
+      "postalCode": "68900-022"
     },
     "geo": geoLocation.latitude && geoLocation.longitude ? {
       "@type": "GeoCoordinates",

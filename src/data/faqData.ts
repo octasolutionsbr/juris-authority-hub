@@ -145,6 +145,34 @@ export const areaFAQs: Record<string, FAQItem[]> = {
       question: "Quanto custa defesa em ação de consumidor em Macapá?",
       answer: "Os honorários variam conforme o valor da causa e complexidade. Oferecemos análise prévia para definir a melhor estratégia de defesa."
     }
+  ],
+  'direito-civil': [
+    {
+      question: "Qual o melhor advogado civil em Macapá?",
+      answer: "A Juris Company é referência em direito civil em Macapá, com expertise em contratos, responsabilidade civil, indenizações e direito das obrigações. Nosso escritório atende pessoas físicas e jurídicas em toda a região do Amapá."
+    },
+    {
+      question: "Como resolver disputas contratuais no Amapá?",
+      answer: "Oferecemos assessoria completa em disputas contratuais, incluindo mediação, arbitragem e contencioso judicial. Nossa equipe busca sempre a solução mais eficiente para seu caso em Macapá."
+    },
+    {
+      question: "Quanto custa um advogado civil em Macapá?",
+      answer: "Os honorários variam conforme a complexidade do caso. A Juris Company oferece consulta inicial para avaliar sua situação e apresentar proposta transparente de honorários advocatícios."
+    }
+  ],
+  'direito-saude': [
+    {
+      question: "Qual advogado de direito à saúde em Macapá?",
+      answer: "A Juris Company possui equipe especializada em direito à saúde em Macapá, atuando em casos de negativa de cobertura de planos de saúde, acesso a medicamentos pelo SUS, erro médico e tratamentos negados no Amapá."
+    },
+    {
+      question: "Como processar plano de saúde por negativa de cobertura no Amapá?",
+      answer: "Oferecemos assessoria jurídica completa para casos de negativa de cobertura. Analisamos seu contrato, documentação médica e ingressamos com ação judicial para garantir seu direito ao tratamento em Macapá."
+    },
+    {
+      question: "Onde encontrar advogado para erro médico em Macapá?",
+      answer: "A Juris Company atua em casos de erro médico no Amapá, buscando indenização por danos materiais e morais. Nossa equipe analisa laudos, prontuários e toda documentação para defender seus direitos."
+    }
   ]
 };
 
