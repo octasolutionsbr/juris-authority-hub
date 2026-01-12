@@ -165,11 +165,11 @@ export default function AdminHearings() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
+      <div className="space-y-4 md:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-heading font-bold">Audiências</h1>
-            <p className="text-muted-foreground mt-2">
+            <h1 className="text-2xl md:text-3xl font-heading font-bold">Audiências</h1>
+            <p className="text-sm md:text-base text-muted-foreground mt-1 md:mt-2">
               Gerencie e compartilhe informações de audiências com seus clientes
             </p>
           </div>
@@ -177,7 +177,7 @@ export default function AdminHearings() {
           <Button onClick={() => {
             setSelectedHearing(null);
             setIsFormOpen(true);
-          }}>
+          }} className="w-full sm:w-auto">
             <Plus className="mr-2 h-4 w-4" />
             Nova Audiência
           </Button>
@@ -242,7 +242,7 @@ export default function AdminHearings() {
         )}
 
         <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
-          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-3xl w-[95vw] max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
                 {selectedHearing ? "Editar Audiência" : "Nova Audiência"}

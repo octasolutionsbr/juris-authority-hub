@@ -218,21 +218,21 @@ export default function AdminUsers() {
 
   return (
     <AdminLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         <div>
-          <h1 className="text-3xl font-heading font-bold">Gerenciar Usuários</h1>
-          <p className="text-muted-foreground mt-2">
+          <h1 className="text-2xl md:text-3xl font-heading font-bold">Gerenciar Usuários</h1>
+          <p className="text-sm md:text-base text-muted-foreground mt-1 md:mt-2">
             Aprove ou rejeite solicitações de acesso ao painel
           </p>
         </div>
 
         {/* Usuários Pendentes */}
         <Card>
-          <CardHeader>
-            <CardTitle>Solicitações Pendentes</CardTitle>
+          <CardHeader className="px-4 md:px-6">
+            <CardTitle className="text-lg md:text-xl">Solicitações Pendentes</CardTitle>
             <CardDescription>Usuários aguardando aprovação</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0 md:px-6">
             {loadingPending ? (
               <p className="text-sm text-muted-foreground py-8 text-center">
                 Carregando...
@@ -242,58 +242,80 @@ export default function AdminUsers() {
                 Nenhuma solicitação pendente
               </p>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Data Solicitação</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+              <>
+                {/* Mobile Cards */}
+                <div className="md:hidden space-y-3 px-4">
                   {pendingUsers.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.name}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>
-                        {format(new Date(user.created_at), "dd/MM/yyyy", { locale: ptBR })}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => handleApproveWithLink(user)}
-                          >
-                            <Check className="mr-1 h-4 w-4" />
-                            Aprovar
-                          </Button>
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => handleReject(user.id)}
-                          >
-                            <X className="mr-1 h-4 w-4" />
-                            Rejeitar
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
+                    <div key={user.id} className="border rounded-lg p-4 space-y-3">
+                      <div>
+                        <p className="font-medium">{user.name}</p>
+                        <p className="text-sm text-muted-foreground truncate">{user.email}</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {format(new Date(user.created_at), "dd/MM/yyyy", { locale: ptBR })}
+                        </p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="outline" size="sm" className="flex-1" onClick={() => handleApproveWithLink(user)}>
+                          <Check className="mr-1 h-4 w-4" />
+                          Aprovar
+                        </Button>
+                        <Button variant="outline" size="sm" className="flex-1" onClick={() => handleReject(user.id)}>
+                          <X className="mr-1 h-4 w-4" />
+                          Rejeitar
+                        </Button>
+                      </div>
+                    </div>
                   ))}
-                </TableBody>
-              </Table>
+                </div>
+
+                {/* Desktop Table */}
+                <div className="hidden md:block overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Nome</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Data Solicitação</TableHead>
+                        <TableHead className="text-right">Ações</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {pendingUsers.map((user) => (
+                        <TableRow key={user.id}>
+                          <TableCell className="font-medium">{user.name}</TableCell>
+                          <TableCell>{user.email}</TableCell>
+                          <TableCell>
+                            {format(new Date(user.created_at), "dd/MM/yyyy", { locale: ptBR })}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex justify-end gap-2">
+                              <Button variant="outline" size="sm" onClick={() => handleApproveWithLink(user)}>
+                                <Check className="mr-1 h-4 w-4" />
+                                Aprovar
+                              </Button>
+                              <Button variant="outline" size="sm" onClick={() => handleReject(user.id)}>
+                                <X className="mr-1 h-4 w-4" />
+                                Rejeitar
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
 
         {/* Usuários Aprovados */}
         <Card>
-          <CardHeader>
-            <CardTitle>Usuários Ativos</CardTitle>
+          <CardHeader className="px-4 md:px-6">
+            <CardTitle className="text-lg md:text-xl">Usuários Ativos</CardTitle>
             <CardDescription>Usuários com acesso ao painel administrativo</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0 md:px-6">
             {loadingApproved ? (
               <p className="text-sm text-muted-foreground py-8 text-center">
                 Carregando...
@@ -303,56 +325,95 @@ export default function AdminUsers() {
                 Nenhum usuário aprovado ainda
               </p>
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+              <>
+                {/* Mobile Cards */}
+                <div className="md:hidden space-y-3 px-4">
                   {approvedUsers.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.name}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>
-                        <Badge variant="default">Aprovado</Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => handleEdit(user)}
-                          >
-                            Editar
-                          </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            className="text-amber-600 hover:text-amber-700 hover:bg-amber-50"
-                            onClick={() => handleBlock(user.id, user.name)}
-                          >
-                            <Ban className="mr-1 h-4 w-4" />
-                            Bloquear
-                          </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                            onClick={() => handleDelete(user.id, user.name)}
-                          >
-                            <Trash2 className="mr-1 h-4 w-4" />
-                            Excluir
-                          </Button>
+                    <div key={user.id} className="border rounded-lg p-4 space-y-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium">{user.name}</p>
+                          <Badge variant="default" className="text-xs">Aprovado</Badge>
                         </div>
-                      </TableCell>
-                    </TableRow>
+                        <p className="text-sm text-muted-foreground truncate">{user.email}</p>
+                      </div>
+                      <div className="flex gap-2 flex-wrap">
+                        <Button variant="outline" size="sm" onClick={() => handleEdit(user)}>
+                          Editar
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="text-amber-600"
+                          onClick={() => handleBlock(user.id, user.name)}
+                        >
+                          <Ban className="h-4 w-4 mr-1" />
+                          Bloquear
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          className="text-destructive"
+                          onClick={() => handleDelete(user.id, user.name)}
+                        >
+                          <Trash2 className="h-4 w-4 mr-1" />
+                          Excluir
+                        </Button>
+                      </div>
+                    </div>
                   ))}
-                </TableBody>
-              </Table>
+                </div>
+
+                {/* Desktop Table */}
+                <div className="hidden md:block overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Nome</TableHead>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Ações</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {approvedUsers.map((user) => (
+                        <TableRow key={user.id}>
+                          <TableCell className="font-medium">{user.name}</TableCell>
+                          <TableCell>{user.email}</TableCell>
+                          <TableCell>
+                            <Badge variant="default">Aprovado</Badge>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex justify-end gap-2">
+                              <Button variant="ghost" size="sm" onClick={() => handleEdit(user)}>
+                                Editar
+                              </Button>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                className="text-amber-600 hover:text-amber-700 hover:bg-amber-50"
+                                onClick={() => handleBlock(user.id, user.name)}
+                              >
+                                <Ban className="mr-1 h-4 w-4" />
+                                Bloquear
+                              </Button>
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                                onClick={() => handleDelete(user.id, user.name)}
+                              >
+                                <Trash2 className="mr-1 h-4 w-4" />
+                                Excluir
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
