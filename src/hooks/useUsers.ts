@@ -30,11 +30,26 @@ export const usePendingProfiles = () => {
   return useQuery({
     queryKey: ['profiles', 'pending'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      // First get tecnico user IDs to exclude them
+      const { data: tecnicoRoles } = await supabase
+        .from('user_roles')
+        .select('user_id')
+        .eq('role', 'tecnico');
+
+      const tecnicoIds = tecnicoRoles?.map(r => r.user_id) || [];
+
+      let query = supabase
         .from('profiles')
         .select('*')
         .eq('approved', false)
         .order('created_at', { ascending: false });
+
+      // Exclude tecnico users
+      if (tecnicoIds.length > 0) {
+        query = query.not('id', 'in', `(${tecnicoIds.join(',')})`);
+      }
+
+      const { data, error } = await query;
 
       if (error) throw error;
       
@@ -47,11 +62,26 @@ export const useApprovedProfiles = () => {
   return useQuery({
     queryKey: ['profiles', 'approved'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      // First get tecnico user IDs to exclude them
+      const { data: tecnicoRoles } = await supabase
+        .from('user_roles')
+        .select('user_id')
+        .eq('role', 'tecnico');
+
+      const tecnicoIds = tecnicoRoles?.map(r => r.user_id) || [];
+
+      let query = supabase
         .from('profiles')
         .select('*')
         .eq('approved', true)
         .order('created_at', { ascending: false });
+
+      // Exclude tecnico users
+      if (tecnicoIds.length > 0) {
+        query = query.not('id', 'in', `(${tecnicoIds.join(',')})`);
+      }
+
+      const { data, error } = await query;
 
       if (error) throw error;
       
@@ -137,7 +167,7 @@ export const useAddUserRole = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ userId, role }: { userId: string; role: 'admin' | 'lawyer' }) => {
+    mutationFn: async ({ userId, role }: { userId: string; role: 'admin' | 'lawyer' | 'tecnico' }) => {
       const { error } = await supabase
         .from('user_roles')
         .insert({ user_id: userId, role });
@@ -146,6 +176,7 @@ export const useAddUserRole = () => {
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['user_roles', variables.userId] });
+      queryClient.invalidateQueries({ queryKey: ['profiles'] });
     },
   });
 };
@@ -154,7 +185,7 @@ export const useRemoveUserRole = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ userId, role }: { userId: string; role: 'admin' | 'lawyer' }) => {
+    mutationFn: async ({ userId, role }: { userId: string; role: 'admin' | 'lawyer' | 'tecnico' }) => {
       const { error } = await supabase
         .from('user_roles')
         .delete()
@@ -165,6 +196,7 @@ export const useRemoveUserRole = () => {
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['user_roles', variables.userId] });
+      queryClient.invalidateQueries({ queryKey: ['profiles'] });
     },
   });
 };

@@ -120,12 +120,12 @@ const AppRoutes = () => (
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/reset-password" element={<AdminResetPassword />} />
         <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-        <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
-        <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
-        <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
+        <Route path="/admin/profile" element={<ProtectedRoute denyTecnico><AdminProfile /></ProtectedRoute>} />
+        <Route path="/admin/listings" element={<ProtectedRoute denyTecnico><AdminListings /></ProtectedRoute>} />
+        <Route path="/admin/hearings" element={<ProtectedRoute denyTecnico><AdminHearings /></ProtectedRoute>} />
         <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
-        <Route path="/admin/team" element={<ProtectedRoute requireAdmin><AdminTeam /></ProtectedRoute>} />
-        <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
+        <Route path="/admin/team" element={<ProtectedRoute requireAdminOrTecnico><AdminTeam /></ProtectedRoute>} />
+        <Route path="/admin/users" element={<ProtectedRoute requireAdminOrTecnico><AdminUsers /></ProtectedRoute>} />
         
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />

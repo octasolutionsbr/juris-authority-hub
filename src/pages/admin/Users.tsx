@@ -33,9 +33,10 @@ export default function AdminUsers() {
   const { toast } = useToast();
   const [editingUser, setEditingUser] = useState<Profile | null>(null);
   const [editName, setEditName] = useState("");
-  const [editRoles, setEditRoles] = useState<{ admin: boolean; lawyer: boolean }>({
+  const [editRoles, setEditRoles] = useState<{ admin: boolean; lawyer: boolean; tecnico: boolean }>({
     admin: false,
     lawyer: false,
+    tecnico: false,
   });
   
   // Link dialog state
@@ -157,6 +158,7 @@ export default function AdminUsers() {
       setEditRoles({
         admin: userRoles.includes('admin'),
         lawyer: userRoles.includes('lawyer'),
+        tecnico: userRoles.includes('tecnico'),
       });
     }
   }, [editingUser, userRoles]);
@@ -174,15 +176,13 @@ export default function AdminUsers() {
       // Atualizar roles
       const currentRoles = userRoles;
       
-      // Adicionar role admin se marcado e não existe
+      // Handle admin role
       if (editRoles.admin && !currentRoles.includes('admin')) {
         await addUserRole.mutateAsync({
           userId: editingUser.id,
           role: 'admin',
         });
       }
-      
-      // Remover role admin se desmarcado e existe
       if (!editRoles.admin && currentRoles.includes('admin')) {
         await removeUserRole.mutateAsync({
           userId: editingUser.id,
@@ -190,19 +190,31 @@ export default function AdminUsers() {
         });
       }
 
-      // Adicionar role lawyer se marcado e não existe
+      // Handle lawyer role
       if (editRoles.lawyer && !currentRoles.includes('lawyer')) {
         await addUserRole.mutateAsync({
           userId: editingUser.id,
           role: 'lawyer',
         });
       }
-      
-      // Remover role lawyer se desmarcado e existe
       if (!editRoles.lawyer && currentRoles.includes('lawyer')) {
         await removeUserRole.mutateAsync({
           userId: editingUser.id,
           role: 'lawyer',
+        });
+      }
+
+      // Handle tecnico role
+      if (editRoles.tecnico && !currentRoles.includes('tecnico')) {
+        await addUserRole.mutateAsync({
+          userId: editingUser.id,
+          role: 'tecnico',
+        });
+      }
+      if (!editRoles.tecnico && currentRoles.includes('tecnico')) {
+        await removeUserRole.mutateAsync({
+          userId: editingUser.id,
+          role: 'tecnico',
         });
       }
 
@@ -470,6 +482,21 @@ export default function AdminUsers() {
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     Advogado
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="role-tecnico"
+                    checked={editRoles.tecnico}
+                    onCheckedChange={(checked) => 
+                      setEditRoles({ ...editRoles, tecnico: checked as boolean })
+                    }
+                  />
+                  <label
+                    htmlFor="role-tecnico"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Técnico (invisível para outros usuários)
                   </label>
                 </div>
               </div>
