@@ -15,9 +15,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <img src={logoWhite} alt="Juris Company" className="h-10 mb-4" />
-            <p className="text-white/70 text-sm leading-relaxed">
-              {t("footer.description")}
-            </p>
+            <p className="text-white/70 text-sm leading-relaxed">{t("footer.description")}</p>
             {/* Social Media Icons */}
             <div className="flex items-center gap-4 mt-4">
               <a
@@ -43,39 +41,25 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading font-semibold mb-4 text-lg">
-              {t("footer.navigation")}
-            </h4>
+            <h4 className="font-heading font-semibold mb-4 text-lg">{t("footer.navigation")}</h4>
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="/areas"
-                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
-                >
+                <Link to="/areas" className="text-white/70 hover:text-primary-light transition-colors text-sm">
                   {t("header.areas")}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/equipe"
-                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
-                >
+                <Link to="/equipe" className="text-white/70 hover:text-primary-light transition-colors text-sm">
                   {t("header.team")}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/sobre"
-                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
-                >
+                <Link to="/sobre" className="text-white/70 hover:text-primary-light transition-colors text-sm">
                   {t("header.about")}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/contato"
-                  className="text-white/70 hover:text-primary-light transition-colors text-sm"
-                >
+                <Link to="/contato" className="text-white/70 hover:text-primary-light transition-colors text-sm">
                   {t("header.contact")}
                 </Link>
               </li>
@@ -84,9 +68,7 @@ const Footer = () => {
 
           {/* Practice Areas */}
           <div>
-            <h4 className="font-heading font-semibold mb-4 text-lg">
-              {t("footer.highlightedAreas")}
-            </h4>
+            <h4 className="font-heading font-semibold mb-4 text-lg">{t("footer.highlightedAreas")}</h4>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -125,9 +107,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-heading font-semibold mb-4 text-lg">
-              {t("footer.contact")}
-            </h4>
+            <h4 className="font-heading font-semibold mb-4 text-lg">{t("footer.contact")}</h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
                 <Mail size={18} className="text-primary-light mt-0.5 flex-shrink-0" />
@@ -141,17 +121,15 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <Phone size={18} className="text-primary-light mt-0.5 flex-shrink-0" />
                 <a
-                  href="tel:+559632231425"
+                  href="tel:+559632231499"
                   className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  +55 (96) 93223-1425
+                  +55 (96) 93223-1499
                 </a>
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="text-primary-light mt-0.5 flex-shrink-0" />
-                <span className="text-white/70 text-sm">
-                  R. Prof. Tostes, 783 - Centro, Macapá - AP
-                </span>
+                <span className="text-white/70 text-sm">R. Prof. Tostes, 783 - Centro, Macapá - AP</span>
               </li>
             </ul>
           </div>
@@ -165,24 +143,18 @@ const Footer = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
               <div className="flex items-center gap-4 sm:gap-6">
-                <Link
-                  to="/privacidade"
-                  className="text-white/60 hover:text-primary-light transition-colors text-sm"
-                >
+                <Link to="/privacidade" className="text-white/60 hover:text-primary-light transition-colors text-sm">
                   {t("footer.privacy")}
                 </Link>
-                <Link
-                  to="/termos"
-                  className="text-white/60 hover:text-primary-light transition-colors text-sm"
-                >
+                <Link to="/termos" className="text-white/60 hover:text-primary-light transition-colors text-sm">
                   {t("footer.terms")}
                 </Link>
               </div>
               <div className="flex items-center">
                 <span className="text-white/60 text-sm mr-2">{t("footer.developedBy")}</span>
-                <a 
-                  href="https://www.octasolutions.com.br" 
-                  target="_blank" 
+                <a
+                  href="https://www.octasolutions.com.br"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block hover:opacity-80 transition-opacity"
                 >
