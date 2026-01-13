@@ -3,10 +3,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
 import ScrollToTop from "./components/ScrollToTop";
+import { useMaintenanceMode } from "@/hooks/useMaintenanceMode";
+import Maintenance from "@/pages/Maintenance";
 
 // Component to handle /admin redirect
 const AdminRedirect = () => {
@@ -21,6 +23,35 @@ const AdminRedirect = () => {
   }
   
   return <Navigate to={isAuthenticated ? "/admin/dashboard" : "/admin/login"} replace />;
+};
+
+// Maintenance mode wrapper - excludes admin routes
+const MaintenanceWrapper = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  const { data: settings, isLoading } = useMaintenanceMode();
+  
+  // Always allow access to admin routes
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  
+  if (isAdminRoute) {
+    return <>{children}</>;
+  }
+  
+  // Show loading while checking maintenance status
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse text-muted-foreground">Carregando...</div>
+      </div>
+    );
+  }
+  
+  // Show maintenance page if enabled
+  if (settings?.maintenance_mode) {
+    return <Maintenance message={settings.maintenance_message} />;
+  }
+  
+  return <>{children}</>;
 };
 
 // Eager load only the Index page for fast initial load
@@ -68,6 +99,41 @@ const queryClient = new QueryClient({
   },
 });
 
+const AppRoutes = () => (
+  <MaintenanceWrapper>
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        
+        <Route path="/areas" element={<AreasIndex />} />
+        <Route path="/areas/:areaId" element={<AreaDetail />} />
+        <Route path="/equipe" element={<Team />} />
+        <Route path="/equipe/:lawyerId" element={<LawyerProfile />} />
+        <Route path="/oportunidades" element={<Opportunities />} />
+        <Route path="/oportunidades/:id" element={<OpportunityDetail />} />
+        <Route path="/sobre" element={<About />} />
+        <Route path="/contato" element={<Contact />} />
+        <Route path="/audiencia/:token" element={<HearingPublic />} />
+        
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminRedirect />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/reset-password" element={<AdminResetPassword />} />
+        <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
+        <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
+        <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
+        <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
+        <Route path="/admin/team" element={<ProtectedRoute requireAdmin><AdminTeam /></ProtectedRoute>} />
+        <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
+        
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
+  </MaintenanceWrapper>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
@@ -76,36 +142,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              
-              <Route path="/areas" element={<AreasIndex />} />
-              <Route path="/areas/:areaId" element={<AreaDetail />} />
-              <Route path="/equipe" element={<Team />} />
-              <Route path="/equipe/:lawyerId" element={<LawyerProfile />} />
-              <Route path="/oportunidades" element={<Opportunities />} />
-              <Route path="/oportunidades/:id" element={<OpportunityDetail />} />
-              <Route path="/sobre" element={<About />} />
-              <Route path="/contato" element={<Contact />} />
-              <Route path="/audiencia/:token" element={<HearingPublic />} />
-              
-              {/* Admin Routes */}
-              <Route path="/admin" element={<AdminRedirect />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin/reset-password" element={<AdminResetPassword />} />
-              <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-              <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
-              <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
-              <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
-              <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
-              <Route path="/admin/team" element={<ProtectedRoute requireAdmin><AdminTeam /></ProtectedRoute>} />
-              <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
-              
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+          <AppRoutes />
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
