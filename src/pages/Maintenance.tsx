@@ -11,11 +11,7 @@ const Maintenance = ({ message }: MaintenanceProps) => {
       <div className="max-w-md w-full text-center space-y-8">
         {/* Logo */}
         <div className="flex justify-center">
-          <img 
-            src={logoWhite} 
-            alt="Octa Logo" 
-            className="h-16 md:h-20 object-contain"
-          />
+          <img src={logoWhite} alt="Octa Logo" className="h-16 md:h-20 object-contain" />
         </div>
 
         {/* Icon Animation */}
@@ -30,9 +26,7 @@ const Maintenance = ({ message }: MaintenanceProps) => {
 
         {/* Title */}
         <div className="space-y-4">
-          <h1 className="text-3xl md:text-4xl font-bold text-white">
-            Em Manutenção
-          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-white">Em Manutenção</h1>
           <p className="text-white/80 text-lg">
             {message || "Estamos trabalhando para melhorar nossos serviços. Voltaremos em breve!"}
           </p>
@@ -46,14 +40,9 @@ const Maintenance = ({ message }: MaintenanceProps) => {
 
         {/* Contact Info */}
         <div className="pt-8 border-t border-white/20">
-          <p className="text-white/60 text-sm">
-            Em caso de urgência, entre em contato:
-          </p>
-          <a 
-            href="tel:+5596932231425" 
-            className="text-white font-medium hover:underline"
-          >
-            +55 96 93223-1425
+          <p className="text-white/60 text-sm">Em caso de urgência, entre em contato:</p>
+          <a href="tel:+5596932231499" className="text-white font-medium hover:underline">
+            +55 96 93223-1499
           </a>
         </div>
       </div>
