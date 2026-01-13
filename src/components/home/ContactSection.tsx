@@ -20,7 +20,7 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validação básica
     if (!formData.name || !formData.email || !formData.message) {
       toast({
@@ -34,7 +34,7 @@ const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
         body: {
           name: formData.name,
           email: formData.email,
@@ -86,7 +86,10 @@ const ContactSection = () => {
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6 animate-fade-in">
               {t("contact.title")} <span className="text-primary">{t("contact.subtitle")}</span>
             </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            <p
+              className="text-lg text-muted-foreground leading-relaxed animate-fade-in"
+              style={{ animationDelay: "0.1s" }}
+            >
               {t("contact.description")}
             </p>
           </div>
@@ -95,12 +98,8 @@ const ContactSection = () => {
             {/* Informações de Contato */}
             <div className="space-y-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
               <div>
-                <h3 className="text-2xl font-heading font-bold text-foreground mb-6">
-                  {t("contact.talkToUs")}
-                </h3>
-                <p className="text-muted-foreground mb-8">
-                  {t("contact.availability")}
-                </p>
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-6">{t("contact.talkToUs")}</h3>
+                <p className="text-muted-foreground mb-8">{t("contact.availability")}</p>
               </div>
 
               <div className="space-y-6">
@@ -125,11 +124,8 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-foreground mb-1">{t("contact.info.phone")}</h4>
-                    <a
-                      href="tel:+559632231425"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      (96) 93223-1425
+                    <a href="tel:+559632231499" className="text-muted-foreground hover:text-primary transition-colors">
+                      (96) 93223-1499
                     </a>
                   </div>
                 </div>
@@ -141,8 +137,10 @@ const ContactSection = () => {
                   <div>
                     <h4 className="font-semibold text-foreground mb-1">{t("contact.info.address")}</h4>
                     <p className="text-muted-foreground">
-                      R. Prof. Tostes, 783 - Centro<br />
-                      Macapá - AP<br />
+                      R. Prof. Tostes, 783 - Centro
+                      <br />
+                      Macapá - AP
+                      <br />
                       CEP 68900-022
                     </p>
                   </div>
@@ -216,12 +214,7 @@ const ContactSection = () => {
                   />
                 </div>
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full gradient-wine group"
-                  disabled={isSubmitting}
-                >
+                <Button type="submit" size="lg" className="w-full gradient-wine group" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 w-4 h-4 animate-spin" />
