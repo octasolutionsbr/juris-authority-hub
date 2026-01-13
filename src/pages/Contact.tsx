@@ -24,7 +24,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: t("contact.form.required"),
@@ -37,7 +37,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
         body: {
           name: formData.name,
           email: formData.email,
@@ -85,25 +85,25 @@ const Contact = () => {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Início",
-        "item": "https://juriscompany.net/"
+        position: 1,
+        name: "Início",
+        item: "https://juriscompany.net/",
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": "Contato",
-        "item": "https://juriscompany.net/contato"
-      }
-    ]
+        position: 2,
+        name: "Contato",
+        item: "https://juriscompany.net/contato",
+      },
+    ],
   };
 
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title="Contato - Agende uma Consulta"
         description="Entre em contato com a Juris Company em Macapá-AP. Agende uma consulta jurídica com nossos especialistas em direito empresarial, petróleo e gás. Telefone: (96) 93223-1425."
         keywords="contato advogado Macapá, agendar consulta jurídica Amapá, telefone escritório advocacia, endereço Juris Company"
@@ -112,7 +112,7 @@ const Contact = () => {
       />
       <div className="min-h-screen flex flex-col">
         <Header />
-        
+
         <main className="flex-grow pt-20">
           {/* Contact Content */}
           <section className="py-8 lg:py-12 bg-background min-h-[calc(100vh-5rem)]">
@@ -136,7 +136,9 @@ const Contact = () => {
                           <Mail className="w-5 h-5" />
                         </div>
                         <div>
-                          <h2 className="font-semibold text-foreground text-sm lg:text-base">{t("contact.info.email")}</h2>
+                          <h2 className="font-semibold text-foreground text-sm lg:text-base">
+                            {t("contact.info.email")}
+                          </h2>
                           <a
                             href="mailto:contato@juriscompany.net"
                             className="text-muted-foreground text-sm hover:text-primary transition-colors"
@@ -151,12 +153,14 @@ const Contact = () => {
                           <Phone className="w-5 h-5" />
                         </div>
                         <div>
-                          <h2 className="font-semibold text-foreground text-sm lg:text-base">{t("contact.info.phone")}</h2>
+                          <h2 className="font-semibold text-foreground text-sm lg:text-base">
+                            {t("contact.info.phone")}
+                          </h2>
                           <a
-                            href="tel:+559632231425"
+                            href="tel:+559632231499"
                             className="text-muted-foreground text-sm hover:text-primary transition-colors"
                           >
-                            (96) 93223-1425
+                            (96) 93223-1499
                           </a>
                         </div>
                       </div>
@@ -166,7 +170,9 @@ const Contact = () => {
                           <MapPin className="w-5 h-5" />
                         </div>
                         <div>
-                          <h2 className="font-semibold text-foreground text-sm lg:text-base">{t("contact.info.address")}</h2>
+                          <h2 className="font-semibold text-foreground text-sm lg:text-base">
+                            {t("contact.info.address")}
+                          </h2>
                           <address className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line not-italic">
                             {t("contact.info.location")}
                           </address>
@@ -178,7 +184,9 @@ const Contact = () => {
                           <Clock className="w-5 h-5" />
                         </div>
                         <div>
-                          <h2 className="font-semibold text-foreground text-sm lg:text-base">{t("contact.info.hours")}</h2>
+                          <h2 className="font-semibold text-foreground text-sm lg:text-base">
+                            {t("contact.info.hours")}
+                          </h2>
                           <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
                             {t("contact.info.hoursText")}
                           </p>
@@ -193,7 +201,7 @@ const Contact = () => {
                       <h2 className="text-lg lg:text-xl font-heading font-bold text-foreground mb-4">
                         {t("contact.sendMessage")}
                       </h2>
-                      
+
                       <form onSubmit={handleSubmit} className="space-y-3">
                         <div>
                           <label htmlFor="name" className="block text-xs font-medium text-foreground mb-1">
@@ -280,12 +288,7 @@ const Contact = () => {
                           />
                         </div>
 
-                        <Button
-                          type="submit"
-                          size="default"
-                          className="w-full group"
-                          disabled={isSubmitting}
-                        >
+                        <Button type="submit" size="default" className="w-full group" disabled={isSubmitting}>
                           {isSubmitting ? (
                             <>
                               <Loader2 className="mr-2 w-4 h-4 animate-spin" />
