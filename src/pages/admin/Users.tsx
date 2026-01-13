@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check, X, Ban, Trash2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { 
   usePendingProfiles, 
@@ -31,6 +32,10 @@ import { supabase } from "@/integrations/supabase/client";
 
 export default function AdminUsers() {
   const { toast } = useToast();
+  const { isAdmin, isTecnico } = useAuth();
+  
+  // Técnico pode ver mas não pode editar/aprovar
+  const canModifyUsers = isAdmin && !isTecnico;
   const [editingUser, setEditingUser] = useState<Profile | null>(null);
   const [editName, setEditName] = useState("");
   const [editRoles, setEditRoles] = useState<{ admin: boolean; lawyer: boolean; tecnico: boolean }>({
@@ -266,16 +271,18 @@ export default function AdminUsers() {
                           {format(new Date(user.created_at), "dd/MM/yyyy", { locale: ptBR })}
                         </p>
                       </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm" className="flex-1" onClick={() => handleApproveWithLink(user)}>
-                          <Check className="mr-1 h-4 w-4" />
-                          Aprovar
-                        </Button>
-                        <Button variant="outline" size="sm" className="flex-1" onClick={() => handleReject(user.id)}>
-                          <X className="mr-1 h-4 w-4" />
-                          Rejeitar
-                        </Button>
-                      </div>
+                      {canModifyUsers && (
+                        <div className="flex gap-2">
+                          <Button variant="outline" size="sm" className="flex-1" onClick={() => handleApproveWithLink(user)}>
+                            <Check className="mr-1 h-4 w-4" />
+                            Aprovar
+                          </Button>
+                          <Button variant="outline" size="sm" className="flex-1" onClick={() => handleReject(user.id)}>
+                            <X className="mr-1 h-4 w-4" />
+                            Rejeitar
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -300,16 +307,18 @@ export default function AdminUsers() {
                             {format(new Date(user.created_at), "dd/MM/yyyy", { locale: ptBR })}
                           </TableCell>
                           <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button variant="outline" size="sm" onClick={() => handleApproveWithLink(user)}>
-                                <Check className="mr-1 h-4 w-4" />
-                                Aprovar
-                              </Button>
-                              <Button variant="outline" size="sm" onClick={() => handleReject(user.id)}>
-                                <X className="mr-1 h-4 w-4" />
-                                Rejeitar
-                              </Button>
-                            </div>
+                            {canModifyUsers && (
+                              <div className="flex justify-end gap-2">
+                                <Button variant="outline" size="sm" onClick={() => handleApproveWithLink(user)}>
+                                  <Check className="mr-1 h-4 w-4" />
+                                  Aprovar
+                                </Button>
+                                <Button variant="outline" size="sm" onClick={() => handleReject(user.id)}>
+                                  <X className="mr-1 h-4 w-4" />
+                                  Rejeitar
+                                </Button>
+                              </div>
+                            )}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -349,29 +358,31 @@ export default function AdminUsers() {
                         </div>
                         <p className="text-sm text-muted-foreground truncate">{user.email}</p>
                       </div>
-                      <div className="flex gap-2 flex-wrap">
-                        <Button variant="outline" size="sm" onClick={() => handleEdit(user)}>
-                          Editar
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="text-amber-600"
-                          onClick={() => handleBlock(user.id, user.name)}
-                        >
-                          <Ban className="h-4 w-4 mr-1" />
-                          Bloquear
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          className="text-destructive"
-                          onClick={() => handleDelete(user.id, user.name)}
-                        >
-                          <Trash2 className="h-4 w-4 mr-1" />
-                          Excluir
-                        </Button>
-                      </div>
+                      {canModifyUsers && (
+                        <div className="flex gap-2 flex-wrap">
+                          <Button variant="outline" size="sm" onClick={() => handleEdit(user)}>
+                            Editar
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="text-amber-600"
+                            onClick={() => handleBlock(user.id, user.name)}
+                          >
+                            <Ban className="h-4 w-4 mr-1" />
+                            Bloquear
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="text-destructive"
+                            onClick={() => handleDelete(user.id, user.name)}
+                          >
+                            <Trash2 className="h-4 w-4 mr-1" />
+                            Excluir
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -396,29 +407,31 @@ export default function AdminUsers() {
                             <Badge variant="default">Aprovado</Badge>
                           </TableCell>
                           <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
-                              <Button variant="ghost" size="sm" onClick={() => handleEdit(user)}>
-                                Editar
-                              </Button>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                className="text-amber-600 hover:text-amber-700 hover:bg-amber-50"
-                                onClick={() => handleBlock(user.id, user.name)}
-                              >
-                                <Ban className="mr-1 h-4 w-4" />
-                                Bloquear
-                              </Button>
-                              <Button 
-                                variant="ghost" 
-                                size="sm"
-                                className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                                onClick={() => handleDelete(user.id, user.name)}
-                              >
-                                <Trash2 className="mr-1 h-4 w-4" />
-                                Excluir
-                              </Button>
-                            </div>
+                            {canModifyUsers && (
+                              <div className="flex justify-end gap-2">
+                                <Button variant="ghost" size="sm" onClick={() => handleEdit(user)}>
+                                  Editar
+                                </Button>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm"
+                                  className="text-amber-600 hover:text-amber-700 hover:bg-amber-50"
+                                  onClick={() => handleBlock(user.id, user.name)}
+                                >
+                                  <Ban className="mr-1 h-4 w-4" />
+                                  Bloquear
+                                </Button>
+                                <Button 
+                                  variant="ghost" 
+                                  size="sm"
+                                  className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                                  onClick={() => handleDelete(user.id, user.name)}
+                                >
+                                  <Trash2 className="mr-1 h-4 w-4" />
+                                  Excluir
+                                </Button>
+                              </div>
+                            )}
                           </TableCell>
                         </TableRow>
                       ))}
