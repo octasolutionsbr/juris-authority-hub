@@ -18,18 +18,27 @@ import { Button } from "@/components/ui/button";
 
 export function AdminSidebar() {
   const { state, setOpenMobile } = useSidebar();
-  const { isAdmin, logout, user } = useAuth();
+  const { isAdmin, isTecnico, hasAdminAccess, logout, user } = useAuth();
   const isCollapsed = state === "collapsed";
 
-  const menuItems = [
-    { title: "Dashboard", url: "/admin/dashboard", icon: LayoutDashboard },
-    { title: "Meu Perfil", url: "/admin/profile", icon: User },
-    { title: "Anúncios", url: "/admin/listings", icon: Briefcase },
-    { title: "Audiências", url: "/admin/hearings", icon: Calendar },
-    { title: "Configurações", url: "/admin/settings", icon: Settings },
-  ];
+  // Build menu items based on role
+  const menuItems = [];
 
-  if (isAdmin) {
+  // Dashboard - visible to all
+  menuItems.push({ title: "Dashboard", url: "/admin/dashboard", icon: LayoutDashboard });
+
+  // Items NOT visible to tecnico
+  if (!isTecnico) {
+    menuItems.push({ title: "Meu Perfil", url: "/admin/profile", icon: User });
+    menuItems.push({ title: "Anúncios", url: "/admin/listings", icon: Briefcase });
+    menuItems.push({ title: "Audiências", url: "/admin/hearings", icon: Calendar });
+  }
+
+  // Settings - visible to all
+  menuItems.push({ title: "Configurações", url: "/admin/settings", icon: Settings });
+
+  // Admin/Tecnico only items
+  if (hasAdminAccess) {
     menuItems.push({ title: "Equipe", url: "/admin/team", icon: Users2 });
     menuItems.push({ title: "Usuários", url: "/admin/users", icon: Users });
   }

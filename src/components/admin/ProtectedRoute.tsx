@@ -4,13 +4,17 @@ import { useAuth } from '@/contexts/AuthContext';
 interface ProtectedRouteProps {
   children: React.ReactNode;
   requireAdmin?: boolean;
+  requireAdminOrTecnico?: boolean;
+  denyTecnico?: boolean;
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
   children, 
-  requireAdmin = false 
+  requireAdmin = false,
+  requireAdminOrTecnico = false,
+  denyTecnico = false,
 }) => {
-  const { isAuthenticated, isAdmin, loading } = useAuth();
+  const { isAuthenticated, isAdmin, isTecnico, hasAdminAccess, loading } = useAuth();
 
   // Show loading while checking authentication
   if (loading) {
@@ -25,7 +29,16 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to="/admin/login" replace />;
   }
 
+  // Deny tecnico access to specific routes
+  if (denyTecnico && isTecnico) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
   if (requireAdmin && !isAdmin) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
+  if (requireAdminOrTecnico && !hasAdminAccess) {
     return <Navigate to="/admin/dashboard" replace />;
   }
 

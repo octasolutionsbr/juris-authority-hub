@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import type { User as SupabaseUser, Session } from '@supabase/supabase-js';
 
-export type UserRole = 'admin' | 'lawyer';
+export type UserRole = 'admin' | 'lawyer' | 'tecnico';
 
 export interface User {
   id: string;
@@ -19,6 +19,8 @@ interface AuthContextType {
   register: (email: string, password: string, name: string) => Promise<boolean>;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isTecnico: boolean;
+  hasAdminAccess: boolean; // true for admin OR tecnico
   loading: boolean;
 }
 
@@ -50,7 +52,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         _role: 'admin'
       });
 
-      const role: UserRole = isAdminData ? 'admin' : 'lawyer';
+      // Check if user is tecnico
+      const { data: isTecnicoData } = await supabase.rpc('has_role', {
+        _user_id: supabaseUser.id,
+        _role: 'tecnico'
+      });
+
+      let role: UserRole = 'lawyer';
+      if (isAdminData) {
+        role = 'admin';
+      } else if (isTecnicoData) {
+        role = 'tecnico';
+      }
 
       return {
         id: supabaseUser.id,
@@ -172,6 +185,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const isAdmin = user?.role === 'admin';
+  const isTecnico = user?.role === 'tecnico';
+  const hasAdminAccess = isAdmin || isTecnico;
+
   return (
     <AuthContext.Provider
       value={{
@@ -180,7 +197,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         logout,
         register,
         isAuthenticated: !!user,
-        isAdmin: user?.role === 'admin',
+        isAdmin,
+        isTecnico,
+        hasAdminAccess,
         loading,
       }}
     >
