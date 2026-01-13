@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
+import { AdminDomainGuard } from "@/components/admin/AdminDomainGuard";
 import ScrollToTop from "./components/ScrollToTop";
 import { useMaintenanceMode } from "@/hooks/useMaintenanceMode";
 import Maintenance from "@/pages/Maintenance";
@@ -115,17 +116,17 @@ const AppRoutes = () => (
         <Route path="/contato" element={<Contact />} />
         <Route path="/audiencia/:token" element={<HearingPublic />} />
         
-        {/* Admin Routes */}
-        <Route path="/admin" element={<AdminRedirect />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/reset-password" element={<AdminResetPassword />} />
-        <Route path="/admin/dashboard" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-        <Route path="/admin/profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
-        <Route path="/admin/listings" element={<ProtectedRoute><AdminListings /></ProtectedRoute>} />
-        <Route path="/admin/hearings" element={<ProtectedRoute><AdminHearings /></ProtectedRoute>} />
-        <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
-        <Route path="/admin/team" element={<ProtectedRoute requireAdmin><AdminTeam /></ProtectedRoute>} />
-        <Route path="/admin/users" element={<ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute>} />
+        {/* Admin Routes - Protected by domain check */}
+        <Route path="/admin" element={<AdminDomainGuard><AdminRedirect /></AdminDomainGuard>} />
+        <Route path="/admin/login" element={<AdminDomainGuard><AdminLogin /></AdminDomainGuard>} />
+        <Route path="/admin/reset-password" element={<AdminDomainGuard><AdminResetPassword /></AdminDomainGuard>} />
+        <Route path="/admin/dashboard" element={<AdminDomainGuard><ProtectedRoute><AdminDashboard /></ProtectedRoute></AdminDomainGuard>} />
+        <Route path="/admin/profile" element={<AdminDomainGuard><ProtectedRoute><AdminProfile /></ProtectedRoute></AdminDomainGuard>} />
+        <Route path="/admin/listings" element={<AdminDomainGuard><ProtectedRoute><AdminListings /></ProtectedRoute></AdminDomainGuard>} />
+        <Route path="/admin/hearings" element={<AdminDomainGuard><ProtectedRoute><AdminHearings /></ProtectedRoute></AdminDomainGuard>} />
+        <Route path="/admin/settings" element={<AdminDomainGuard><ProtectedRoute><AdminSettings /></ProtectedRoute></AdminDomainGuard>} />
+        <Route path="/admin/team" element={<AdminDomainGuard><ProtectedRoute requireAdmin><AdminTeam /></ProtectedRoute></AdminDomainGuard>} />
+        <Route path="/admin/users" element={<AdminDomainGuard><ProtectedRoute requireAdmin><AdminUsers /></ProtectedRoute></AdminDomainGuard>} />
         
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
