@@ -12,7 +12,8 @@ import { getTranslatedPracticeArea, getTranslatedTeamMember } from "@/lib/i18nHe
 import NotFound from "./NotFound";
 import SEOHead from "@/components/SEOHead";
 import { getAreaFAQs, FAQItem } from "@/data/faqData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { loadTeamPhotos, getTeamPhotoMap } from "@/hooks/useTeamPhotos";
 
 const FAQSection = ({ faqs }: { faqs: FAQItem[] }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -62,6 +63,13 @@ const AreaDetail = () => {
   const { areaId } = useParams();
   const { data: area, isLoading: loadingArea } = usePracticeArea(areaId || '');
   const { data: allMembers = [], isLoading: loadingMembers } = useTeamMembers();
+  const [photoMap, setPhotoMap] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    loadTeamPhotos().then(() => {
+      setPhotoMap(getTeamPhotoMap());
+    });
+  }, []);
 
   if (loadingArea || loadingMembers) {
     return (
@@ -207,16 +215,24 @@ const AreaDetail = () => {
                       key={specialist.id}
                       className="p-6 border-2 border-border hover:border-primary hover:shadow-elegant transition-all"
                     >
-                      {/* Photo Placeholder */}
+                      {/* Photo */}
                       <div className="relative h-64 bg-gradient-to-br from-muted to-muted-foreground/20 rounded-lg overflow-hidden mb-4">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-5xl font-heading font-bold text-muted-foreground/30">
-                            {specialist.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
+                        {(specialist.photo_url || photoMap[specialist.photo || '']) ? (
+                          <img
+                            src={specialist.photo_url || photoMap[specialist.photo || '']}
+                            alt={specialist.name}
+                            className="w-full h-full object-cover object-top"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="text-5xl font-heading font-bold text-muted-foreground/30">
+                              {specialist.name
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")}
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
 
                       <h3 className="font-heading text-lg font-semibold text-foreground mb-1">
