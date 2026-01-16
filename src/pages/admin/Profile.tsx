@@ -99,6 +99,26 @@ export default function AdminProfile() {
     }
   }, [profile, user]);
 
+  const withRetry = async <T,>(fn: () => Promise<T>, retries = 2): Promise<T> => {
+    let lastError: unknown;
+
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        return await fn();
+      } catch (err) {
+        lastError = err;
+        const message = err instanceof Error ? err.message : String(err);
+        const isNetworkError = message.toLowerCase().includes("failed to fetch");
+
+        if (!isNetworkError || attempt === retries) break;
+
+        await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
+      }
+    }
+
+    throw lastError instanceof Error ? lastError : new Error(String(lastError));
+  };
+
   // Save mutation
   const saveMutation = useMutation({
     mutationFn: async () => {
@@ -112,19 +132,25 @@ export default function AdminProfile() {
       }
       // Upload photo if changed
       else if (photoFile) {
-        const fileExt = photoFile.name.split('.').pop();
-        const fileName = `${user.id}-${Date.now()}.${fileExt}`;
-        
-        const { error: uploadError } = await supabase.storage
-          .from('team-photos')
-          .upload(fileName, photoFile, { upsert: true });
+        const fileExt = photoFile.name.includes(".")
+          ? photoFile.name.split(".").pop()
+          : photoFile.type.split("/").pop();
+        const safeExt = (fileExt || "jpg").toLowerCase();
+        const fileName = `${user.id}-${Date.now()}.${safeExt}`;
 
-        if (uploadError) throw uploadError;
+        await withRetry(async () => {
+          const { error: uploadError } = await supabase.storage
+            .from('team-photos')
+            .upload(fileName, photoFile, { upsert: true });
+
+          if (uploadError) throw uploadError;
+          return true;
+        });
 
         const { data: urlData } = supabase.storage
           .from('team-photos')
           .getPublicUrl(fileName);
-        
+
         photoUrl = urlData.publicUrl;
       }
 
@@ -144,25 +170,31 @@ export default function AdminProfile() {
 
       if (profile) {
         // Update existing profile - don't change user_id or role
-        const { error } = await supabase
-          .from('team_members')
-          .update(baseData)
-          .eq('user_id', user.id);
+        await withRetry(async () => {
+          const { error } = await supabase
+            .from('team_members')
+            .update(baseData)
+            .eq('user_id', user.id);
 
-        if (error) throw error;
+          if (error) throw error;
+          return true;
+        });
       } else {
         // Create new profile
-        const { error } = await supabase
-          .from('team_members')
-          .insert({
-            ...baseData,
-            id: `lawyer-${user.id}`,
-            user_id: user.id,
-            role: "advogado",
-            order_index: 999,
-          });
+        await withRetry(async () => {
+          const { error } = await supabase
+            .from('team_members')
+            .insert({
+              ...baseData,
+              id: `lawyer-${user.id}`,
+              user_id: user.id,
+              role: "advogado",
+              order_index: 999,
+            });
 
-        if (error) throw error;
+          if (error) throw error;
+          return true;
+        });
       }
     },
     onSuccess: () => {
@@ -171,10 +203,18 @@ export default function AdminProfile() {
       queryClient.invalidateQueries({ queryKey: ['team-members'] });
     },
     onError: (error: Error) => {
-      toast({ 
-        title: "Erro ao salvar perfil", 
-        description: error.message,
-        variant: "destructive" 
+      // Ajuda no diagnóstico em produção (especialmente erros de rede em mobile)
+      console.error("Erro ao salvar perfil:", error);
+
+      const message = error?.message || "Erro inesperado";
+      const isNetwork = message.toLowerCase().includes("failed to fetch");
+
+      toast({
+        title: "Erro ao salvar perfil",
+        description: isNetwork
+          ? "Falha de conexão. Verifique sua internet e tente novamente."
+          : message,
+        variant: "destructive",
       });
     },
   });
