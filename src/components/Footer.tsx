@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
-import octaLogo from "@/assets/octa-logo.png";
+import octaLogo from "@/assets/octa-logo-new.png";
 import logoWhite from "@/assets/logo-white.png";
 import { useTranslation } from "react-i18next";
 
