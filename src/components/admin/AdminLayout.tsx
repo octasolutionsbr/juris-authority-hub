@@ -1,5 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminSidebar } from "./AdminSidebar";
+import { SupportButton } from "./SupportButton";
 import { Menu } from "lucide-react";
 
 interface AdminLayoutProps {
@@ -25,6 +26,9 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           <main className="flex-1 p-4 md:p-6 bg-background overflow-x-hidden">
             {children}
           </main>
+          
+          {/* Floating support button */}
+          <SupportButton />
         </div>
       </div>
     </SidebarProvider>
