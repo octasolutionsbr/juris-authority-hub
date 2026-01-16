@@ -128,7 +128,7 @@ export default function AdminProfile() {
         photoUrl = urlData.publicUrl;
       }
 
-      const teamMemberData = {
+      const baseData = {
         name: formData.name,
         title: formData.main_area ? practiceAreas?.find(a => a.id === formData.main_area)?.title || "" : "",
         main_area: formData.main_area || null,
@@ -140,16 +140,14 @@ export default function AdminProfile() {
         publications: formData.publications ? formData.publications.split("\n").filter(Boolean) : null,
         photo_url: photoUrl,
         published: formData.published,
-        user_id: user.id,
-        role: "advogado", // Default role for all lawyers
       };
 
       if (profile) {
-        // Update existing profile
+        // Update existing profile - don't change user_id or role
         const { error } = await supabase
           .from('team_members')
-          .update(teamMemberData)
-          .eq('id', profile.id);
+          .update(baseData)
+          .eq('user_id', user.id);
 
         if (error) throw error;
       } else {
@@ -157,8 +155,10 @@ export default function AdminProfile() {
         const { error } = await supabase
           .from('team_members')
           .insert({
-            ...teamMemberData,
+            ...baseData,
             id: `lawyer-${user.id}`,
+            user_id: user.id,
+            role: "advogado",
             order_index: 999,
           });
 
