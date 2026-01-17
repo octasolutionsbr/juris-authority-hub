@@ -143,26 +143,34 @@ export default function AdminProfile() {
       }
       // Upload photo if changed
       else if (photoFile) {
-        const fileExt = photoFile.name.includes(".")
-          ? photoFile.name.split(".").pop()
-          : photoFile.type.split("/").pop();
-        const safeExt = (fileExt || "jpg").toLowerCase();
-        const fileName = `${sessionData.session.user.id}-${Date.now()}.${safeExt}`;
+        try {
+          const fileExt = photoFile.name.includes(".")
+            ? photoFile.name.split(".").pop()
+            : photoFile.type.split("/").pop();
+          const safeExt = (fileExt || "jpg").toLowerCase();
+          const fileName = `${sessionData.session.user.id}-${Date.now()}.${safeExt}`;
 
-        await withRetry(async () => {
+          console.log("Uploading photo:", fileName);
+
           const { error: uploadError } = await supabase.storage
             .from('team-photos')
             .upload(fileName, photoFile, { upsert: true });
 
-          if (uploadError) throw uploadError;
-          return true;
-        });
-
-        const { data: urlData } = supabase.storage
-          .from('team-photos')
-          .getPublicUrl(fileName);
-
-        photoUrl = urlData.publicUrl;
+          if (uploadError) {
+            console.error("Erro no upload da foto:", uploadError);
+            // Se falhar o upload, continuar sem foto nova (mantém a antiga)
+            console.warn("Continuando sem atualizar foto...");
+          } else {
+            const { data: urlData } = supabase.storage
+              .from('team-photos')
+              .getPublicUrl(fileName);
+            photoUrl = urlData.publicUrl;
+            console.log("Foto uploaded:", photoUrl);
+          }
+        } catch (uploadErr) {
+          console.error("Exceção no upload da foto:", uploadErr);
+          // Continuar sem foto nova
+        }
       }
 
       // 2. Usar RPC para salvar perfil (bypass RLS, seguro via SECURITY DEFINER)
