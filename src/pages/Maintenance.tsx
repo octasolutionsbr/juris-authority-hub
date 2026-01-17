@@ -50,14 +50,14 @@ const Maintenance = ({ message }: MaintenanceProps) => {
 
       {/* Desenvolvido por - Sutil no rodapé */}
       <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-2">
-        <span className="text-white/40 text-xs">Desenvolvido por</span>
+        <span className="text-white/40 text-xs leading-none">Desenvolvido por</span>
         <a
           href="https://www.octasolutions.com.br"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block hover:opacity-80 transition-opacity"
+          className="inline-flex items-center hover:opacity-80 transition-opacity"
         >
-          <img src={octaLogo} alt="Octa Solutions" className="h-4 opacity-60 hover:opacity-100 transition-opacity" />
+          <img src={octaLogo} alt="Octa Solutions" className="h-4 opacity-60 hover:opacity-100 transition-opacity align-middle" />
         </a>
       </div>
     </div>
