@@ -202,18 +202,31 @@ export default function AdminProfile() {
       queryClient.invalidateQueries({ queryKey: ['my-team-profile'] });
       queryClient.invalidateQueries({ queryKey: ['team-members'] });
     },
-    onError: (error: Error) => {
-      // Ajuda no diagnóstico em produção (especialmente erros de rede em mobile)
-      console.error("Erro ao salvar perfil:", error);
+    onError: (error: unknown) => {
+      // Logging detalhado para diagnóstico em produção
+      const supabaseError = error as { message?: string; code?: string; details?: string; hint?: string };
+      console.error("Erro ao salvar perfil:", {
+        message: supabaseError?.message,
+        code: supabaseError?.code,
+        details: supabaseError?.details,
+        hint: supabaseError?.hint,
+        raw: error,
+      });
 
-      const message = error?.message || "Erro inesperado";
+      const message = supabaseError?.message || "Erro inesperado";
       const isNetwork = message.toLowerCase().includes("failed to fetch");
+      const isRLS = message.toLowerCase().includes("row-level security");
+
+      let description = message;
+      if (isNetwork) {
+        description = "Falha de conexão. Verifique sua internet e tente novamente.";
+      } else if (isRLS) {
+        description = "Erro de permissão. Por favor, faça logout e login novamente.";
+      }
 
       toast({
         title: "Erro ao salvar perfil",
-        description: isNetwork
-          ? "Falha de conexão. Verifique sua internet e tente novamente."
-          : message,
+        description,
         variant: "destructive",
       });
     },
