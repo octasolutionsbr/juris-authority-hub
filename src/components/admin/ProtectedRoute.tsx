@@ -5,6 +5,7 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
   requireAdmin?: boolean;
   requireAdminOrTecnico?: boolean;
+  requireTecnico?: boolean;
   denyTecnico?: boolean;
 }
 
@@ -12,6 +13,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children, 
   requireAdmin = false,
   requireAdminOrTecnico = false,
+  requireTecnico = false,
   denyTecnico = false,
 }) => {
   const { isAuthenticated, isAdmin, isTecnico, hasAdminAccess, loading } = useAuth();
@@ -31,6 +33,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   // Deny tecnico access to specific routes
   if (denyTecnico && isTecnico) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
+  // Require tecnico role (exclusive)
+  if (requireTecnico && !isTecnico) {
     return <Navigate to="/admin/dashboard" replace />;
   }
 
