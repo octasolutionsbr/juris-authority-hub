@@ -119,10 +119,21 @@ export default function AdminProfile() {
     throw lastError instanceof Error ? lastError : new Error(String(lastError));
   };
 
-  // Save mutation
+  // Save mutation using RPC (SECURITY DEFINER) to bypass RLS issues
   const saveMutation = useMutation({
     mutationFn: async () => {
-      if (!user?.id) throw new Error("Usuário não autenticado");
+      // 1. Validar sessão antes de qualquer operação
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError || !sessionData.session?.access_token) {
+        console.error("Sessão inválida ou expirada:", { sessionError, hasSession: !!sessionData.session });
+        throw new Error("SESSION_EXPIRED");
+      }
+
+      console.log("Sessão válida, procedendo com salvamento...", {
+        userId: sessionData.session.user.id,
+        hasAccessToken: !!sessionData.session.access_token,
+      });
 
       let photoUrl: string | null = profile?.photo_url || null;
 
@@ -136,7 +147,7 @@ export default function AdminProfile() {
           ? photoFile.name.split(".").pop()
           : photoFile.type.split("/").pop();
         const safeExt = (fileExt || "jpg").toLowerCase();
-        const fileName = `${user.id}-${Date.now()}.${safeExt}`;
+        const fileName = `${sessionData.session.user.id}-${Date.now()}.${safeExt}`;
 
         await withRetry(async () => {
           const { error: uploadError } = await supabase.storage
@@ -154,48 +165,27 @@ export default function AdminProfile() {
         photoUrl = urlData.publicUrl;
       }
 
-      const baseData = {
-        name: formData.name,
-        title: formData.main_area ? practiceAreas?.find(a => a.id === formData.main_area)?.title || "" : "",
-        main_area: formData.main_area || null,
-        bio: formData.bio,
-        areas: formData.areas.length > 0 ? formData.areas : null,
-        email: formData.email || null,
-        whatsapp: formData.whatsapp || null,
-        education: formData.education ? formData.education.split("\n").filter(Boolean) : null,
-        publications: formData.publications ? formData.publications.split("\n").filter(Boolean) : null,
-        photo_url: photoUrl,
-        published: formData.published,
-      };
+      // 2. Usar RPC para salvar perfil (bypass RLS, seguro via SECURITY DEFINER)
+      const { data: result, error: rpcError } = await supabase.rpc('upsert_my_team_member_profile', {
+        p_name: formData.name,
+        p_bio: formData.bio,
+        p_main_area: formData.main_area || null,
+        p_areas: formData.areas.length > 0 ? formData.areas : null,
+        p_email: formData.email || null,
+        p_whatsapp: formData.whatsapp || null,
+        p_education: formData.education ? formData.education.split("\n").filter(Boolean) : null,
+        p_publications: formData.publications ? formData.publications.split("\n").filter(Boolean) : null,
+        p_photo_url: photoUrl,
+        p_published: formData.published,
+      });
 
-      if (profile) {
-        // Update existing profile - don't change user_id or role
-        await withRetry(async () => {
-          const { error } = await supabase
-            .from('team_members')
-            .update(baseData)
-            .eq('user_id', user.id);
-
-          if (error) throw error;
-          return true;
-        });
-      } else {
-        // Create new profile
-        await withRetry(async () => {
-          const { error } = await supabase
-            .from('team_members')
-            .insert({
-              ...baseData,
-              id: `lawyer-${user.id}`,
-              user_id: user.id,
-              role: "advogado",
-              order_index: 999,
-            });
-
-          if (error) throw error;
-          return true;
-        });
+      if (rpcError) {
+        console.error("Erro na RPC upsert_my_team_member_profile:", rpcError);
+        throw rpcError;
       }
+
+      console.log("Perfil salvo com sucesso via RPC:", result);
+      return result;
     },
     onSuccess: () => {
       toast({ title: "Perfil salvo com sucesso!" });
@@ -203,7 +193,6 @@ export default function AdminProfile() {
       queryClient.invalidateQueries({ queryKey: ['team-members'] });
     },
     onError: (error: unknown) => {
-      // Logging detalhado para diagnóstico em produção
       const supabaseError = error as { message?: string; code?: string; details?: string; hint?: string };
       console.error("Erro ao salvar perfil:", {
         message: supabaseError?.message,
@@ -214,6 +203,21 @@ export default function AdminProfile() {
       });
 
       const message = supabaseError?.message || "Erro inesperado";
+      
+      // Sessão expirada - redirecionar para login
+      if (message === "SESSION_EXPIRED" || message.includes("não autenticado")) {
+        toast({
+          title: "Sessão expirada",
+          description: "Sua sessão expirou. Redirecionando para login...",
+          variant: "destructive",
+        });
+        // Forçar logout e redirecionar
+        supabase.auth.signOut().then(() => {
+          window.location.href = "/admin/login";
+        });
+        return;
+      }
+
       const isNetwork = message.toLowerCase().includes("failed to fetch");
       const isRLS = message.toLowerCase().includes("row-level security");
 

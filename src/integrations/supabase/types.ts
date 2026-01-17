@@ -341,6 +341,21 @@ export type Database = {
         }
         Returns: boolean
       }
+      upsert_my_team_member_profile: {
+        Args: {
+          p_areas?: string[]
+          p_bio: string
+          p_education?: string[]
+          p_email?: string
+          p_main_area?: string
+          p_name: string
+          p_photo_url?: string
+          p_publications?: string[]
+          p_published?: boolean
+          p_whatsapp?: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
       app_role: "admin" | "lawyer" | "tecnico"
