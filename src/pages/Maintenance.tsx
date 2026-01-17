@@ -1,5 +1,6 @@
 import { Wrench, Clock } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
+import octaLogo from "@/assets/octa-logo-new.png";
 
 interface MaintenanceProps {
   message?: string;
@@ -7,11 +8,11 @@ interface MaintenanceProps {
 
 const Maintenance = ({ message }: MaintenanceProps) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary-dark flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary-dark flex flex-col items-center justify-center p-6 relative">
       <div className="max-w-md w-full text-center space-y-8">
         {/* Logo */}
         <div className="flex justify-center">
-          <img src={logoWhite} alt="Octa Logo" className="h-16 md:h-20 object-contain" />
+          <img src={logoWhite} alt="Juris Company" className="h-16 md:h-20 object-contain" />
         </div>
 
         {/* Icon Animation */}
@@ -45,6 +46,19 @@ const Maintenance = ({ message }: MaintenanceProps) => {
             +55 96 93223-1499
           </a>
         </div>
+      </div>
+
+      {/* Desenvolvido por - Sutil no rodapé */}
+      <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-2">
+        <span className="text-white/40 text-xs">Desenvolvido por</span>
+        <a
+          href="https://www.octasolutions.com.br"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block hover:opacity-80 transition-opacity"
+        >
+          <img src={octaLogo} alt="Octa Solutions" className="h-4 opacity-60 hover:opacity-100 transition-opacity" />
+        </a>
       </div>
     </div>
   );
