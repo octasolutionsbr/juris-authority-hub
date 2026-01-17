@@ -79,6 +79,7 @@ const AdminUsers = lazy(() => import("./pages/admin/Users"));
 const AdminTeam = lazy(() => import("./pages/admin/Team"));
 const AdminHearings = lazy(() => import("./pages/admin/Hearings"));
 const AdminSettings = lazy(() => import("./pages/admin/Settings"));
+const AdminErrorAlerts = lazy(() => import("./pages/admin/ErrorAlerts"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -126,6 +127,7 @@ const AppRoutes = () => (
         <Route path="/admin/settings" element={<ProtectedRoute><AdminSettings /></ProtectedRoute>} />
         <Route path="/admin/team" element={<ProtectedRoute requireAdminOrTecnico><AdminTeam /></ProtectedRoute>} />
         <Route path="/admin/users" element={<ProtectedRoute requireAdminOrTecnico><AdminUsers /></ProtectedRoute>} />
+        <Route path="/admin/error-alerts" element={<ProtectedRoute requireTecnico><AdminErrorAlerts /></ProtectedRoute>} />
         
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />

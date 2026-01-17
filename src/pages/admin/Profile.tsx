@@ -14,6 +14,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { logErrorFromCatch } from "@/lib/errorLogger";
 
 interface TeamMemberProfile {
   id: string;
@@ -208,6 +209,11 @@ export default function AdminProfile() {
         details: supabaseError?.details,
         hint: supabaseError?.hint,
         raw: error,
+      });
+
+      // Registrar erro para o técnico
+      logErrorFromCatch(error, "profile-save", {
+        formData: { name: formData.name, email: formData.email },
       });
 
       const message = supabaseError?.message || "Erro inesperado";
