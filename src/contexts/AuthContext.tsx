@@ -81,14 +81,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, currentSession) => {
+      (event, currentSession) => {
+        console.log("Auth state change:", event, currentSession?.user?.id);
+        
+        // Handle token refresh errors - force logout
+        if (event === 'TOKEN_REFRESHED' && !currentSession) {
+          console.warn("Token refresh failed, forcing logout");
+          setUser(null);
+          setSession(null);
+          setLoading(false);
+          return;
+        }
+
+        // Handle sign out
+        if (event === 'SIGNED_OUT') {
+          setUser(null);
+          setSession(null);
+          setLoading(false);
+          return;
+        }
+
         setSession(currentSession);
         
         if (currentSession?.user) {
           // Defer profile fetch with setTimeout to avoid deadlock
           setTimeout(async () => {
-            const userProfile = await fetchUserProfile(currentSession.user);
-            setUser(userProfile);
+            try {
+              const userProfile = await fetchUserProfile(currentSession.user);
+              setUser(userProfile);
+            } catch (err) {
+              console.error("Error fetching profile in auth change:", err);
+              setUser(null);
+            }
             setLoading(false);
           }, 0);
         } else {
@@ -99,12 +123,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     );
 
     // Check for existing session
-    supabase.auth.getSession().then(async ({ data: { session: currentSession } }) => {
+    supabase.auth.getSession().then(async ({ data: { session: currentSession }, error }) => {
+      if (error) {
+        console.error("Error getting session:", error);
+        // Session invalid - clear state
+        setUser(null);
+        setSession(null);
+        setLoading(false);
+        return;
+      }
+
       setSession(currentSession);
       
       if (currentSession?.user) {
-        const userProfile = await fetchUserProfile(currentSession.user);
-        setUser(userProfile);
+        try {
+          const userProfile = await fetchUserProfile(currentSession.user);
+          setUser(userProfile);
+        } catch (err) {
+          console.error("Error fetching profile on init:", err);
+          setUser(null);
+        }
       }
       setLoading(false);
     });
