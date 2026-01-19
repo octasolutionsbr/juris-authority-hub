@@ -72,7 +72,7 @@ export default function AdminListings() {
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { data: listings = [], isLoading } = useListings();
+  const { data: listings = [], isLoading } = useListings({ myListingsOnly: true });
   const createListing = useCreateListing();
   const updateListing = useUpdateListing();
   const deleteListing = useDeleteListing();
