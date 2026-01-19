@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, User, Loader2, Trash2 } from "lucide-react";
+import { Upload, User, Loader2, Trash2, Linkedin, Instagram, Facebook, Youtube, Globe } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { usePracticeAreas } from "@/hooks/usePracticeAreas";
@@ -35,6 +35,12 @@ interface TeamMemberProfile {
   photo_url: string | null;
   published: boolean;
   user_id: string | null;
+  linkedin: string | null;
+  instagram: string | null;
+  facebook: string | null;
+  twitter: string | null;
+  youtube: string | null;
+  website: string | null;
 }
 
 export default function AdminProfile() {
@@ -53,6 +59,12 @@ export default function AdminProfile() {
     education: "",
     publications: "",
     published: false,
+    linkedin: "",
+    instagram: "",
+    facebook: "",
+    twitter: "",
+    youtube: "",
+    website: "",
   });
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -88,6 +100,12 @@ export default function AdminProfile() {
         education: profile.education?.join("\n") || "",
         publications: profile.publications?.join("\n") || "",
         published: profile.published || false,
+        linkedin: profile.linkedin || "",
+        instagram: profile.instagram || "",
+        facebook: profile.facebook || "",
+        twitter: profile.twitter || "",
+        youtube: profile.youtube || "",
+        website: profile.website || "",
       });
       setPhotoPreview(profile.photo_url || null);
     } else if (user) {
@@ -186,6 +204,12 @@ export default function AdminProfile() {
         p_publications: formData.publications ? formData.publications.split("\n").filter(Boolean) : null,
         p_photo_url: photoUrl,
         p_published: formData.published,
+        p_linkedin: formData.linkedin || null,
+        p_instagram: formData.instagram || null,
+        p_facebook: formData.facebook || null,
+        p_twitter: formData.twitter || null,
+        p_youtube: formData.youtube || null,
+        p_website: formData.website || null,
       });
 
       if (rpcError) {
@@ -513,6 +537,98 @@ export default function AdminProfile() {
                 placeholder="Artigo sobre Direito Penal - Revista Jurídica (2020)&#10;Livro: Fundamentos do Direito - Editora X (2021)"
                 rows={4}
               />
+            </CardContent>
+          </Card>
+
+          {/* Redes Sociais e Website */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Redes Sociais e Website</CardTitle>
+              <CardDescription>Adicione links para suas redes sociais e site pessoal (opcional)</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="linkedin" className="flex items-center gap-2">
+                    <Linkedin className="h-4 w-4" />
+                    LinkedIn
+                    <span className="text-xs text-muted-foreground">(opcional)</span>
+                  </Label>
+                  <Input 
+                    id="linkedin" 
+                    value={formData.linkedin}
+                    onChange={(e) => setFormData(prev => ({ ...prev, linkedin: e.target.value }))}
+                    placeholder="https://linkedin.com/in/seu-perfil" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="instagram" className="flex items-center gap-2">
+                    <Instagram className="h-4 w-4" />
+                    Instagram
+                    <span className="text-xs text-muted-foreground">(opcional)</span>
+                  </Label>
+                  <Input 
+                    id="instagram" 
+                    value={formData.instagram}
+                    onChange={(e) => setFormData(prev => ({ ...prev, instagram: e.target.value }))}
+                    placeholder="https://instagram.com/seu-perfil" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="facebook" className="flex items-center gap-2">
+                    <Facebook className="h-4 w-4" />
+                    Facebook
+                    <span className="text-xs text-muted-foreground">(opcional)</span>
+                  </Label>
+                  <Input 
+                    id="facebook" 
+                    value={formData.facebook}
+                    onChange={(e) => setFormData(prev => ({ ...prev, facebook: e.target.value }))}
+                    placeholder="https://facebook.com/seu-perfil" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="twitter" className="flex items-center gap-2">
+                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    X (Twitter)
+                    <span className="text-xs text-muted-foreground">(opcional)</span>
+                  </Label>
+                  <Input 
+                    id="twitter" 
+                    value={formData.twitter}
+                    onChange={(e) => setFormData(prev => ({ ...prev, twitter: e.target.value }))}
+                    placeholder="https://x.com/seu-perfil" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="youtube" className="flex items-center gap-2">
+                    <Youtube className="h-4 w-4" />
+                    YouTube
+                    <span className="text-xs text-muted-foreground">(opcional)</span>
+                  </Label>
+                  <Input 
+                    id="youtube" 
+                    value={formData.youtube}
+                    onChange={(e) => setFormData(prev => ({ ...prev, youtube: e.target.value }))}
+                    placeholder="https://youtube.com/@seu-canal" 
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="website" className="flex items-center gap-2">
+                    <Globe className="h-4 w-4" />
+                    Website Pessoal
+                    <span className="text-xs text-muted-foreground">(opcional)</span>
+                  </Label>
+                  <Input 
+                    id="website" 
+                    value={formData.website}
+                    onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
+                    placeholder="https://seusite.com.br" 
+                  />
+                </div>
+              </div>
             </CardContent>
           </Card>
 

@@ -22,6 +22,12 @@ export interface TeamMember {
   order_index: number;
   published: boolean;
   user_id: string | null;
+  linkedin: string | null;
+  instagram: string | null;
+  facebook: string | null;
+  twitter: string | null;
+  youtube: string | null;
+  website: string | null;
 }
 
 export const useTeamMembers = () => {

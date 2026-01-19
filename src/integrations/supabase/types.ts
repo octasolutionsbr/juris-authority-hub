@@ -284,7 +284,10 @@ export type Database = {
           education: string[] | null
           education_en: string[] | null
           email: string | null
+          facebook: string | null
           id: string
+          instagram: string | null
+          linkedin: string | null
           main_area: string | null
           name: string
           order_index: number
@@ -296,8 +299,11 @@ export type Database = {
           role: string
           title: string
           title_en: string | null
+          twitter: string | null
           user_id: string | null
+          website: string | null
           whatsapp: string | null
+          youtube: string | null
         }
         Insert: {
           areas?: string[] | null
@@ -307,7 +313,10 @@ export type Database = {
           education?: string[] | null
           education_en?: string[] | null
           email?: string | null
+          facebook?: string | null
           id: string
+          instagram?: string | null
+          linkedin?: string | null
           main_area?: string | null
           name: string
           order_index?: number
@@ -319,8 +328,11 @@ export type Database = {
           role: string
           title: string
           title_en?: string | null
+          twitter?: string | null
           user_id?: string | null
+          website?: string | null
           whatsapp?: string | null
+          youtube?: string | null
         }
         Update: {
           areas?: string[] | null
@@ -330,7 +342,10 @@ export type Database = {
           education?: string[] | null
           education_en?: string[] | null
           email?: string | null
+          facebook?: string | null
           id?: string
+          instagram?: string | null
+          linkedin?: string | null
           main_area?: string | null
           name?: string
           order_index?: number
@@ -342,8 +357,11 @@ export type Database = {
           role?: string
           title?: string
           title_en?: string | null
+          twitter?: string | null
           user_id?: string | null
+          website?: string | null
           whatsapp?: string | null
+          youtube?: string | null
         }
         Relationships: []
       }
@@ -377,21 +395,43 @@ export type Database = {
         }
         Returns: boolean
       }
-      upsert_my_team_member_profile: {
-        Args: {
-          p_areas?: string[]
-          p_bio: string
-          p_education?: string[]
-          p_email?: string
-          p_main_area?: string
-          p_name: string
-          p_photo_url?: string
-          p_publications?: string[]
-          p_published?: boolean
-          p_whatsapp?: string
-        }
-        Returns: Json
-      }
+      upsert_my_team_member_profile:
+        | {
+            Args: {
+              p_areas?: string[]
+              p_bio: string
+              p_education?: string[]
+              p_email?: string
+              p_main_area?: string
+              p_name: string
+              p_photo_url?: string
+              p_publications?: string[]
+              p_published?: boolean
+              p_whatsapp?: string
+            }
+            Returns: Json
+          }
+        | {
+            Args: {
+              p_areas?: string[]
+              p_bio: string
+              p_education?: string[]
+              p_email?: string
+              p_facebook?: string
+              p_instagram?: string
+              p_linkedin?: string
+              p_main_area?: string
+              p_name: string
+              p_photo_url?: string
+              p_publications?: string[]
+              p_published?: boolean
+              p_twitter?: string
+              p_website?: string
+              p_whatsapp?: string
+              p_youtube?: string
+            }
+            Returns: Json
+          }
     }
     Enums: {
       app_role: "admin" | "lawyer" | "tecnico"
