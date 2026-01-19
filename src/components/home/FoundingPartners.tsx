@@ -31,7 +31,7 @@ const TeamMemberCard = memo(({
 }) => (
   <Link to={`/equipe/${member.id}`} className="block">
     <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all duration-300 group cursor-pointer h-full">
-      <div className="relative h-80 overflow-hidden">
+      <div className="relative aspect-[4/5] overflow-hidden">
         {member.photo_url ? (
           <img
             src={member.photo_url}
