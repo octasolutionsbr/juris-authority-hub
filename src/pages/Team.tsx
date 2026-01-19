@@ -28,7 +28,7 @@ const TeamCard = memo(({
   t: any;
 }) => (
   <Card className="overflow-hidden border-2 border-border hover:border-primary hover:shadow-elegant transition-all">
-    <div className="relative h-80 overflow-hidden">
+    <div className="relative aspect-[4/5] overflow-hidden">
       {member.photo_url ? (
         <img
           src={member.photo_url}
