@@ -1,15 +1,11 @@
 import octaSupportIcon from "@/assets/octa-support-icon.png";
 
 export const SupportButton = () => {
-  const phoneNumber = "5511974666680";
-  const message = encodeURIComponent(
-    "Olá, preciso de ajuda com o painel administrativo da Juris Company."
-  );
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  const supportUrl = "https://octasolutions.com.br/links.html";
 
   return (
     <a 
-      href={whatsappUrl} 
+      href={supportUrl} 
       target="_blank" 
       rel="noopener noreferrer" 
       className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 bg-slate-800 rounded-full shadow-lg px-3 py-2 hover:bg-slate-700 hover:shadow-xl transition-all duration-200 group"
