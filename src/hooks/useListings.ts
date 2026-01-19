@@ -27,13 +27,24 @@ export interface Listing {
   updated_at: string;
 }
 
-export const useListings = (options?: { status?: ListingStatus; category?: ListingCategory }) => {
+export const useListings = (options?: { 
+  status?: ListingStatus; 
+  category?: ListingCategory;
+  myListingsOnly?: boolean;
+}) => {
+  const { user } = useAuth();
+  
   return useQuery({
-    queryKey: ['listings', options?.status, options?.category],
+    queryKey: ['listings', options?.status, options?.category, options?.myListingsOnly, user?.id],
     queryFn: async () => {
       let query = supabase
         .from('listings')
-        .select('id, title, title_en, description, description_en, category, price, status, images, location, area');
+        .select('id, title, title_en, description, description_en, category, price, status, images, location, area, created_by');
+
+      // Filtrar apenas listings do usuário atual
+      if (options?.myListingsOnly && user) {
+        query = query.eq('created_by', user.id);
+      }
 
       if (options?.status) {
         query = query.eq('status', options.status);
