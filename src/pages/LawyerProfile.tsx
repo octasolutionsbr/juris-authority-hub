@@ -202,102 +202,98 @@ const LawyerProfile = () => {
                   </p>
 
                   {/* Contact & Social Section */}
-                  <div className="space-y-6 mb-8">
-                    {/* Primary Contact Actions */}
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <a
-                        href={`https://wa.me/${lawyer.whatsapp?.replace(/\D/g, "")}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center px-6 py-3 bg-background text-foreground font-medium rounded-md hover:bg-background/90 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-                      >
-                        <MessageCircle className="w-5 h-5 mr-3" />
-                        {t("lawyerProfile.whatsapp")}
-                      </a>
-                      <a 
-                        href={`mailto:${lawyer.email}`}
-                        className="inline-flex items-center justify-center px-6 py-3 bg-transparent border-2 border-background/60 text-background font-medium rounded-md hover:bg-background hover:text-foreground transition-all duration-200"
-                      >
-                        <Mail className="w-5 h-5 mr-3" />
-                        {t("lawyerProfile.email")}
-                      </a>
-                    </div>
+                  <div className="flex flex-wrap items-center gap-3 mb-8">
+                    {/* Primary Contact Buttons */}
+                    <a
+                      href={`https://wa.me/${lawyer.whatsapp?.replace(/\D/g, "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-5 py-2.5 bg-background text-foreground font-medium rounded-full hover:bg-background/90 transition-all duration-200 shadow-md hover:shadow-lg"
+                    >
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      {t("lawyerProfile.whatsapp")}
+                    </a>
+                    <a 
+                      href={`mailto:${lawyer.email}`}
+                      className="inline-flex items-center justify-center px-5 py-2.5 bg-transparent border-2 border-background/60 text-background font-medium rounded-full hover:bg-background hover:text-foreground transition-all duration-200"
+                    >
+                      <Mail className="w-4 h-4 mr-2" />
+                      {t("lawyerProfile.email")}
+                    </a>
 
-                    {/* Divider & Social Links */}
+                    {/* Separator */}
                     {(lawyer.linkedin || lawyer.instagram || lawyer.facebook || lawyer.twitter || lawyer.youtube || lawyer.website) && (
-                      <div className="flex items-center gap-4">
-                        <div className="h-px bg-background/20 flex-1 max-w-[60px]" />
-                        <div className="flex items-center gap-3">
-                          {lawyer.linkedin && (
-                            <a 
-                              href={lawyer.linkedin} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="w-9 h-9 rounded-full bg-background/5 border border-background/20 flex items-center justify-center text-background/70 hover:bg-background hover:text-foreground hover:border-background transition-all duration-200"
-                              aria-label="LinkedIn"
-                            >
-                              <Linkedin className="w-4 h-4" />
-                            </a>
-                          )}
-                          {lawyer.instagram && (
-                            <a 
-                              href={lawyer.instagram} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="w-9 h-9 rounded-full bg-background/5 border border-background/20 flex items-center justify-center text-background/70 hover:bg-background hover:text-foreground hover:border-background transition-all duration-200"
-                              aria-label="Instagram"
-                            >
-                              <Instagram className="w-4 h-4" />
-                            </a>
-                          )}
-                          {lawyer.facebook && (
-                            <a 
-                              href={lawyer.facebook} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="w-9 h-9 rounded-full bg-background/5 border border-background/20 flex items-center justify-center text-background/70 hover:bg-background hover:text-foreground hover:border-background transition-all duration-200"
-                              aria-label="Facebook"
-                            >
-                              <Facebook className="w-4 h-4" />
-                            </a>
-                          )}
-                          {lawyer.twitter && (
-                            <a 
-                              href={lawyer.twitter} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="w-9 h-9 rounded-full bg-background/5 border border-background/20 flex items-center justify-center text-background/70 hover:bg-background hover:text-foreground hover:border-background transition-all duration-200"
-                              aria-label="X (Twitter)"
-                            >
-                              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                              </svg>
-                            </a>
-                          )}
-                          {lawyer.youtube && (
-                            <a 
-                              href={lawyer.youtube} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="w-9 h-9 rounded-full bg-background/5 border border-background/20 flex items-center justify-center text-background/70 hover:bg-background hover:text-foreground hover:border-background transition-all duration-200"
-                              aria-label="YouTube"
-                            >
-                              <Youtube className="w-4 h-4" />
-                            </a>
-                          )}
-                          {lawyer.website && (
-                            <a 
-                              href={lawyer.website} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 text-sm text-background/80 hover:text-background border border-background/20 rounded-full hover:bg-background/10 transition-all duration-200"
-                            >
-                              <Globe className="w-4 h-4" />
-                              <span>Website</span>
-                            </a>
-                          )}
-                        </div>
-                      </div>
+                      <div className="h-6 w-px bg-background/30 mx-1 hidden sm:block" />
+                    )}
+
+                    {/* Social Media Icons */}
+                    {lawyer.linkedin && (
+                      <a 
+                        href={lawyer.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-background/10 border border-background/30 flex items-center justify-center text-background hover:bg-background hover:text-foreground transition-all duration-200"
+                        aria-label="LinkedIn"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                      </a>
+                    )}
+                    {lawyer.instagram && (
+                      <a 
+                        href={lawyer.instagram} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-background/10 border border-background/30 flex items-center justify-center text-background hover:bg-background hover:text-foreground transition-all duration-200"
+                        aria-label="Instagram"
+                      >
+                        <Instagram className="w-4 h-4" />
+                      </a>
+                    )}
+                    {lawyer.facebook && (
+                      <a 
+                        href={lawyer.facebook} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-background/10 border border-background/30 flex items-center justify-center text-background hover:bg-background hover:text-foreground transition-all duration-200"
+                        aria-label="Facebook"
+                      >
+                        <Facebook className="w-4 h-4" />
+                      </a>
+                    )}
+                    {lawyer.twitter && (
+                      <a 
+                        href={lawyer.twitter} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-background/10 border border-background/30 flex items-center justify-center text-background hover:bg-background hover:text-foreground transition-all duration-200"
+                        aria-label="X (Twitter)"
+                      >
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                      </a>
+                    )}
+                    {lawyer.youtube && (
+                      <a 
+                        href={lawyer.youtube} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-background/10 border border-background/30 flex items-center justify-center text-background hover:bg-background hover:text-foreground transition-all duration-200"
+                        aria-label="YouTube"
+                      >
+                        <Youtube className="w-4 h-4" />
+                      </a>
+                    )}
+                    {lawyer.website && (
+                      <a 
+                        href={lawyer.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 text-sm text-background border border-background/30 rounded-full hover:bg-background hover:text-foreground transition-all duration-200"
+                      >
+                        <Globe className="w-4 h-4" />
+                        <span>Website</span>
+                      </a>
                     )}
                   </div>
 
