@@ -165,11 +165,11 @@ const LawyerProfile = () => {
                 {t("lawyerProfile.backToTeam")}
               </Link>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-8 items-start">
                 {/* Photo */}
-                <div className="lg:col-span-1">
-                  <Card className="overflow-hidden border-2 border-primary/20">
-                    <div className="relative aspect-[3/4] bg-gradient-to-br from-muted to-muted-foreground/20">
+                <div className="md:col-span-1 flex justify-center md:justify-start">
+                  <Card className="overflow-hidden border-2 border-primary/20 w-48 sm:w-56 md:w-full max-w-xs">
+                    <div className="relative aspect-[4/5] bg-gradient-to-br from-muted to-muted-foreground/20">
                       {photoSrc ? (
                         <img
                           src={photoSrc}
@@ -180,7 +180,7 @@ const LawyerProfile = () => {
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-8xl font-heading font-bold text-muted-foreground/30">
+                          <div className="text-6xl md:text-8xl font-heading font-bold text-muted-foreground/30">
                             {lawyer.name
                               .split(" ")
                               .map((n) => n[0])
@@ -193,16 +193,16 @@ const LawyerProfile = () => {
                 </div>
 
                 {/* Info */}
-                <div className="lg:col-span-2">
-                  <h1 className="text-4xl md:text-5xl font-heading font-bold text-background mb-3">
+                <div className="md:col-span-2 text-center md:text-left">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-background mb-2 md:mb-3">
                     {lawyer.name}
                   </h1>
-                  <p className="text-2xl text-primary-light font-medium mb-6">
+                  <p className="text-xl sm:text-2xl text-primary-light font-medium mb-4 md:mb-6">
                     {mainAreaTitle}
                   </p>
 
                   {/* Contact & Social Section */}
-                  <div className="flex flex-wrap items-center gap-3 mb-8">
+                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3 mb-6 md:mb-8">
                     {/* Primary Contact Buttons */}
                     <a
                       href={`https://wa.me/${lawyer.whatsapp?.replace(/\D/g, "")}`}
