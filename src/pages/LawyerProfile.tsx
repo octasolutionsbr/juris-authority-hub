@@ -8,7 +8,7 @@ import { useAutoTranslateSingleProfile } from "@/hooks/useAutoTranslateProfile";
 import { loadTeamPhotos } from "@/hooks/useTeamPhotos";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen } from "lucide-react";
+import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen, Linkedin, Instagram, Facebook, Youtube, Globe } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import NotFound from "./NotFound";
@@ -229,6 +229,92 @@ const LawyerProfile = () => {
                       </a>
                     </Button>
                   </div>
+
+                  {/* Social Media Buttons */}
+                  {(lawyer.linkedin || lawyer.instagram || lawyer.facebook || lawyer.twitter || lawyer.youtube || lawyer.website) && (
+                    <div className="flex flex-wrap gap-3 mb-8">
+                      {lawyer.linkedin && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-background/50 bg-background/10 text-background hover:bg-background hover:text-foreground"
+                          asChild
+                        >
+                          <a href={lawyer.linkedin} target="_blank" rel="noopener noreferrer">
+                            <Linkedin className="w-4 h-4 mr-2" />
+                            LinkedIn
+                          </a>
+                        </Button>
+                      )}
+                      {lawyer.instagram && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-background/50 bg-background/10 text-background hover:bg-background hover:text-foreground"
+                          asChild
+                        >
+                          <a href={lawyer.instagram} target="_blank" rel="noopener noreferrer">
+                            <Instagram className="w-4 h-4 mr-2" />
+                            Instagram
+                          </a>
+                        </Button>
+                      )}
+                      {lawyer.facebook && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-background/50 bg-background/10 text-background hover:bg-background hover:text-foreground"
+                          asChild
+                        >
+                          <a href={lawyer.facebook} target="_blank" rel="noopener noreferrer">
+                            <Facebook className="w-4 h-4 mr-2" />
+                            Facebook
+                          </a>
+                        </Button>
+                      )}
+                      {lawyer.twitter && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-background/50 bg-background/10 text-background hover:bg-background hover:text-foreground"
+                          asChild
+                        >
+                          <a href={lawyer.twitter} target="_blank" rel="noopener noreferrer">
+                            <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            X
+                          </a>
+                        </Button>
+                      )}
+                      {lawyer.youtube && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-background/50 bg-background/10 text-background hover:bg-background hover:text-foreground"
+                          asChild
+                        >
+                          <a href={lawyer.youtube} target="_blank" rel="noopener noreferrer">
+                            <Youtube className="w-4 h-4 mr-2" />
+                            YouTube
+                          </a>
+                        </Button>
+                      )}
+                      {lawyer.website && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-background/50 bg-background/10 text-background hover:bg-background hover:text-foreground"
+                          asChild
+                        >
+                          <a href={lawyer.website} target="_blank" rel="noopener noreferrer">
+                            <Globe className="w-4 h-4 mr-2" />
+                            Website
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                  )}
 
                   <p className="text-lg text-background/90 leading-relaxed">
                     {translatedLawyer.bio}
