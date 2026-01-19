@@ -8,7 +8,7 @@ import { useAutoTranslateSingleProfile } from "@/hooks/useAutoTranslateProfile";
 import { loadTeamPhotos } from "@/hooks/useTeamPhotos";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mail, MessageCircle, ArrowLeft } from "lucide-react";
+import { Mail, MessageCircle, ArrowLeft, GraduationCap, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { getTranslatedTeamMember, getTranslatedPracticeArea } from "@/lib/i18nHelpers";
 import NotFound from "./NotFound";
@@ -271,6 +271,43 @@ const LawyerProfile = () => {
             </div>
           </section>
 
+          {/* Education Section */}
+          {translatedLawyer.education && translatedLawyer.education.length > 0 && (
+            <section className="py-16 bg-muted/30">
+              <div className="container mx-auto px-4 lg:px-8">
+                <h2 className="text-3xl font-heading font-semibold mb-8">
+                  {t("lawyerProfile.education")}
+                </h2>
+                <ul className="space-y-4">
+                  {translatedLawyer.education.map((item: string, index: number) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <GraduationCap className="w-5 h-5 text-primary mt-1 shrink-0" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )}
+
+          {/* Publications Section */}
+          {translatedLawyer.publications && translatedLawyer.publications.length > 0 && (
+            <section className="py-16 bg-background">
+              <div className="container mx-auto px-4 lg:px-8">
+                <h2 className="text-3xl font-heading font-semibold mb-8">
+                  {t("lawyerProfile.publications")}
+                </h2>
+                <ul className="space-y-4">
+                  {translatedLawyer.publications.map((item: string, index: number) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <BookOpen className="w-5 h-5 text-primary mt-1 shrink-0" />
+                      <span className="text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )}
 
           {/* CTA Section */}
           <section className="py-16 bg-primary text-primary-foreground">
