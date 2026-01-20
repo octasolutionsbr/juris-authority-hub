@@ -5,6 +5,12 @@ User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
+User-agent: Googlebot-Image
+Allow: /favicon
+Allow: /apple-touch-icon.png
+Allow: /*.png$
+Allow: /*.ico$
+
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
