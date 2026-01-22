@@ -81,7 +81,7 @@ export const SEOHead = ({
     "description": fullDescription,
     "url": BASE_URL,
     "telephone": "+55 96 93223-1425",
-    "email": "contato@juriscompany.net",
+    "email": "marinilson.adv@icloud.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "R. Prof. Tostes, 783 - Centro",

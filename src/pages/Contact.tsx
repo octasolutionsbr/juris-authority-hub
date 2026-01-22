@@ -140,10 +140,10 @@ const Contact = () => {
                             {t("contact.info.email")}
                           </h2>
                           <a
-                            href="mailto:contato@juriscompany.net"
+                            href="mailto:marinilson.adv@icloud.com"
                             className="text-muted-foreground text-sm hover:text-primary transition-colors"
                           >
-                            contato@juriscompany.net
+                            marinilson.adv@icloud.com
                           </a>
                         </div>
                       </div>
