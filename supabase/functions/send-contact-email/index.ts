@@ -3,7 +3,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
 // Email de destino das notificações do escritório
-const NOTIFICATION_EMAIL = "marinilson.adv@icloud.com";
+// MODO TESTE: Resend só permite enviar para o email da conta até verificar domínio
+const NOTIFICATION_EMAIL = "octasolutionsbr@gmail.com";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -127,6 +128,7 @@ const handler = async (req: Request): Promise<Response> => {
               <li><strong>Telefone:</strong> (96) 93223-1425</li>
               <li><strong>Email:</strong> marinilson.adv@icloud.com</li>
             </ul>
+            </ul>
             <p>Atenciosamente,<br><strong>Equipe Juris Company</strong></p>
           </div>
           <div class="footer">
@@ -138,27 +140,30 @@ const handler = async (req: Request): Promise<Response> => {
       </html>
     `;
 
-    const confirmationResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-      },
-      body: JSON.stringify({
-        from: "Juris Company <onboarding@resend.dev>",
-        to: [email],
-        reply_to: "marinilson.adv@icloud.com",
-        subject: "Recebemos sua mensagem - Juris Company",
-        html: confirmationHtml,
-      }),
-    });
+    // Em modo de teste, o email de confirmação também vai para a conta Resend
+    // Após verificar domínio, alterar para enviar ao cliente
+    try {
+      const confirmationResponse = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: "Juris Company <onboarding@resend.dev>",
+          to: ["octasolutionsbr@gmail.com"], // Modo teste: só pode enviar para conta Resend
+          reply_to: email,
+          subject: `[CÓPIA CLIENTE] Recebemos sua mensagem - ${name}`,
+          html: confirmationHtml,
+        }),
+      });
 
-    if (!confirmationResponse.ok) {
-      const errorData = await confirmationResponse.text();
-      console.error("Erro ao enviar confirmação:", errorData);
-      // Não vamos falhar aqui, pois o email principal foi enviado
-    } else {
-      console.log("Email de confirmação enviado com sucesso");
+      if (confirmationResponse.ok) {
+        console.log("Email de confirmação enviado com sucesso");
+      }
+    } catch (confirmError) {
+      console.error("Erro ao enviar confirmação:", confirmError);
+      // Não falha, pois email principal foi enviado
     }
 
     return new Response(
