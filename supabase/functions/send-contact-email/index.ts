@@ -2,8 +2,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
-// Email de destino das notificações - TEMPORÁRIO (Resend em modo de testes)
-const NOTIFICATION_EMAIL = "leosribe@gmail.com";
+// Email de destino das notificações do escritório
+const NOTIFICATION_EMAIL = "contato@juriscompany.net";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -81,8 +81,9 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Juris Company <onboarding@resend.dev>",
+        from: "Juris Company <contato@juriscompany.net>",
         to: [NOTIFICATION_EMAIL],
+        reply_to: email,
         subject: subject ? `Novo contato: ${subject}` : `Novo contato de ${name}`,
         html: notificationHtml,
       }),
@@ -144,8 +145,9 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Juris Company <onboarding@resend.dev>",
+        from: "Juris Company <contato@juriscompany.net>",
         to: [email],
+        reply_to: "contato@juriscompany.net",
         subject: "Recebemos sua mensagem - Juris Company",
         html: confirmationHtml,
       }),
