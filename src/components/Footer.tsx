@@ -112,10 +112,10 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <Mail size={18} className="text-primary-light mt-0.5 flex-shrink-0" />
                 <a
-                  href="mailto:contato@juriscompany.net"
+                  href="mailto:marinilson.adv@icloud.com"
                   className="text-white/70 hover:text-primary-light transition-colors text-sm"
                 >
-                  contato@juriscompany.net
+                  marinilson.adv@icloud.com
                 </a>
               </li>
               <li className="flex items-start space-x-3">
