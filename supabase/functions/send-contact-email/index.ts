@@ -3,7 +3,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
 // Email de destino das notificações do escritório
-const NOTIFICATION_EMAIL = "contato@juriscompany.net";
+const NOTIFICATION_EMAIL = "marinilson.adv@icloud.com";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -81,7 +81,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Juris Company <contato@juriscompany.net>",
+        from: "Juris Company <marinilson.adv@icloud.com>",
         to: [NOTIFICATION_EMAIL],
         reply_to: email,
         subject: subject ? `Novo contato: ${subject}` : `Novo contato de ${name}`,
@@ -125,7 +125,7 @@ const handler = async (req: Request): Promise<Response> => {
             <p>Se precisar de atendimento urgente, entre em contato diretamente:</p>
             <ul>
               <li><strong>Telefone:</strong> (96) 93223-1425</li>
-              <li><strong>Email:</strong> contato@juriscompany.net</li>
+              <li><strong>Email:</strong> marinilson.adv@icloud.com</li>
             </ul>
             <p>Atenciosamente,<br><strong>Equipe Juris Company</strong></p>
           </div>
@@ -145,9 +145,9 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Juris Company <contato@juriscompany.net>",
+        from: "Juris Company <marinilson.adv@icloud.com>",
         to: [email],
-        reply_to: "contato@juriscompany.net",
+        reply_to: "marinilson.adv@icloud.com",
         subject: "Recebemos sua mensagem - Juris Company",
         html: confirmationHtml,
       }),
