@@ -3,8 +3,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
 // Email de destino das notificações do escritório
-// MODO TESTE: Resend só permite enviar para o email da conta até verificar domínio
-const NOTIFICATION_EMAIL = "octasolutionsbr@gmail.com";
+const NOTIFICATION_EMAIL = "marinilson.adv@icloud.com";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -82,7 +81,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Juris Company <onboarding@resend.dev>",
+        from: "Juris Company <noreply@juriscompany.net>",
         to: [NOTIFICATION_EMAIL],
         reply_to: email,
         subject: subject ? `Novo contato: ${subject}` : `Novo contato de ${name}`,
@@ -96,7 +95,7 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error(`Falha ao enviar email de notificação: ${errorData}`);
     }
 
-    console.log("Email de notificação enviado com sucesso");
+    console.log("Email de notificação enviado com sucesso para", NOTIFICATION_EMAIL);
 
     // Enviar email de confirmação para o cliente
     const confirmationHtml = `
@@ -128,7 +127,6 @@ const handler = async (req: Request): Promise<Response> => {
               <li><strong>Telefone:</strong> (96) 93223-1425</li>
               <li><strong>Email:</strong> marinilson.adv@icloud.com</li>
             </ul>
-            </ul>
             <p>Atenciosamente,<br><strong>Equipe Juris Company</strong></p>
           </div>
           <div class="footer">
@@ -140,8 +138,7 @@ const handler = async (req: Request): Promise<Response> => {
       </html>
     `;
 
-    // Em modo de teste, o email de confirmação também vai para a conta Resend
-    // Após verificar domínio, alterar para enviar ao cliente
+    // Enviar confirmação diretamente para o cliente
     try {
       const confirmationResponse = await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -150,16 +147,19 @@ const handler = async (req: Request): Promise<Response> => {
           Authorization: `Bearer ${RESEND_API_KEY}`,
         },
         body: JSON.stringify({
-          from: "Juris Company <onboarding@resend.dev>",
-          to: ["octasolutionsbr@gmail.com"], // Modo teste: só pode enviar para conta Resend
-          reply_to: email,
-          subject: `[CÓPIA CLIENTE] Recebemos sua mensagem - ${name}`,
+          from: "Juris Company <noreply@juriscompany.net>",
+          to: [email],
+          reply_to: "marinilson.adv@icloud.com",
+          subject: "Recebemos sua mensagem - Juris Company",
           html: confirmationHtml,
         }),
       });
 
       if (confirmationResponse.ok) {
-        console.log("Email de confirmação enviado com sucesso");
+        console.log("Email de confirmação enviado para", email);
+      } else {
+        const errorData = await confirmationResponse.text();
+        console.error("Erro ao enviar confirmação:", errorData);
       }
     } catch (confirmError) {
       console.error("Erro ao enviar confirmação:", confirmError);
