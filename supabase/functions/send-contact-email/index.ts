@@ -81,7 +81,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Juris Company <marinilson.adv@icloud.com>",
+        from: "Juris Company <onboarding@resend.dev>",
         to: [NOTIFICATION_EMAIL],
         reply_to: email,
         subject: subject ? `Novo contato: ${subject}` : `Novo contato de ${name}`,
@@ -145,7 +145,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Juris Company <marinilson.adv@icloud.com>",
+        from: "Juris Company <onboarding@resend.dev>",
         to: [email],
         reply_to: "marinilson.adv@icloud.com",
         subject: "Recebemos sua mensagem - Juris Company",
