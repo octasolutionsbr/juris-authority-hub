@@ -124,7 +124,7 @@ const handler = async (req: Request): Promise<Response> => {
             <p>Nossa equipe analisará sua solicitação e retornará o mais breve possível, em até <strong>24 horas úteis</strong>.</p>
             <p>Se precisar de atendimento urgente, entre em contato diretamente:</p>
             <ul>
-              <li><strong>Telefone:</strong> (96) 93223-1425</li>
+              <li><strong>Telefone:</strong> (96) 93223-1499</li>
               <li><strong>Email:</strong> marinilson.adv@icloud.com</li>
             </ul>
             <p>Atenciosamente,<br><strong>Equipe Juris Company</strong></p>
