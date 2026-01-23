@@ -105,7 +105,7 @@ const Contact = () => {
     <>
       <SEOHead
         title="Contato - Agende uma Consulta"
-        description="Entre em contato com a Juris Company em Macapá-AP. Agende uma consulta jurídica com nossos especialistas em direito empresarial, petróleo e gás. Telefone: (96) 93223-1425."
+        description="Entre em contato com a Juris Company em Macapá-AP. Agende uma consulta jurídica com nossos especialistas em direito empresarial, petróleo e gás. Telefone: (96) 93223-1499."
         keywords="contato advogado Macapá, agendar consulta jurídica Amapá, telefone escritório advocacia, endereço Juris Company"
         canonicalUrl="/contato"
         structuredData={breadcrumbSchema}

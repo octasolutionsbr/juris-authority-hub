@@ -77,18 +77,31 @@ const LawyerProfile = () => {
     ]
   };
 
+  // Build sameAs array for social profiles
+  const sameAsLinks: string[] = [];
+  if (lawyer.linkedin) sameAsLinks.push(lawyer.linkedin);
+  if (lawyer.instagram) sameAsLinks.push(lawyer.instagram);
+  if (lawyer.facebook) sameAsLinks.push(lawyer.facebook);
+  if (lawyer.twitter) sameAsLinks.push(lawyer.twitter);
+  if (lawyer.youtube) sameAsLinks.push(lawyer.youtube);
+  if (lawyer.website) sameAsLinks.push(lawyer.website);
+
   const personSchema = {
     "@context": "https://schema.org",
     "@type": ["Person", "Attorney"],
     "name": lawyer.name,
     "jobTitle": mainAreaTitle,
     "description": translatedLawyer.bio,
+    "image": photoSrc || undefined,
     "email": lawyer.email,
     "telephone": lawyer.whatsapp,
+    "url": `https://juriscompany.net/equipe/${lawyerId}`,
+    "sameAs": sameAsLinks.length > 0 ? sameAsLinks : undefined,
     "worksFor": {
       "@type": "LegalService",
       "name": "Juris Company",
       "url": "https://juriscompany.net",
+      "telephone": "+55 96 93223-1499",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "R. Prof. Tostes, 783 - Centro",
@@ -110,10 +123,10 @@ const LawyerProfile = () => {
     },
     "hasCredential": {
       "@type": "EducationalOccupationalCredential",
-      "credentialCategory": "OAB",
+      "credentialCategory": "OAB/AP",
       "recognizedBy": {
         "@type": "Organization",
-        "name": "Ordem dos Advogados do Brasil"
+        "name": "Ordem dos Advogados do Brasil - Seccional Amapá"
       }
     },
     "areaServed": [
