@@ -22,7 +22,7 @@ interface SEOHeadProps {
 const BASE_URL = 'https://juriscompany.net';
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`;
 
-const defaultKeywords = 'advocacia empresarial Macapá, advogado petróleo Amapá, assessoria jurídica óleo e gás, direito empresarial Macapá, advogado empresarial Amapá, advocacia offshore Amapá, licenciamento ambiental petróleo, direito tributário petroleiras, exploração petróleo costa Amapá';
+const defaultKeywords = 'Juris Company, escritório advocacia Macapá, advogado empresarial Macapá, advogado tributário Amapá, advogado trabalhista Macapá, advogado criminal Amapá, advogado civil Macapá, advogado família Amapá, advogado petróleo Amapá, assessoria jurídica óleo e gás, advocacia offshore Amapá, licenciamento ambiental petróleo, OAB/AP, Dr. Marinilson Furtado advogado, advogado Dr. André Miranda, advogado Dr. Marcos Cordeiro Macapá';
 
 const defaultGeoLocation = {
   city: 'Macapá',
@@ -80,7 +80,7 @@ export const SEOHead = ({
     "name": "Juris Company",
     "description": fullDescription,
     "url": BASE_URL,
-    "telephone": "+55 96 93223-1425",
+    "telephone": "+55 96 93223-1499",
     "email": "marinilson.adv@icloud.com",
     "address": {
       "@type": "PostalAddress",

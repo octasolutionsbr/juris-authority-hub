@@ -130,7 +130,7 @@ const AreaDetail = () => {
         "addressRegion": "Amapá",
         "addressCountry": "BR"
       },
-      "telephone": "+55 96 93223-1425"
+      "telephone": "+55 96 93223-1499"
     },
     "areaServed": [
       {
