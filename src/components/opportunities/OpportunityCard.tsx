@@ -77,11 +77,13 @@ export const OpportunityCard = ({ listing }: OpportunityCardProps) => {
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>
-          <Button asChild>
-            <a href="mailto:contato@octadvogados.com.br">
-              <Mail className="w-4 h-4" />
-            </a>
-          </Button>
+          {listing.creator_email && (
+            <Button asChild>
+              <a href={`mailto:${listing.creator_email}`}>
+                <Mail className="w-4 h-4" />
+              </a>
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

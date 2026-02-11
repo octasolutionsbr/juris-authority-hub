@@ -248,12 +248,14 @@ export default function OpportunityDetail() {
                   <Separator />
 
                   {/* Contact Button */}
-                  <Button className="w-full" size="lg" asChild>
-                    <a href="mailto:contato@octadvogados.com.br">
-                      <Mail className="w-4 h-4 mr-2" />
-                      {t("opportunitiesPage.contactInterest")}
-                    </a>
-                  </Button>
+                  {listing.creator_email && (
+                    <Button className="w-full" size="lg" asChild>
+                      <a href={`mailto:${listing.creator_email}`}>
+                        <Mail className="w-4 h-4 mr-2" />
+                        {t("opportunitiesPage.contactInterest")}
+                      </a>
+                    </Button>
+                  )}
 
                   {/* Back Link */}
                   <Button variant="outline" className="w-full" asChild>
