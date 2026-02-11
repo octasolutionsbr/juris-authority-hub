@@ -25,6 +25,7 @@ export interface Listing {
   created_by: string;
   created_at: string;
   updated_at: string;
+  creator_email?: string | null;
 }
 
 export const useListings = (options?: { 
@@ -57,7 +58,25 @@ export const useListings = (options?: {
 
       if (error) throw error;
       
-      return data as Listing[];
+      const listings = data as Listing[];
+      
+      // Fetch creator emails from team_members
+      const creatorIds = [...new Set(listings.map(l => l.created_by))];
+      if (creatorIds.length > 0) {
+        const { data: members } = await supabase
+          .from('team_members')
+          .select('user_id, email')
+          .in('user_id', creatorIds);
+        
+        if (members) {
+          const emailMap = new Map(members.map(m => [m.user_id, m.email]));
+          listings.forEach(l => {
+            l.creator_email = emailMap.get(l.created_by) || null;
+          });
+        }
+      }
+      
+      return listings;
     },
     staleTime: 1000 * 60 * 5, // 5 minutos de cache
   });
@@ -96,7 +115,20 @@ export const useListing = (id: string | undefined) => {
 
       if (error) throw error;
       
-      return data as Listing | null;
+      if (!data) return null;
+      
+      const listing = data as Listing;
+      
+      // Fetch creator email from team_members
+      const { data: member } = await supabase
+        .from('team_members')
+        .select('email')
+        .eq('user_id', listing.created_by)
+        .maybeSingle();
+      
+      listing.creator_email = member?.email || null;
+      
+      return listing;
     },
     enabled: !!id,
   });
