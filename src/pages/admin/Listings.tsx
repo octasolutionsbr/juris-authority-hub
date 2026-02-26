@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -79,33 +79,42 @@ export default function AdminListings() {
   const updateListing = useUpdateListing();
   const deleteListing = useDeleteListing();
 
-  // Reset form when dialog closes
-  useEffect(() => {
-    if (!isDialogOpen) {
+  const handleDialogOpenChange = (open: boolean) => {
+    setIsDialogOpen(open);
+    if (!open) {
       setFormData(initialFormData);
       setEditingListing(null);
     }
-  }, [isDialogOpen]);
+  };
 
-  const openEditDialog = (listing: Listing) => {
-    setEditingListing(listing);
+  const openEditDialog = async (listing: Listing) => {
+    // Fetch fresh data directly from DB to ensure all fields are present
+    const { data: freshListing, error } = await supabase
+      .from('listings')
+      .select('*')
+      .eq('id', listing.id)
+      .single();
+
+    const source = freshListing || listing;
+
+    setEditingListing(source as Listing);
     setFormData({
-      category: listing.category,
-      title: listing.title,
-      title_en: listing.title_en || "",
-      description: listing.description,
-      description_en: listing.description_en || "",
-      long_description: listing.long_description || "",
-      long_description_en: listing.long_description_en || "",
-      price: listing.price?.toString() || "",
-      status: listing.status,
-      location: listing.location || "",
-      location_en: listing.location_en || "",
-      area: listing.area?.toString() || "",
-      features: listing.features?.join(", ") || "",
-      features_en: listing.features_en?.join(", ") || "",
-      images: listing.images || [],
-      contact_whatsapp: listing.contact_whatsapp || "",
+      category: source.category,
+      title: source.title,
+      title_en: source.title_en || "",
+      description: source.description,
+      description_en: source.description_en || "",
+      long_description: source.long_description || "",
+      long_description_en: source.long_description_en || "",
+      price: source.price?.toString() || "",
+      status: source.status,
+      location: source.location || "",
+      location_en: source.location_en || "",
+      area: source.area?.toString() || "",
+      features: (source.features as string[] | null)?.join(", ") || "",
+      features_en: (source.features_en as string[] | null)?.join(", ") || "",
+      images: (source.images as string[] | null) || [],
+      contact_whatsapp: source.contact_whatsapp || "",
     });
     setIsDialogOpen(true);
   };
@@ -241,7 +250,7 @@ export default function AdminListings() {
             </p>
           </div>
           
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <Dialog open={isDialogOpen} onOpenChange={handleDialogOpenChange}>
             <DialogTrigger asChild>
               <Button className="w-full sm:w-auto">
                 <Plus className="mr-2 h-4 w-4" />
