@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Building2, FileText, Briefcase, Mail, ImageOff, ArrowRight } from "lucide-react";
+import { Building2, FileText, Briefcase, Mail, ImageOff, ArrowRight, MessageCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { Listing } from "@/hooks/useListings";
 
@@ -77,6 +77,20 @@ export const OpportunityCard = ({ listing }: OpportunityCardProps) => {
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>
+          {(() => {
+            const whatsappNumber = listing.contact_whatsapp || listing.creator_whatsapp;
+            if (whatsappNumber) {
+              const cleanNumber = whatsappNumber.replace(/\D/g, '');
+              return (
+                <Button asChild className="bg-green-600 hover:bg-green-700">
+                  <a href={`https://wa.me/${cleanNumber}`} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="w-4 h-4" />
+                  </a>
+                </Button>
+              );
+            }
+            return null;
+          })()}
           {listing.creator_email && (
             <Button asChild>
               <a href={`mailto:${listing.creator_email}`}>

@@ -22,7 +22,8 @@ import {
   FileText, 
   Briefcase,
   ImageOff,
-  Check
+  Check,
+  MessageCircle
 } from "lucide-react";
 import { useListing } from "@/hooks/useListings";
 
@@ -247,15 +248,32 @@ export default function OpportunityDetail() {
 
                   <Separator />
 
-                  {/* Contact Button */}
-                  {listing.creator_email && (
-                    <Button className="w-full" size="lg" asChild>
-                      <a href={`mailto:${listing.creator_email}`}>
-                        <Mail className="w-4 h-4 mr-2" />
-                        {t("opportunitiesPage.contactInterest")}
-                      </a>
-                    </Button>
-                  )}
+                  {/* Contact Buttons */}
+                  <div className="space-y-3">
+                    {(() => {
+                      const whatsappNumber = listing.contact_whatsapp || listing.creator_whatsapp;
+                      if (whatsappNumber) {
+                        const cleanNumber = whatsappNumber.replace(/\D/g, '');
+                        return (
+                          <Button className="w-full bg-green-600 hover:bg-green-700" size="lg" asChild>
+                            <a href={`https://wa.me/${cleanNumber}`} target="_blank" rel="noopener noreferrer">
+                              <MessageCircle className="w-4 h-4 mr-2" />
+                              WhatsApp
+                            </a>
+                          </Button>
+                        );
+                      }
+                      return null;
+                    })()}
+                    {listing.creator_email && (
+                      <Button className="w-full" size="lg" variant={listing.contact_whatsapp || listing.creator_whatsapp ? "outline" : "default"} asChild>
+                        <a href={`mailto:${listing.creator_email}`}>
+                          <Mail className="w-4 h-4 mr-2" />
+                          {t("opportunitiesPage.contactInterest")}
+                        </a>
+                      </Button>
+                    )}
+                  </div>
 
                   {/* Back Link */}
                   <Button variant="outline" className="w-full" asChild>

@@ -141,6 +141,7 @@ export type Database = {
         Row: {
           area: number | null
           category: Database["public"]["Enums"]["listing_category"]
+          contact_whatsapp: string | null
           created_at: string
           created_by: string
           description: string
@@ -162,6 +163,7 @@ export type Database = {
         Insert: {
           area?: number | null
           category: Database["public"]["Enums"]["listing_category"]
+          contact_whatsapp?: string | null
           created_at?: string
           created_by: string
           description: string
@@ -183,6 +185,7 @@ export type Database = {
         Update: {
           area?: number | null
           category?: Database["public"]["Enums"]["listing_category"]
+          contact_whatsapp?: string | null
           created_at?: string
           created_by?: string
           description?: string

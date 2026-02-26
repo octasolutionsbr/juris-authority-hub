@@ -44,6 +44,7 @@ type ListingFormData = {
   features: string;
   features_en: string;
   images: string[];
+  contact_whatsapp: string;
 };
 
 const initialFormData: ListingFormData = {
@@ -62,6 +63,7 @@ const initialFormData: ListingFormData = {
   features: "",
   features_en: "",
   images: [],
+  contact_whatsapp: "",
 };
 
 export default function AdminListings() {
@@ -103,6 +105,7 @@ export default function AdminListings() {
       features: listing.features?.join(", ") || "",
       features_en: listing.features_en?.join(", ") || "",
       images: listing.images || [],
+      contact_whatsapp: listing.contact_whatsapp || "",
     });
     setIsDialogOpen(true);
   };
@@ -187,6 +190,7 @@ export default function AdminListings() {
       features: parseFeatures(formData.features),
       features_en: parseFeatures(formData.features_en),
       images: formData.images.length > 0 ? formData.images : null,
+      contact_whatsapp: formData.contact_whatsapp || null,
     };
 
     try {
@@ -386,14 +390,26 @@ export default function AdminListings() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="location_en">Localização (EN)</Label>
-                  <Input 
-                    id="location_en" 
-                    placeholder="Ex: São Paulo, Brazil" 
-                    value={formData.location_en}
-                    onChange={(e) => updateFormField("location_en", e.target.value)}
-                  />
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="location_en">Localização (EN)</Label>
+                    <Input 
+                      id="location_en" 
+                      placeholder="Ex: São Paulo, Brazil" 
+                      value={formData.location_en}
+                      onChange={(e) => updateFormField("location_en", e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="contact_whatsapp">WhatsApp para Contato</Label>
+                    <Input 
+                      id="contact_whatsapp" 
+                      placeholder="Ex: 5596932231499" 
+                      value={formData.contact_whatsapp}
+                      onChange={(e) => updateFormField("contact_whatsapp", e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground">Número com código do país (ex: 5596932231499)</p>
+                  </div>
                 </div>
 
                 {/* Features */}
