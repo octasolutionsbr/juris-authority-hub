@@ -25,7 +25,9 @@ export interface Listing {
   created_by: string;
   created_at: string;
   updated_at: string;
+  contact_whatsapp?: string | null;
   creator_email?: string | null;
+  creator_whatsapp?: string | null;
 }
 
 export const useListings = (options?: { 
@@ -40,7 +42,7 @@ export const useListings = (options?: {
     queryFn: async () => {
       let query = supabase
         .from('listings')
-        .select('id, title, title_en, description, description_en, category, price, status, images, location, area, created_by');
+        .select('*');
 
       // Filtrar apenas listings do usuário atual
       if (options?.myListingsOnly && user) {
@@ -65,13 +67,15 @@ export const useListings = (options?: {
       if (creatorIds.length > 0) {
         const { data: members } = await supabase
           .from('team_members')
-          .select('user_id, email')
+          .select('user_id, email, whatsapp')
           .in('user_id', creatorIds);
         
         if (members) {
           const emailMap = new Map(members.map(m => [m.user_id, m.email]));
+          const whatsappMap = new Map(members.map(m => [m.user_id, m.whatsapp]));
           listings.forEach(l => {
             l.creator_email = emailMap.get(l.created_by) || null;
+            l.creator_whatsapp = whatsappMap.get(l.created_by) || null;
           });
         }
       }
@@ -88,14 +92,34 @@ export const useAvailableListingsByCategory = (category: ListingCategory) => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('listings')
-        .select('id, title, title_en, description, description_en, category, price, status, images, location, area')
+        .select('*')
         .eq('status', 'available')
         .eq('category', category)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
+
+      const listings = data as Listing[];
       
-      return data as Listing[];
+      // Fetch creator info from team_members
+      const creatorIds = [...new Set(listings.map(l => l.created_by))];
+      if (creatorIds.length > 0) {
+        const { data: members } = await supabase
+          .from('team_members')
+          .select('user_id, email, whatsapp')
+          .in('user_id', creatorIds);
+        
+        if (members) {
+          const emailMap = new Map(members.map(m => [m.user_id, m.email]));
+          const whatsappMap = new Map(members.map(m => [m.user_id, m.whatsapp]));
+          listings.forEach(l => {
+            l.creator_email = emailMap.get(l.created_by) || null;
+            l.creator_whatsapp = whatsappMap.get(l.created_by) || null;
+          });
+        }
+      }
+      
+      return listings;
     },
     staleTime: 1000 * 60 * 5,
   });
@@ -119,14 +143,15 @@ export const useListing = (id: string | undefined) => {
       
       const listing = data as Listing;
       
-      // Fetch creator email from team_members
+      // Fetch creator info from team_members
       const { data: member } = await supabase
         .from('team_members')
-        .select('email')
+        .select('email, whatsapp')
         .eq('user_id', listing.created_by)
         .maybeSingle();
       
       listing.creator_email = member?.email || null;
+      listing.creator_whatsapp = member?.whatsapp || null;
       
       return listing;
     },
