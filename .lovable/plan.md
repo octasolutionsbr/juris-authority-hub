@@ -1,58 +1,72 @@
 
+# Corrigir Edicao de Anuncios + Adicionar WhatsApp
 
-# Corrigir Recuperacao de Senha para Dominio Proprio
+## Problemas Identificados
 
-## Problema Identificado
+### 1. Dados somem ao editar anuncio
+A query em `useListings.ts` (linha 43) busca apenas colunas parciais:
+```
+id, title, title_en, description, description_en, category, price, status, images, location, area, created_by
+```
+Faltam: `long_description`, `long_description_en`, `features`, `features_en`, `location_en`. Quando o usuario clica em "Editar", a funcao `openEditDialog` tenta ler esses campos, mas eles estao `undefined`, fazendo tudo parecer vazio.
 
-O codigo em `Login.tsx` usa `window.location.origin` para montar a URL de redirecionamento, o que esta correto no lado do frontend. Porem, o problema real esta na **configuracao do backend de autenticacao**: a URL do site (Site URL) esta configurada para o dominio do Lovable, nao para `juriscompany.net`. Quando o usuario solicita recuperacao de senha, o email enviado pelo backend contem o link de redirecionamento baseado nessa configuracao, expondo a URL do Lovable.
+### 2. WhatsApp nos anuncios
+Adicionar campo de WhatsApp para contato nos anuncios, com botao visivel na pagina publica.
+
+---
 
 ## Solucao
 
-### 1. Atualizar a configuracao de autenticacao do backend
+### Passo 1: Adicionar coluna `contact_whatsapp` na tabela `listings`
+Criar migration SQL para adicionar campo opcional de WhatsApp na tabela de anuncios.
 
-Alterar a "Site URL" no sistema de autenticacao para `https://juriscompany.net` e adicionar `https://juriscompany.net/admin/reset-password` como URL de redirecionamento permitida. Isso garante que os emails de recuperacao usem o dominio correto.
+### Passo 2: Corrigir query do `useListings.ts`
+Alterar o select da query principal para incluir TODAS as colunas necessarias (usar `select('*')` ou adicionar as colunas faltantes). Isso resolve o bug de edicao.
 
-### 2. Verificar o codigo (ja esta correto)
+Tambem adicionar `creator_whatsapp` ao tipo `Listing` e buscar o WhatsApp do `team_members` junto com o email.
 
-O codigo atual em `Login.tsx` (linha 96) ja usa `window.location.origin` dinamicamente:
+### Passo 3: Atualizar formulario admin (`Listings.tsx`)
+- Adicionar campo "WhatsApp para contato" no formulario de criacao/edicao
+- Incluir o campo no `ListingFormData` e no `initialFormData`
+- Enviar o valor na submissao do formulario
+- Carregar o valor ao abrir edicao
 
-```typescript
-redirectTo: `${window.location.origin}/admin/reset-password`
-```
+### Passo 4: Adicionar botao WhatsApp na pagina de detalhes (`OpportunityDetail.tsx`)
+- Botao verde do WhatsApp ao lado do botao de email
+- Link `https://wa.me/NUMERO` com numero formatado
+- Usar o WhatsApp especifico do anuncio (campo `contact_whatsapp`) se disponivel, senao usar o WhatsApp do perfil do criador (`team_members.whatsapp`)
 
-Isso significa que quando o site roda em `juriscompany.net`, o redirect enviado ao backend ja aponta para o dominio certo. O problema e que o backend precisa aceitar essa URL na lista de URLs permitidas.
+### Passo 5: Adicionar botao WhatsApp no card de oportunidade (`OpportunityCard.tsx`)
+- Icone do WhatsApp ao lado do icone de email no card
 
-### 3. Configuracao necessaria no backend
+### Passo 6: Atualizar traducoes
+- Adicionar labels em PT e EN para o campo de WhatsApp
 
-- **Site URL**: `https://juriscompany.net`
-- **Redirect URLs adicionais**: 
-  - `https://juriscompany.net/admin/reset-password`
-  - `https://www.juriscompany.net/admin/reset-password`
+---
 
 ## Detalhes Tecnicos
 
-O fluxo de recuperacao de senha funciona assim:
-
-```text
-1. Usuario clica "Esqueci minha senha" no site (juriscompany.net)
-2. Frontend chama supabase.auth.resetPasswordForEmail() 
-   com redirectTo = "https://juriscompany.net/admin/reset-password"
-3. Backend envia email com link de recuperacao
-   -> O link usa a Site URL configurada no backend
-4. Usuario clica no link do email
-5. E redirecionado para /admin/reset-password no dominio configurado
-6. A pagina ResetPassword.tsx captura o token e permite trocar a senha
+### Migration SQL
+```sql
+ALTER TABLE public.listings ADD COLUMN contact_whatsapp text;
 ```
 
-O passo 3 e onde esta o problema: o backend usa a Site URL que esta configurada como URL do Lovable, nao `juriscompany.net`.
+### Tipo Listing atualizado
+Adicionar ao interface:
+- `contact_whatsapp?: string | null` (do proprio anuncio)
+- `creator_whatsapp?: string | null` (do perfil team_members)
 
-## Implementacao
+### Logica do WhatsApp
+O numero exibido seguira esta prioridade:
+1. `contact_whatsapp` do anuncio (se preenchido)
+2. `whatsapp` do perfil do criador em `team_members` (fallback)
 
-1. Usar a ferramenta de configuracao de autenticacao para atualizar a Site URL para `https://juriscompany.net`
-2. Adicionar as URLs de redirecionamento permitidas para o dominio do cliente
-3. Nenhuma alteracao de codigo e necessaria - o frontend ja esta preparado
+### Formatacao do link WhatsApp
+Remover caracteres nao numericos e montar: `https://wa.me/55NUMERO`
 
-## Observacao Importante
-
-Apos essa alteracao, o preview do Lovable pode ter problemas com recuperacao de senha (ja que a Site URL apontara para o dominio do cliente). Isso e esperado e nao afeta o site em producao hospedado na Hostinger.
-
+### Arquivos modificados
+- `useListings.ts` - corrigir select + adicionar campos whatsapp
+- `src/pages/admin/Listings.tsx` - campo whatsapp no formulario
+- `src/pages/OpportunityDetail.tsx` - botao whatsapp
+- `src/components/opportunities/OpportunityCard.tsx` - icone whatsapp
+- `src/i18n/locales/pt.json` e `en.json` - traducoes
