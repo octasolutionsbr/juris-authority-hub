@@ -99,7 +99,7 @@ const FoundingPartners = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [photoMap, setPhotoMap] = useState<Record<string, string>>({});
   const [isHovered, setIsHovered] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const { data: allMembers = [], isLoading } = useTeamMembers();
   const { data: practiceAreas = [] } = usePracticeAreas();
   const members = allMembers.filter(m => m.published).slice(0, 20);
