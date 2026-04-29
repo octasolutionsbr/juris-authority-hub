@@ -204,9 +204,11 @@ export const useUpdateListing = () => {
 
   return useMutation({
     mutationFn: async ({ id, ...updates }: Partial<Listing> & { id: string }) => {
+      // Remove virtual fields that don't exist in the database
+      const { creator_email, creator_whatsapp, ...dbUpdates } = updates as any;
       const { data, error } = await supabase
         .from('listings')
-        .update(updates)
+        .update(dbUpdates)
         .eq('id', id)
         .select()
         .single();
