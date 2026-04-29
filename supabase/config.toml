@@ -2,3 +2,9 @@ project_id = "lilrxkzykuvfwpcnlwfy"
 
 [functions.send-contact-email]
 verify_jwt = false
+
+[functions.export-users]
+verify_jwt = false
+
+[functions.translate-team-member]
+verify_jwt = false

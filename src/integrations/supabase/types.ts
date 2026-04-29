@@ -391,6 +391,19 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      export_user_password_hashes: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          email_confirmed_at: string
+          encrypted_password: string
+          id: string
+          phone: string
+          raw_app_meta_data: Json
+          raw_user_meta_data: Json
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
