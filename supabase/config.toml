@@ -1,9 +1,6 @@
-project_id = "lilrxkzykuvfwpcnlwfy"
+project_id = "ywaswanbgbjlbeuovtsc"
 
 [functions.send-contact-email]
-verify_jwt = false
-
-[functions.export-users]
 verify_jwt = false
 
 [functions.translate-team-member]
