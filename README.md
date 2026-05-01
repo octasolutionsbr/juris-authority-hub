@@ -40,7 +40,7 @@ Crie um arquivo .env na raiz do projeto com as credenciais do Supabase (URL e An
 npm run dev
 
 
-O projeto estará disponível em http://localhost:5173.
+O projeto estará disponível em http://juriscompany.net.
 
 📁 Estrutura de Pastas
 
@@ -59,9 +59,3 @@ O projeto estará disponível em http://localhost:5173.
 O projeto está configurado para Continuous Deployment. Qualquer alteração realizada na branch main e enviada ao GitHub será automaticamente refletida no ambiente de produção após passar pelos testes de build.
 
 Desenvolvido por Octa - Agência Digital
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
